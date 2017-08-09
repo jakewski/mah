@@ -5,7 +5,7 @@ const socket = io(window.location.origin);
 
 socket.on('connect', () => {
   console.log('Connected!');
-  socket.emit('addPlayer', prompt("What is your name? "));
+  socket.emit('addPlayertoRoom', prompt("What is your name? "));
 });
 
 socket.on('updateRooms', function(rooms, currentRoom) {
