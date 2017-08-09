@@ -1,6 +1,6 @@
 const models = require('./server/db/models');
 
-const { Meme, UserFavorite } = models;
+const { Meme, UserFavorite, Category } = models;
 
 const db = require('./server/db/db');
 
@@ -14,7 +14,19 @@ db.sync({ force: true })
       image: 'https://imgflip.com/s/meme/Futurama-Fry.jpg',
       text: 'Not sure if'
     });
-    return Promise.all([meme1, meme2]);
+    const category1 = Category.create({
+      text: 'Rough mornings',
+    })
+    const category2 = Category.create({
+      text: 'Rolling with the squad',
+    })
+    const category3 = Category.create({
+      text: 'Things Grandma says',
+    })
+    const category4 = Category.create({
+      text: 'First date',
+    })
+    return Promise.all([meme1, meme2, category1, category2, category3, category4]);
   })
   .then(() => {
     const favorite1 = UserFavorite.create({
