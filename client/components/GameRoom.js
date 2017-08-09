@@ -12,7 +12,7 @@ class GameRoom extends Component {
   render() { 
     return (
       <div>
-        <h1>In the game roooom</h1>
+        <h1>Future Game Room</h1>
       </div>
     )
   }

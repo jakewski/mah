@@ -10,7 +10,7 @@ export const Home = (props) => {
 
   return (
     <div className="col-lg-1 text-center">
-      <NavLink to="/room"><button type="button" className="btn btn-success larger">Create Game</button></NavLink>
+      <NavLink to="/create"><button type="button" className="btn btn-success larger">Create Game</button></NavLink>
       <br />
       <br />
       <br />
