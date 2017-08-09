@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
+import { getCategoriesThunk } from '../store'
 
 class CreateGame extends Component {
   constructor(){
@@ -8,10 +9,12 @@ class CreateGame extends Component {
   }
 
   componentDidMount() {
-
+    this.props.getCategoriesThunk()
   }
 
-  render() {
+
+  render() { 
+    console.log('props::', this.props)
     return (
       <div>
         <h1>Create a New Game</h1>
@@ -19,15 +22,14 @@ class CreateGame extends Component {
 
             <div className="col"></div>
             <div className="col">
-              <label className="sr-only" htmlFor="inlineFormInput">Enter Name</label>
+              <h3>Enter Your Name:</h3>
               <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Name" />
             </div>
             <div className="col"></div>
 
-            <br />
-            <br />
 
-            <label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players</label>
+
+            <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
             <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
               <option value="3">Three</option>
               <option value="4">Four</option>
@@ -40,23 +42,18 @@ class CreateGame extends Component {
             </select>
 
             <br />
-            <br />
 
             <div className="form-check noMargin">
-              <label className="form-check-label">Select Categories:
-                <br />
-                <input className="form-check-input" type="checkbox" value="" />
-                Option one is this and that&mdash;be sure to include why it's great
-              </label>
-            </div>
-
-            <br />
-
-            <div className="form-check noMargin">
-              <label className="form-check-label">
-                <input className="form-check-input" type="checkbox" value="" />
-                Option one is this and that&mdash;be sure to include why it's great
-              </label>
+            <h3>Select Categories:</h3>
+            {
+              this.props.categories && this.props.categories.map(category => {
+                return (
+                  <div key={category.id} className="checkbox disabled">
+                    <label><input type="checkbox" value="" />{category.text}</label>
+                  </div>
+                  )
+              })
+            }
             </div>
 
             <br />
@@ -70,11 +67,13 @@ class CreateGame extends Component {
 }
 
 const mapStateToProps = function(state, ownProps) {
-  return {}
+  return {
+    categories: state.categories.categories,
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
-
+  getCategoriesThunk: () => dispatch(getCategoriesThunk())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGame)
