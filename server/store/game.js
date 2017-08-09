@@ -29,7 +29,7 @@ const reducer = function (state = initialState, action){
             let obj2 = R.clone(state);
             obj2[action.game.gameId] = undefined;
             return obj2;
-        case ADD_PLAYER_TO_GAME: 
+        case ADD_PLAYER_TO_GAME:
             let obj3 = R.clone(state);
             obj3[action.playerToGame.gameId].players.push(action.playerToGame.playerId);
             return obj3;

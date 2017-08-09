@@ -4,12 +4,18 @@ import { connect } from 'react-redux';
 class GameRoom extends Component {
   constructor(){
     super();
+    this.state = {
+      gameId: ''
+    }
   }
 
   componentDidMount() {
+    socket.on('getCode', (code) => {
+      this.setState({gameId: code})
+    })
   }
 
-  render() { 
+  render() {
     return (
       <div>
         <h1>Future Game Room</h1>

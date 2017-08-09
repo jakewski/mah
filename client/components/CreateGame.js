@@ -8,9 +8,10 @@ class CreateGame extends Component {
   }
 
   componentDidMount() {
+
   }
 
-  render() { 
+  render() {
     return (
       <div>
         <h1>Create a New Game</h1>
@@ -36,7 +37,7 @@ class CreateGame extends Component {
               <option value="8">Eight</option>
               <option value="9">Nine</option>
               <option value="10">Ten</option>
-            </select> 
+            </select>
 
             <br />
             <br />

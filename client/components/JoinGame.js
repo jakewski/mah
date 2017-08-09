@@ -8,9 +8,10 @@ class JoinGame extends Component {
   }
 
   componentDidMount() {
+
   }
 
-  render() { 
+  render() {
     return (
       <div>
         <h1>Join Game</h1>
