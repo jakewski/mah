@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom'
 export const Home = (props) => {
 
   return (
-    <div className="col-lg-1 text-center">
+    <div className="col-lg-12 text-center">
       <NavLink to="/create"><button type="button" className="btn btn-success larger">Create Game</button></NavLink>
       <br />
       <br />
