@@ -12,6 +12,7 @@ class CreateGame extends Component {
     this.props.getCategoriesThunk()
   }
 
+
   render() { 
     console.log('props::', this.props)
     return (
@@ -38,7 +39,7 @@ class CreateGame extends Component {
               <option value="8">Eight</option>
               <option value="9">Nine</option>
               <option value="10">Ten</option>
-            </select> 
+            </select>
 
             <br />
 

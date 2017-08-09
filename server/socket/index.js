@@ -1,17 +1,23 @@
 const store = require('../store');
 const { addPlayerThunk } = require('../store/player');
 const { addPlayerToGameThunk, addGameThunk } = require('../store/game');
+const randStr = require('randomstring');
 
-
-var rooms = ['Main'];
+var rooms = store.getState().game;
+console.log('ROOMS',rooms);
 
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
-    socket.on('createGame', gameId => {
+
+    socket.on('createGame', () => {
+      const code = randStr.generate();
+      store.dispatch();
+      socket.emit('getCode', code);
+
       console.log('game created')
       store.dispatch(addPlayerThunk(socket.id));
-      store.dispatch(addGameThunk({gameId: gameId, host: socket.id}))
+      store.dispatch(addGameThunk({gameId: code, host: socket.id}))
       console.log(store.getState());
     })
 
@@ -36,12 +42,14 @@ module.exports = (io) => {
     // socket.on('createRoom ', function(room) {
     //     //call addRoom thunk here
     //     //rooms.push(room);
-    //     socket.emit('updateRooms', rooms, socket.room);
+    //     const code = randStr.generate(7);
+    //     store.dispatch()
+    //     //socket.emit('updateRooms', rooms, socket.room);
     // });
 
-    // socket.on('startGame', () => {
-    //   //game thunks here
-    // })
+    socket.on('startGame', (gameInfo) => {
+      store.dispatch(addGameThunk(gameInfo));
+    })
 
     socket.on('message', body => {
       socket.broadcast.emit('message', {
