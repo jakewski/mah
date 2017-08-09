@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Bree Serif', serif;
 
   a {
     text-decoration: none;
@@ -17,5 +17,19 @@ body {
   form div {
     margin: 1em;
     display: inline-block;
+  }
+
+  .larger {
+    height: 100px;
+    width: 300px;
+    font-size: 30px;
+  }
+
+  .mainTitle {
+    font-size: 40px;
+  }
+
+  .mainTitleLink {
+    text-decoration: none;
   }
 }
