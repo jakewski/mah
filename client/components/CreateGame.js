@@ -21,15 +21,14 @@ class CreateGame extends Component {
 
             <div className="col"></div>
             <div className="col">
-              <label className="sr-only" htmlFor="inlineFormInput">Enter Name</label>
+              <h3>Enter Your Name:</h3>
               <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Name" />
             </div>
             <div className="col"></div>
 
-            <br />
-            <br />
 
-            <label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players</label>
+
+            <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
             <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
               <option value="3">Three</option>
               <option value="4">Four</option>
@@ -42,9 +41,9 @@ class CreateGame extends Component {
             </select> 
 
             <br />
-            <br />
 
             <div className="form-check noMargin">
+            <h3>Select Categories:</h3>
             {
               this.props.categories && this.props.categories.map(category => {
                 return (
