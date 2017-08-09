@@ -4,8 +4,11 @@ const db = require('../db')
 const UserFavorite = db.define('userFavorite', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
   },
+  text: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  }
 })
 
 module.exports = UserFavorite
