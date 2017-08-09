@@ -12,18 +12,3 @@ const UserFavorite = db.define('userFavorite', {
 })
 
 module.exports = UserFavorite
-
-/**
- * instanceMethods
- */
-
-
-/**
- * classMethods
- */
-
-
-/**
- * hooks
- */
-

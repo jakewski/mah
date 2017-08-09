@@ -7,4 +7,11 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.post('/', (req, res, next) => {
+  const { image, text } = req.body
+  Meme.create({ image, text})
+  .then(meme => res.status(201).send(meme))
+  .catch(next)
+})
+
 module.exports = router
