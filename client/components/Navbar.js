@@ -14,8 +14,8 @@ const Navbar = (props) => {
     const { children } = props;
 
     return (
-        <div className="col-lg-1 text-center">
-            <NavLink className="mainTitleLink" to="/"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
+        <div className="col-lg-12 text-center">
+            <NavLink className="mainTitleLink" to="/home"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
             <nav>
                 {/*<Link to="/home">Home</Link>*/}
             </nav>
