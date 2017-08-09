@@ -8,7 +8,15 @@ const initialState = {}
 
 const addGame = game => ({ type: ADD_GAME, game });
 const removeGame = game => ({ type: REMOVE_GAME, game });
-const addPlayerToGame = playerToGame => ({ type: ADD_PLAYER_TO_GAME, playerToGame})
+const addPlayerToGame = playerToGame => ({ type: ADD_PLAYER_TO_GAME, playerToGame});
+
+const addGameThunk = game => dispatch => {
+    dispatch(addGame(game));
+}
+
+const addPlayerToGameThunk = playerToGame => dispatch => {
+    dispatch(addPlayerToGame(playerToGame));
+}
 
 const reducer = function (state = initialState, action){
     switch (action.type){
@@ -30,4 +38,4 @@ const reducer = function (state = initialState, action){
     }
 }
 
-module.exports = { addPlayerThunk, reducer };
+module.exports = { addPlayerToGameThunk, addGameThunk, reducer };

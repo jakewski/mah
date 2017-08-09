@@ -7,21 +7,8 @@ socket.on('connect', () => {
   console.log('Connected!');
 });
 
-// socket.on('addPlayer', socketId => {
-//   console.log('hitit')
-//   store.dispatch(addPlayerThunk(socketId));
-// })
-
-// let players = [];
-// socket.on('grabId', function (socketId) {
-//   players.push(socketId);
-// })
-
-
-// socket.on('dosomethin', function () {
-//   console.log('was submitted')
-// })
-
-// export const emitSubmitAnswer = answer => socket.emit('submitAnswer', { answer } );
+//testing
+//socket.emit('createGame', '1bh23asd3')
+//socket.emit('addPlayerToGame', '1bh23asd3')
 
 export default socket
