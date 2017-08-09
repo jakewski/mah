@@ -1,14 +1,11 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Meme = db.define('meme', {
-  image: {
+const Category = db.define('category', {
+  text: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  text: {
-    type: Sequelize.STRING
-  },
 })
 
-module.exports = Meme
+module.exports = Category

@@ -57,7 +57,6 @@ class Home extends Component {
                         <input type="text" placeholder="Enter a message..." onKeyUp={this.handleSubmit} />
                         {messages}
                     </div>
-
                     <div className="col-sm-6 col-md-6 col-lg-6 text-center">
                         <NavLink to="/create">
                             <button type="button" className="btn btn-success larger">
@@ -77,6 +76,7 @@ class Home extends Component {
             </div>
         );
     }
+
 }
 
 export default Home;

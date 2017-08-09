@@ -32,4 +32,8 @@ socket.on('updateChat', function(playerName, data) {
 
 // export const emitSubmitAnswer = answer => socket.emit('submitAnswer', { answer } );
 
+//testing
+//socket.emit('createGame', '1bh23asd3')
+//socket.emit('addPlayerToGame', '1bh23asd3')
+
 export default socket

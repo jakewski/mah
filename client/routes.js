@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import history from './history'
-import {Navbar, Home, GameRoom, CreateGame} from './components'
+import {Navbar, Home, GameRoom, CreateGame, JoinGame} from './components'
 
 /**
  * COMPONENT
@@ -18,6 +18,7 @@ class Routes extends Component {
           <Switch>
             <Route path='/room' component={GameRoom} />
             <Route path='/create' component={CreateGame} />
+            <Route path='/join' component={JoinGame} />
 
             <Route path='/' component={Home} />
           </Switch>
