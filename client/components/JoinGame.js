@@ -20,15 +20,6 @@ class JoinGame extends Component {
 
             <div className="col"></div>
             <div className="col">
-              <label className="sr-only" htmlFor="inlineFormInput">Enter Name</label>
-              <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Name" />
-            </div>
-            <div className="col"></div>
-
-            <br />
-
-            <div className="col"></div>
-            <div className="col">
               <label className="sr-only" htmlFor="inlineFormInput">Enter Room Code</label>
               <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Room Code" />
             </div>

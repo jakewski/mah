@@ -20,15 +20,6 @@ class CreateGame extends Component {
         <h1>Create a New Game</h1>
           <form className="form-group">
 
-            <div className="col"></div>
-            <div className="col">
-              <h3>Enter Your Name:</h3>
-              <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Name" />
-            </div>
-            <div className="col"></div>
-
-
-
             <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
             <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
               <option value="3">Three</option>
