@@ -14,7 +14,7 @@ export const Home = (props) => {
       <br />
       <br />
       <br />
-      <NavLink to="/room"><button type="button" className="btn btn-success larger">Join Game</button></NavLink>
+      <NavLink to="/join"><button type="button" className="btn btn-success larger">Join Game</button></NavLink>
     </div>
   )
 }
