@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import io from 'socket.io-client';
+import socket from '../socket';
 
 /**
  * COMPONENT
@@ -15,8 +15,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.socket = io('/');
-        this.socket.on('message', message => {
+        socket.on('message', message => {
             this.setState({ messages: [message, ...this.state.messages] });
         });
     }
@@ -29,20 +28,26 @@ class Home extends Component {
                 from: 'Me'
             };
             this.setState({ messages: [message, ...this.state.messages] });
-            this.socket.emit('message', body);
+            socket.emit('message', body);
             event.target.value = '';
         }
     };
 
     render() {
+      console.log(this.state)
         const messages = this.state.messages.map((message, index) => {
-            const img = message.img ? <img src={message.img} width="200px" /> : null;
-            return (
-                <li key={index}>
-                    <b>{message.from}:</b>
-                    {message.body} {img}
-                </li>
-            );
+            if (message) {
+                return (
+                    <li key={index}>
+                        <b>
+                            {message.from}: {' '}
+                        </b>
+                        {message.body}
+                    </li>
+                );
+            } else {
+                return <div />;
+            }
         });
 
         return (
