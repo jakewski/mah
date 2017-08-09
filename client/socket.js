@@ -7,10 +7,10 @@ socket.on('connect', () => {
   console.log('Connected!');
 });
 
-socket.on('addPlayer', socketId => {
-  console.log('hitit')
-  store.dispatch(addPlayerThunk(socketId));
-})
+// socket.on('addPlayer', socketId => {
+//   console.log('hitit')
+//   store.dispatch(addPlayerThunk(socketId));
+// })
 
 // let players = [];
 // socket.on('grabId', function (socketId) {
