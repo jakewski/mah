@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import history from './history'
-import {Main} from './components'
+import {Navbar, Home, GameRoom, CreateGame} from './components'
 
 /**
  * COMPONENT
@@ -14,11 +14,14 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
-        <Main>
+        <Navbar>
           <Switch>
-            <Route path='/' />
+            <Route path='/room' component={GameRoom} />
+            <Route path='/create' component={CreateGame} />
+
+            <Route path='/' component={Home} />
           </Switch>
-        </Main>
+        </Navbar>
       </Router>
     )
   }
