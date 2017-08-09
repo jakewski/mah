@@ -16,20 +16,21 @@ module.exports = (io) => {
     })
 
     socket.on('addPlayerToGame', gameId => {
-      store.dispatch(addPlayerThunk(socket.id));
       store.dispatch(addPlayerToGameThunk({playerId: socket.id, gameId: gameId}))
     })
 
     socket.on('addPlayertoRoom', function(playerName) {
       socket.room = 'Main';
 
-      //call addPlayer thunk here
+      store.dispatch(addPlayerThunk({id: socket.id, name: playerName}));
 
       socket.playerName = playerName;
       socket.join('Main');
       socket.emit('message', {body: 'you have connected to Main', from: 'server'});
       socket.broadcast.to('Main').emit('message', {body: playerName + ' has connected to this room', from: 'server'});
       socket.emit('updateRooms', rooms, 'Main');
+
+      console.log(store.getState());
     });
 
     // socket.on('createRoom ', function(room) {
