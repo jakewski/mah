@@ -48,7 +48,7 @@ class CreateGame extends Component {
             {
               this.props.categories && this.props.categories.map(category => {
                 return (
-                  <div key={category.id} className="checkbox disabled">
+                  <div key={category.id} className="checkbox">
                     <label><input type="checkbox" value="" />{category.text}</label>
                   </div>
                   )
