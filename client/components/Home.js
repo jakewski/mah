@@ -66,7 +66,7 @@ class Home extends Component {
                         <br />
                         <br />
                         <br />
-                        <NavLink to="/room">
+                        <NavLink to="/join">
                             <button type="button" className="btn btn-success larger">
                                 Join Game
                             </button>
