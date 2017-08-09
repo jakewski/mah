@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
+import { getCategoriesThunk } from '../store'
 
 class CreateGame extends Component {
   constructor(){
@@ -8,9 +9,11 @@ class CreateGame extends Component {
   }
 
   componentDidMount() {
+    this.props.getCategoriesThunk()
   }
 
   render() { 
+    console.log('props::', this.props)
     return (
       <div>
         <h1>Create a New Game</h1>
@@ -42,20 +45,15 @@ class CreateGame extends Component {
             <br />
 
             <div className="form-check noMargin">
-              <label className="form-check-label">Select Categories:
-                <br />
-                <input className="form-check-input" type="checkbox" value="" />
-                Option one is this and that&mdash;be sure to include why it's great
-              </label>
-            </div>
-
-            <br />
-
-            <div className="form-check noMargin">
-              <label className="form-check-label">
-                <input className="form-check-input" type="checkbox" value="" />
-                Option one is this and that&mdash;be sure to include why it's great
-              </label>
+            {
+              this.props.categories && this.props.categories.map(category => {
+                return (
+                  <div key={category.id} className="checkbox disabled">
+                    <label><input type="checkbox" value="" />{category.text}</label>
+                  </div>
+                  )
+              })
+            }
             </div>
 
             <br />
@@ -69,11 +67,13 @@ class CreateGame extends Component {
 }
 
 const mapStateToProps = function(state, ownProps) {
-  return {}
+  return {
+    categories: state.categories.categories,
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
-
+  getCategoriesThunk: () => dispatch(getCategoriesThunk())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGame)
