@@ -56,13 +56,15 @@ body {
 }
 
 .chatbox {
-  border: 1px solid gray;
+  border: 1px solid #c4c5c6;
   border-radius: 10px;
   height: 400px;
   padding: 0;
   overflow: none;
   display: flex;
   flex-direction: column-reverse;
+  input:focus {outline: none};
+  font-size: 1.5em;
 }
 
 .chatinput {
@@ -70,6 +72,7 @@ body {
   width: 100%;
   background-color: transparent;
   padding: 7px;
+  border-top: 1px solid #c4c5c6;
 }
 
 .messagesUl {
@@ -87,4 +90,11 @@ body {
 
 .messageFrom {
   color: blue;
+}
+
+@media (max-width: 767px) {
+  .chatbox {
+    margin: 50px;
+    font-size: 2em;
+  }
 }

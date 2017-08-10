@@ -26,8 +26,7 @@ class Home extends Component {
                     transitionLeaveTimeout={0}
                 >
                     <div className="row">
-                      <ChatBox />
-                        <div className="col-sm-6 col-md-6 col-lg-6 text-center">
+                        <div className="col-sm-6 col-md-6 col-lg-6 text-center buttonBox">
                             <NavLink to="/create">
                                 <button type="button" className="btn btn-success larger">
                                     Create Game
@@ -42,6 +41,7 @@ class Home extends Component {
                                 </button>
                             </NavLink>
                         </div>
+                        <ChatBox />
                     </div>
                 </CSSTransitionGroup>
             </div>
