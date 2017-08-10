@@ -7,8 +7,8 @@ const randStr = require('randomstring');
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
-    socket.join('Main');
-    socket.room = 'Main';
+    // socket.join('Main');
+    // socket.room = 'Main';
 
     socket.on('createGame', game => {
       const code = randStr.generate(7);
@@ -77,7 +77,8 @@ module.exports = (io) => {
     })
 
     socket.on('message', ({ body }) => {
-      socket.to(socket.room).emit('message', {
+      console.log(`emmiting message from ${socket.id} to ${socket.room}`);
+      socket.broadcast.in(socket.room).emit('message', {
         body,
         from: socket.playerName
       })
