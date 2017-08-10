@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom'
-import { getCategoriesThunk } from '../store'
+import { NavLink } from 'react-router-dom';
+import { getCategoriesThunk } from '../store';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class CreateGame extends Component {
   constructor(){
@@ -16,43 +17,45 @@ class CreateGame extends Component {
   render() { 
     console.log('props::', this.props)
     return (
-      <div>
-        <h1>Create a New Game</h1>
-          <form className="form-group">
+      <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+        <div key="transition" className="container">
+          <h1>Create a New Game</h1>
+            <form className="form-group">
 
-            <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
-            <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
-              <option value="3">Three</option>
-              <option value="4">Four</option>
-              <option value="5">Five</option>
-              <option value="6">Six</option>
-              <option value="7">Seven</option>
-              <option value="8">Eight</option>
-              <option value="9">Nine</option>
-              <option value="10">Ten</option>
-            </select>
+              <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
+              <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+                <option value="5">Five</option>
+                <option value="6">Six</option>
+                <option value="7">Seven</option>
+                <option value="8">Eight</option>
+                <option value="9">Nine</option>
+                <option value="10">Ten</option>
+              </select>
 
-            <br />
+              <br />
 
-            <div className="form-check noMargin">
-            <h3>Select Categories:</h3>
-            {
-              this.props.categories && this.props.categories.map(category => {
-                return (
-                  <div key={category.id} className="checkbox disabled">
-                    <label><input type="checkbox" value="" />{category.text}</label>
-                  </div>
-                  )
-              })
-            }
-            </div>
+              <div className="form-check noMargin">
+              <h3>Select Categories:</h3>
+              {
+                this.props.categories && this.props.categories.map(category => {
+                  return (
+                    <div key={category.id} className="checkbox disabled">
+                      <label><input type="checkbox" value="" />{category.text}</label>
+                    </div>
+                    )
+                })
+              }
+              </div>
 
-            <br />
-            <br />
+              <br />
+              <br />
 
-            <NavLink to="/room"><button type="submit" className="btn btn-success">Create</button></NavLink>
-          </form>
-      </div>
+              <NavLink to="/room"><button type="submit" className="btn btn-success">Create</button></NavLink>
+            </form>
+        </div>
+      </CSSTransitionGroup>
     )
   }
 }

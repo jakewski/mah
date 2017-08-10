@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import Home from './Home'
 
+
 /**
  * COMPONENT
  *  The Navbar component is our 'picture frame' - it displays the navbar and anything

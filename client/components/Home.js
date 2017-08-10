@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import socket from '../socket';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 /**
  * COMPONENT
@@ -34,7 +35,6 @@ class Home extends Component {
     };
 
     render() {
-      console.log(this.state)
         const messages = this.state.messages.map((message, index) => {
             if (message) {
                 return (
@@ -52,6 +52,7 @@ class Home extends Component {
 
         return (
             <div className="container">
+              <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
                 <div className="row">
                     <div className="col-sm-6 col-md-6 col-lg-6">
                         <input type="text" placeholder="Enter a message..." onKeyUp={this.handleSubmit} />
@@ -73,6 +74,7 @@ class Home extends Component {
                         </NavLink>
                     </div>
                 </div>
+              </CSSTransitionGroup>
             </div>
         );
     }

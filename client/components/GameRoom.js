@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class GameRoom extends Component {
   constructor(){
@@ -17,9 +18,11 @@ class GameRoom extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Future Game Room</h1>
-      </div>
+      <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+        <div key="transition" className="container">
+          <h1>Future Game Room</h1>
+        </div>
+      </CSSTransitionGroup>
     )
   }
 }
