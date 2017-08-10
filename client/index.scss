@@ -1,5 +1,6 @@
 body {
   font-family: 'Bree Serif', serif;
+  background-color: #FFDEDE;
 
   a {
     text-decoration: none;
@@ -53,4 +54,8 @@ body {
     opacity: 1;
     transition: opacity .5s ease-in;
   }
+}
+.playerScoreFlexBox{
+  display: flex;
+  justify-content: space-around;
 }
