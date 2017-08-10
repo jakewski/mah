@@ -42,8 +42,6 @@ class CreateGame extends Component {
             </div>
             <div className="col"></div>
 
-
-
             <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
             <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
               <option value="3">Three</option>
