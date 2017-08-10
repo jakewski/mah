@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { setPlayerThunk } from '../store'
 import socket from '../socket'
@@ -42,7 +41,7 @@ class EnterName extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+          <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
             <form key="transition" className="form-inline" onSubmit={this.formSubmit}>
               <h1 className="whatsYourName">Hello, what is your name?</h1>
               <br />
