@@ -16,7 +16,7 @@ class EnterName extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+          <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
             <form key="transition" className="form-inline">
               <h1 className="whatsYourName">Hello, what is your name?</h1>
               <br />

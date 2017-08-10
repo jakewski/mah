@@ -45,11 +45,11 @@ body {
     font-size: 50px;
   }
 
-  .example-appear {
+  .fadeIn-appear {
     opacity: 0.01;
   }
 
-  .example-appear.example-appear-active {
+  .fadeIn-appear.fadeIn-appear-active {
     opacity: 1;
     transition: opacity .5s ease-in;
   }

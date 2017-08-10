@@ -14,7 +14,7 @@ class JoinGame extends Component {
 
   render() {
     return (
-      <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+      <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div className="container" key="transition">
           <h1>Join Game</h1>
 
