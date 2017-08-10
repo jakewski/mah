@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
+import socket from '../socket'
+
 
 class GameRoom extends Component {
   constructor(){

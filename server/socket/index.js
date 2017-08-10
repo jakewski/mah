@@ -10,15 +10,15 @@ module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-    socket.on('createGame', () => {
-      const code = randStr.generate();
-      store.dispatch();
+    socket.on('createGame', game => {
+      const code = randStr.generate(7);
+      
       socket.emit('getCode', code);
 
       console.log('game created')
-      store.dispatch(addPlayerThunk(socket.id));
-      store.dispatch(addGameThunk({gameId: code, host: socket.id}))
-      console.log(store.getState());
+      store.dispatch(addPlayerThunk({id: socket.id, name: game.playerName}));
+      store.dispatch(addGameThunk({gameId: code, host: socket.id, categories: game.categories, playerNum: game.playerNum}))
+      console.log(store.getState().game);
     })
 
     socket.on('addPlayerToGame', gameId => {
