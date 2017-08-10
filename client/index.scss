@@ -1,5 +1,6 @@
 body {
   font-family: 'Bree Serif', serif;
+  background-color: #FFDEDE;
 
   a {
     text-decoration: none;
@@ -105,4 +106,8 @@ body {
     margin: 50px;
     font-size: 2em;
   }
+}
+.playerScoreFlexBox{
+  display: flex;
+  justify-content: space-around;
 }
