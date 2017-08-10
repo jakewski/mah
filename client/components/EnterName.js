@@ -19,7 +19,6 @@ class EnterName extends Component {
     this.setState({
       player: {name: e.target.value, dirty: true}
     })
-    console.log('player name: ', this.state.player.name);
   }
 
   formSubmit(e) {
@@ -54,7 +53,7 @@ class EnterName extends Component {
               {
                   this.inputIsEmpty() && this.state.player.dirty ?
                   <span className="alert alert-danger validationSpan">You must enter a name</span> :
-                  <span className="alert alert-danger emptySpan"></span> }
+                  null }
                   {!this.inputWithinLimit() && this.state.player.dirty ?
                   <span className="alert alert-danger validationSpan">Name too long</span> :
                   null 
