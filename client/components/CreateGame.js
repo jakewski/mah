@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom'
-import { getCategoriesThunk } from '../store'
+import { NavLink } from 'react-router-dom';
+import { getCategoriesThunk } from '../store';
+import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
+
 class CreateGame extends Component {
   constructor(){
     super();
@@ -31,50 +33,52 @@ class CreateGame extends Component {
   render() { 
     console.log('props::', this.props)
     return (
-      <div>
-        <h1>Create a New Game</h1>
-          <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories)}>
+      <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+        <div key="transition" className="container">
+          <h1>Create a New Game</h1>
+            <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories)}>
 
-            <div className="col"></div>
-            <div className="col">
-              <h3>Enter Your Name:</h3>
-              <input type="text" name="name" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Name" />
-            </div>
-            <div className="col"></div>
+              <div className="col"></div>
+              <div className="col">
+                <h3>Enter Your Name:</h3>
+                <input type="text" name="name" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Name" />
+              </div>
+              <div className="col"></div>
 
-            <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
-            <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
-              <option value="3">Three</option>
-              <option value="4">Four</option>
-              <option value="5">Five</option>
-              <option value="6">Six</option>
-              <option value="7">Seven</option>
-              <option value="8">Eight</option>
-              <option value="9">Nine</option>
-              <option value="10">Ten</option>
-            </select>
+              <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
+              <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+                <option value="5">Five</option>
+                <option value="6">Six</option>
+                <option value="7">Seven</option>
+                <option value="8">Eight</option>
+                <option value="9">Nine</option>
+                <option value="10">Ten</option>
+              </select>
 
-            <br />
+              <br />
 
-            <div className="form-check noMargin">
-            <h3>Select Categories:</h3>
-            {
-              this.props.categories && this.props.categories.map(category => {
-                return (
-                  <div key={category.id} className="checkbox">
-                    <label><input type="checkbox" onChange={this.setCategories(category.id)} name={`category${category.id}`} value={category.text} />{category.text}</label>
-                  </div>
-                  )
-              })
-            }
-            </div>
+              <div className="form-check noMargin">
+              <h3>Select Categories:</h3>
+                {
+                  this.props.categories && this.props.categories.map(category => {
+                    return (
+                      <div key={category.id} className="checkbox">
+                        <label><input type="checkbox" onChange={this.setCategories(category.id)} name={`category${category.id}`} value={category.text} />{category.text}</label>
+                      </div>
+                      )
+                  })
+                }
+              </div>
 
-            <br />
-            <br />
-
+              <br />
+              <br />
+              
             <button type="submit" className="btn btn-success">Create</button>
           </form>
-      </div>
+        </div>
+      </CSSTransitionGroup>
     )
   }
 }
