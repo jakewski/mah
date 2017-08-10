@@ -52,7 +52,7 @@ class Home extends Component {
 
         return (
             <div className="container">
-              <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+              <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
                 <div className="row">
                     <div className="col-sm-6 col-md-6 col-lg-6">
                         <input type="text" placeholder="Enter a message..." onKeyUp={this.handleSubmit} />
