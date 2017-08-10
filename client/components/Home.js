@@ -43,4 +43,14 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = function(state, ownProps) {
+  return {
+    player: state.players.player
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
