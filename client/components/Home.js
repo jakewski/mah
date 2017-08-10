@@ -16,6 +16,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        socket.emit('switchToMain');
         socket.on('message', message => {
             this.setState({ messages: [message, ...this.state.messages] });
         });
@@ -29,7 +30,7 @@ class Home extends Component {
                 from: 'Me'
             };
             this.setState({ messages: [message, ...this.state.messages] });
-            socket.emit('message', body);
+            socket.to('Main').emit('message', { body, room: 'Main'});
             event.target.value = '';
         }
     };
