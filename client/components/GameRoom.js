@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import socket from '../socket'
 class GameRoom extends Component {
   constructor(){
     super();
