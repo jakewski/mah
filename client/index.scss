@@ -54,3 +54,37 @@ body {
     transition: opacity .5s ease-in;
   }
 }
+
+.chatbox {
+  border: 1px solid gray;
+  border-radius: 10px;
+  height: 400px;
+  padding: 0;
+  overflow: none;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.chatinput {
+  border: transparent;
+  width: 100%;
+  background-color: transparent;
+  padding: 7px;
+}
+
+.messagesUl {
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.messageLi {
+  list-style: none;
+  text-align: left;
+}
+
+.messageFrom {
+  color: blue;
+}
