@@ -43,15 +43,23 @@ body {
 
   .whatsYourName {
     font-size: 50px;
+    margin: 0;
   }
 
-  .example-appear {
+  .fadeIn-appear {
     opacity: 0.01;
   }
 
-  .example-appear.example-appear-active {
+  .fadeIn-appear.fadeIn-appear-active {
     opacity: 1;
     transition: opacity .5s ease-in;
+  }
+
+  .validationSpan {
+    border: 0;
+    padding: 0;
+    margin: 5px;
+    background-color: transparent
   }
 }
 

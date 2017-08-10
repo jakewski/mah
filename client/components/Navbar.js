@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter, Link, NavLink } from 'react-router-dom';
-import Home from './Home'
+import Home from './Home';
 
 
 /**
@@ -15,14 +15,14 @@ const Navbar = (props) => {
     const { children } = props;
 
     return (
-        <div className="col-lg-12 text-center">
-            <NavLink className="mainTitleLink" to="/home"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
-            <nav>
-                {/*<Link to="/home">Home</Link>*/}
-            </nav>
-            <hr />
-            { children }
-        </div>
+            <div className="col-lg-12 text-center">
+                <NavLink className="mainTitleLink" to="/home"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
+                <nav>
+                    {/*<Link to="/home">Home</Link>*/}
+                </nav>
+                <hr />
+                { children }
+            </div>
     );
 };
 
