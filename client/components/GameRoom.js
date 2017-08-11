@@ -54,9 +54,18 @@ class GameRoom extends Component {
           <div className="row">
             {currentLeader ?
             <div>hello leader</div> : <div>
-              <form>
-
-              </form>
+                <form className="gameAnswerFlex">
+                  {/* <div className="row"> */}
+                    <div className="form-group col-md-9 col-xs-12 col-lg-6" >
+                      <label htmlFor="inputAnswer">Dank Meme here: </label>
+                      {/* <input type="text" className="form-control" id="inputAnswer" placeholder="me me" /> */}
+                      <textarea placeholder="me me" className="form-control" id="inputAnswer"  rows="2"></textarea>
+                    </div>
+                  {/* </div> */}
+                  <div className="row">
+                    <button type="submit" className="btn btn-success">Submit</button>
+                  </div>
+                </form>
               </div>}
           </div>
           <p>test rando test meme meme memememememe test rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememe</p>
@@ -71,6 +80,7 @@ class GameRoom extends Component {
 // turn and scoreboard
 // current meme and current info
 // controls for current leader, ternary operator
+// host?- starting funcionality, add or remove players, boot!
 
 const mapStateToProps = function(state, ownProps) {
   return {}

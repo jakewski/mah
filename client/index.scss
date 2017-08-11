@@ -110,3 +110,19 @@ body {
   display: flex;
   justify-content: space-around;
 }
+.gameForm{
+  align-content: center
+}
+// .gameFormContainer{
+//   width: 100%;
+// }
+.gameAnswerFlex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.gameAnswer{
+  width: 90%
+
+}
