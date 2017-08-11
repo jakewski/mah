@@ -66,7 +66,8 @@ body {
 .chatbox {
   border: 1px solid #c4c5c6;
   border-radius: 10px;
-  height: 400px;
+  height: 300px;
+  width: 400px;
   padding: 0;
   overflow: none;
   display: flex;
@@ -102,11 +103,28 @@ body {
 
 @media (max-width: 767px) {
   .chatbox {
-    margin: 50px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
     font-size: 2em;
+    width: 400px;
+    height: 300px;
+    flex: 1;
+  }
+
+  .memeSlider {
+    margin: auto;
   }
 }
 .playerScoreFlexBox{
   display: flex;
   justify-content: space-around;
+}
+
+.memeStreamImg {
+  max-height: 300px;
+}
+
+.memeSlider {
+  margin: 50px;
 }

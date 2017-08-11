@@ -34,6 +34,7 @@
     "randomstring": "^1.1.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-image-slider": "^0.1.0",
     "react-redux": "^5.0.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",

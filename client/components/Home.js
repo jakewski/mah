@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import socket from '../socket';
 import { CSSTransitionGroup } from 'react-transition-group';
-import ChatBox from './ChatBox'
+import ChatBox from './ChatBox';
+import MemeStream from './MemeStream';
 
 /**
  * COMPONENT
@@ -18,7 +19,13 @@ class Home extends Component {
     render() {
         return (
             <div className="container">
-                <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+                <CSSTransitionGroup
+                    transitionName="fadeIn"
+                    transitionAppear={true}
+                    transitionAppearTimeout={500}
+                    transitionEnterTimeout={0}
+                    transitionLeaveTimeout={0}
+                >
                     <div className="row">
                         <div className="col-sm-6 col-md-6 col-lg-6 text-center buttonBox">
                             <NavLink to="/create">
@@ -38,19 +45,20 @@ class Home extends Component {
                         <ChatBox />
                     </div>
                 </CSSTransitionGroup>
+                <div className="row">
+                    <MemeStream />
+                </div>
             </div>
         );
     }
 }
 
 const mapStateToProps = function(state, ownProps) {
-  return {
-    player: state.players.player
-  }
-}
+    return {
+        player: state.players.player
+    };
+};
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({});
 
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

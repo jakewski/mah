@@ -47,10 +47,51 @@ db.sync({ force: true })
     });
 
     const winningAnswer2 = WinningAnswer.create({
+      text: 'write the front-end in one go',
+      memeId: 1,
+    });
+
+    const winningAnswer3 = WinningAnswer.create({
+      text: 'write the front-end in one go',
+      memeId: 1,
+    });
+
+    const winningAnswer4 = WinningAnswer.create({
+      text: 'write the front-end in one go',
+      memeId: 1,
+    });
+
+    const winningAnswer5 = WinningAnswer.create({
+      text: 'write the front-end in one go',
+      memeId: 1,
+    });
+
+    const winningAnswer6 = WinningAnswer.create({
       text: 'this is just a joke, or if Charles really is leaving us for Bunker Labs',
       memeId: 2,
     });
-    return Promise.all([favorite1, favorite2, winningAnswer1, winningAnswer2]);
+
+    const winningAnswer7 = WinningAnswer.create({
+      text: 'this is just a joke, or if Charles really is leaving us for Bunker Labs',
+      memeId: 2,
+    });
+
+    const winningAnswer8 = WinningAnswer.create({
+      text: 'this is just a joke, or if Charles really is leaving us for Bunker Labs',
+      memeId: 2,
+    });
+
+    const winningAnswer9 = WinningAnswer.create({
+      text: 'this is just a joke, or if Charles really is leaving us for Bunker Labs',
+      memeId: 2,
+    });
+
+    const winningAnswer10 = WinningAnswer.create({
+      text: 'this is just a joke, or if Charles really is leaving us for Bunker Labs',
+      memeId: 2,
+    });
+
+    return Promise.all([favorite1, favorite2, winningAnswer1, winningAnswer2, winningAnswer3, winningAnswer4, winningAnswer5, winningAnswer6, winningAnswer7, winningAnswer8, winningAnswer9, winningAnswer10]);
   })
   .then(() => {
     console.log('finished seeding');
