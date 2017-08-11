@@ -14,7 +14,7 @@ class Routes extends Component {
     return (
       <Router history={history}>
         <Navbar>
-          { this.props.player.name ?
+          { true ? // this.props.player.name, made this true for testing
             //Routes available once name has been entered
             <Switch>
               <Route path='/home' component={Home} />
@@ -23,7 +23,7 @@ class Routes extends Component {
               <Route path='/join' component={JoinGame} />
               <Route path='/' component={EnterName} />
             </Switch>
-           :  
+           :
            //Routes below only available with no name
             <Route path='/' component={EnterName} /> 
           }
