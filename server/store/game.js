@@ -31,7 +31,7 @@ const reducer = function (state = initialState, action){
             return obj2;
         case ADD_PLAYER_TO_GAME:
             let obj3 = R.clone(state);
-            obj3[action.playerToGame.gameId].players.push(action.playerToGame.playerId);
+            obj3[action.playerToGame.gameId].gamePlayers.push(action.playerToGame.playerId);
             return obj3;
         default:
             return state;

@@ -17,6 +17,8 @@ class CreateGame extends Component {
 
   componentDidMount() {
     this.props.getCategoriesThunk()
+    socket.on('getCode', code => {
+    })
   }
 
   setCategories(categoryId){

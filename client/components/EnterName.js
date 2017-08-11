@@ -23,6 +23,7 @@ class EnterName extends Component {
     e.preventDefault();
     this.props.setPlayerThunk({name: this.state.player.name, id: socket.id})
     this.props.history.push('/home')
+    socket.emit('setPlayerName', this.state.player.name);
   }
 
   inputIsEmpty(){

@@ -14,9 +14,9 @@ class GameRoom extends Component {
   }
 
   componentDidMount() {
-    socket.on('getCode', (code) => {
-      this.setState({gameId: code})
-    })
+    // socket.on('getCode', (code) => {
+    //   this.setState({gameId: code})
+    // })
   }
 
   render() {

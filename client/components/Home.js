@@ -13,7 +13,10 @@ class Home extends Component {
         super(props);
     }
 
-    componentDidMount() {}
+
+    componentDidMount() {
+        socket.emit('switchToMain');
+    }
 
     render() {
         return (
