@@ -11,18 +11,21 @@ import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName} from './compone
 class Routes extends Component {
 
   render () {
-
     return (
       <Router history={history}>
         <Navbar>
-          <Switch>
-            <Route path='/room' component={GameRoom} />
-            <Route path='/create' component={CreateGame} />
-            <Route path='/join' component={JoinGame} />
-            <Route path='/home' component={Home} />
-
-            <Route path='/' component={EnterName} />
-          </Switch>
+          { this.props.player.name ?
+            //Routes available once name has been entered
+            <Switch>
+              <Route path='/home' component={Home} />
+              <Route path='/room' component={GameRoom} />
+              <Route path='/create' component={CreateGame} />
+              <Route path='/join' component={JoinGame} />
+              <Route path='/' component={EnterName} />
+            </Switch>
+           :  
+           //Routes below only available with no name
+          <Route path='/' component={EnterName} /> }
         </Navbar>
       </Router>
     )
@@ -32,12 +35,14 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
-  return {}
+const mapStateToProps = function(state, ownProps) {
+  return {
+    player: state.players.player
+  }
 }
 
-const mapDispatch = (dispatch) => {
-  return {}
-}
+const mapDispatchToProps = dispatch => ({
 
-export default connect(mapState, mapDispatch)(Routes)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Routes);
