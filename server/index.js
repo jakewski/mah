@@ -10,6 +10,8 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 module.exports = app
 
 /**
@@ -23,7 +25,19 @@ module.exports = app
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
-// removed
+// passport.serializeUser((player, done) => {
+//   try {
+//     done(null, player.socketId);
+//   } catch (err) {
+//     done(err);
+//   }
+// });
+
+// passport.deserializeUser((player, done) => {
+//   return player => done(null, player)
+//   .catch(done)
+// });
+
 
 const createApp = () => {
   // logging middleware
@@ -42,6 +56,7 @@ const createApp = () => {
   }))
   app.use(passport.initialize())
   app.use(passport.session())
+
 
   // auth and api routes
   app.use('/api', require('./api'))

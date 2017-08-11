@@ -23,7 +23,10 @@ const setPlayer = player => ({type: SET_PLAYER, player});
  * THUNK CREATORS
  */
 export const setPlayerThunk = player => dispatch => {
-  dispatch(setPlayer(player))
+  axios.post('/api/player/set', player)
+  .then(res =>  { 
+    dispatch(setPlayer(res.data))
+  })
 }
 
 

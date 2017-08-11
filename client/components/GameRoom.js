@@ -3,20 +3,35 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
 
 
 class GameRoom extends Component {
   constructor(){
     super();
     this.state = {
-      gameId: ''
+      gameId: '',
+      socketId: ''
     }
+    this.updateField = this.updateField.bind(this);
+    this.clickTest = this.clickTest.bind(this)
+  }
+
+    updateField(e) {
+    this.setState({
+      socketId: e.target.value
+    })
+    console.log('curr state', this.state.socketId)
   }
 
   componentDidMount() {
     // socket.on('getCode', (code) => {
     //   this.setState({gameId: code})
     // })
+  }
+
+  clickTest() {
+    axios.post('/api/player/set', {name: 'Annie', socketId: this.state.socketId})
   }
 
   render() {
@@ -58,6 +73,10 @@ class GameRoom extends Component {
 
               </form>
               </div>}
+          <form onSubmit={this.clickTest}>
+            <input onChange={this.updateField} />
+            <button type="submit">Test</button>
+          </form>
           </div>
           <p>test rando test meme meme memememememe test rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememetest rando test meme meme memememememe</p>
 

@@ -17,6 +17,7 @@ class EnterName extends Component {
     this.setState({
       player: {name: e.target.value, dirty: true}
     })
+    console.log(this.state.player.name)
   }
 
   formSubmit(e) {
@@ -47,7 +48,7 @@ class EnterName extends Component {
               <h1 className="whatsYourName">Hello, what is your name?</h1>
               <br />
               <label className="sr-only" htmlFor="inlineFormInput">Name</label>
-              <input value={this.state.playerName} onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Jane Doe" />
+              <input onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Jane Doe" />
               <button type="submit" className="btn btn-success marginLeft" disabled={!this.inputIsValid()}>Enter</button>
               <br />
               {
