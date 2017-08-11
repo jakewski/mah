@@ -10,7 +10,7 @@ class ChatBox extends Component {
         };
     }
 
-    ComponentDidMount() {
+    componentDidMount() {
         socket.on('message', message => {
             this.setState(function(oldState) {
               return { messages: [...oldState.messages, message] }

@@ -25,7 +25,8 @@ class Routes extends Component {
             </Switch>
            :  
            //Routes below only available with no name
-          <Route path='/' component={EnterName} /> }
+            <Route path='/' component={EnterName} /> 
+          }
         </Navbar>
       </Router>
     )
