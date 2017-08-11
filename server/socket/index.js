@@ -30,7 +30,6 @@ module.exports = (io) => {
     })
 
     socket.on('switchToMain', () => {
-      console.log('it works')
       console.log(`${socket.id} was in room ${socket.room}`)
       socket.leave(socket.room, () => {
         socket.room = 'Main';
