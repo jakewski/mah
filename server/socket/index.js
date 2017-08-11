@@ -28,10 +28,12 @@ module.exports = (io) => {
     socket.on('switchToMain', () => {
       console.log('it works')
       console.log(`${socket.id} was in room ${socket.room}`)
-      socket.leave(socket.room);
-      socket.room = 'Main';
-      socket.join('Main');
-      console.log(`${socket.id} has just joined room ${socket.room}`)
+      socket.leave(socket.room, () => {
+        socket.room = 'Main';
+        socket.join('Main');
+        console.log(`${socket.id} has just joined room ${socket.room}`)
+
+      });
     })
 
     // socket.on('addPlayerToGame', gameId => {
@@ -41,21 +43,27 @@ module.exports = (io) => {
     socket.on('addPlayertoRoom', playerInfo => {
       const rooms = store.getState().game;
       console.log('ROOMS',rooms);
+      console.log(playerInfo);
       socket.room = playerInfo.code;
+      console.log(`${socket.id} was in room ${socket.room}`)
       if(!rooms[playerInfo.code]) socket.emit('wrongCode', 'ya done fucked up sonny');
+      else if(rooms[playerInfo.code].gamePlayers.includes(socket.id)){
+        socket.emit('alreadyInRoom', 'you are already in this room')
+      }
       else{
 
         store.dispatch(addPlayerThunk({id: socket.id, name: playerInfo.playerName}));
         store.dispatch(addPlayerToGameThunk({playerId: socket.id, gameId: playerInfo.code}))
 
         socket.playerName = playerInfo.playerName;
-        socket.leave('Main');
-        socket.join(playerInfo.code);
-        //socket.to(playerInfo.code).emit('message', {body: `you have connected to game ${playerInfo.code}` , from: 'server'});
-        socket.broadcast.to(playerInfo.code).emit('message', {body: playerInfo.playerName + ' has connected to this room', from: 'server'});
-        socket.emit('updateRooms', rooms, 'Main');
-
-        console.log(store.getState());
+        socket.leave('Main', () => {
+          socket.join(playerInfo.code);
+          socket.broadcast.to(playerInfo.code).emit('message', {body: playerInfo.playerName + ' has connected to this room', from: 'server'});
+          //socket.emit('updateRooms', rooms, 'Main');
+          console.log(`${socket.id} has just joined room ${socket.room}`)
+          console.log('ROOMS',rooms);
+        });
+        //console.log(store.getState());
 
       }
 

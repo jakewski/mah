@@ -16,6 +16,9 @@ class JoinGame extends Component {
     socket.on('wrongCode', errorMessage => {
       this.setState({ error: errorMessage })
     })
+    socket.on('alreadyInRoom', errorMessage => {
+      this.setState({ error: errorMessage })
+    })
   }
 
   render() {
