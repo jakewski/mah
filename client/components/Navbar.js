@@ -23,10 +23,6 @@ const Navbar = (props) => {
     );
 };
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(Navbar);
-
 
 /**
  * PROP TYPES
@@ -34,3 +30,15 @@ export default withRouter(Navbar);
 Navbar.propTypes = {
   children: PropTypes.object,
 }
+
+const mapStateToProps = function(state, ownProps) {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = dispatch => ({});
+
+// The `withRouter` wrapper makes sure that updates are not blocked
+// when the url changes
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
