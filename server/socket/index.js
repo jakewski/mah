@@ -25,6 +25,10 @@ module.exports = (io) => {
       // console.log(store.getState().game);
     })
 
+    socket.on('setPlayerName', name => {
+      socket.playerName = name;
+    })
+
     socket.on('switchToMain', () => {
       console.log('it works')
       console.log(`${socket.id} was in room ${socket.room}`)
@@ -84,9 +88,9 @@ module.exports = (io) => {
       store.dispatch(addGameThunk(gameInfo));
     })
 
-    socket.on('message', ({ body }) => {
+    socket.on('message', ( body ) => {
       console.log(`emmiting message from ${socket.id} to ${socket.room}`);
-      socket.broadcast.in(socket.room).emit('message', {
+      socket.to(socket.room).emit('message', {
         body,
         from: socket.playerName
       })

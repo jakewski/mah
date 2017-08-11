@@ -36,17 +36,10 @@ class CreateGame extends Component {
   render() { 
     console.log('props::', this.props)
     return (
-      <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+      <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container">
           <h1>Create a New Game</h1>
             <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories)}>
-
-              <div className="col"></div>
-              <div className="col">
-                <h3>Enter Your Name:</h3>
-                <input type="text" name="name" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Name" />
-              </div>
-              <div className="col"></div>
 
               <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
               <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">

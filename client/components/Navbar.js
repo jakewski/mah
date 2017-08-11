@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter, Link, NavLink } from 'react-router-dom';
-import Home from './Home'
+import Home from './Home';
 
 
 /**
@@ -17,18 +17,11 @@ const Navbar = (props) => {
     return (
         <div className="col-lg-12 text-center">
             <NavLink className="mainTitleLink" to="/home"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
-            <nav>
-                {/*<Link to="/home">Home</Link>*/}
-            </nav>
             <hr />
             { children }
         </div>
     );
 };
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(Navbar);
 
 
 /**
@@ -37,3 +30,15 @@ export default withRouter(Navbar);
 Navbar.propTypes = {
   children: PropTypes.object,
 }
+
+const mapStateToProps = function(state, ownProps) {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = dispatch => ({});
+
+// The `withRouter` wrapper makes sure that updates are not blocked
+// when the url changes
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
