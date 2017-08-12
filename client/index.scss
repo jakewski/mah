@@ -109,6 +109,9 @@ body {
 .playerScoreFlexBox{
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: space-around;
+  flex-direction: row;
 }
 .gameForm{
   align-content: center
@@ -122,7 +125,12 @@ body {
   justify-content: center;
   align-items: center;
 }
-.gameAnswer{
-  width: 90%
+.scoreText{
+  margin: 3px;
+}
 
+@media (min-width: 800px) {
+  .endOfGameRoom {
+    margin-bottom: 25px;
+  }
 }
