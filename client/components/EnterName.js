@@ -17,7 +17,6 @@ class EnterName extends Component {
     this.setState({
       player: {name: e.target.value, dirty: true}
     })
-    console.log(this.state.player.name)
   }
 
   formSubmit(e) {

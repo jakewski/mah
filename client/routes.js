@@ -4,17 +4,25 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import history from './history'
 import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName} from './components'
+import axios from 'axios'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
 
+  componentDidMount() {
+    axios.get('/api/player/check')
+    .then(res => {
+      console.log('activeplayer? ', res.data)
+    })
+  }
+
   render () {
     return (
       <Router history={history}>
         <Navbar>
-          { true ? // this.props.player.name, made this true for testing
+          { this.props.player.name ? // this.props.player.name, made this true for testing
             //Routes available once name has been entered
             <Switch>
               <Route path='/home' component={Home} />
