@@ -14,7 +14,6 @@ import { removePlayerThunk } from '../store'
  *  rendered out by the component's `children`.
  */
 const Navbar = (props) => {
-  console.log('props to state?', props)
   const { children } = props;
 
   const handleQuit = () => {
