@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { setRoomThunk } from '../store';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
+import history from '../history';
 
 class JoinGame extends Component {
   constructor(){
@@ -10,6 +12,7 @@ class JoinGame extends Component {
     this.state = {
       error: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -22,13 +25,27 @@ class JoinGame extends Component {
 
   }
 
+  handleSubmit(event) {
+    event.persist();
+    event.preventDefault();
+    console.log('player name submit: ', this.props.player.player)
+    socket.emit('addPlayertoRoom', {
+      code: event.target.code.value,
+      playerName: this.props.player.player.name,
+    });
+    socket.on('correctRoom', () => {
+      this.props.setRoomThunk(event.target.code.value);
+      history.push('/room')
+    });
+  }
+
   render() {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div className="container" key="transition">
           <h1>Join Game</h1>
 
-          <form className="form-group" onSubmit={this.props.handleSubmit}>
+          <form className="form-group" onSubmit={this.handleSubmit}>
 
               <div className="col"></div>
               <div className="col">
@@ -50,19 +67,15 @@ class JoinGame extends Component {
 }
 
 const mapStateToProps = function(state, ownProps) {
-  return {}
+  return {
+    player: state.players,
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
   //will need to dispatch our game code for our player
   //need to have playername accessible for the handle submit
-  handleSubmit: event => {
-    event.preventDefault();
-    socket.emit('addPlayertoRoom', {
-     code: event.target.code.value,
-     //playerName: 
-    });
-  }
+  setRoomThunk: code => dispatch(setRoomThunk(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoinGame)

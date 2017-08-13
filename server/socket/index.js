@@ -15,13 +15,17 @@ module.exports = (io) => {
       
       socket.emit('getCode', code);
       console.log(`${socket.id} was in room ${socket.room}`)
-      socket.leave('Main');
-      socket.room = code;
-      socket.join(code);
-      console.log('game created')
-      store.dispatch(addPlayerThunk({id: socket.id, name: game.playerName}));
-      store.dispatch(addGameThunk({gameId: code, host: socket.id, categories: game.categories, playerNum: game.playerNum}))
-      console.log(`${socket.id} has just joined room ${socket.room}`)
+      socket.leave('Main', () => {
+        socket.room = code;
+        socket.join(code, () => {
+          console.log('game created')
+          store.dispatch(addPlayerThunk({name: game.playerName, id: socket.id}));
+          store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: game.playerName}, categories: game.categories, playerNum: game.playerNum}))
+          console.log(`${socket.id} has just joined room ${socket.room}`)
+
+        });
+
+      });
       // console.log(store.getState().game);
     })
 
@@ -43,11 +47,13 @@ module.exports = (io) => {
     // socket.on('addPlayerToGame', gameId => {
     //   store.dispatch(addPlayerToGameThunk({playerId: socket.id, gameId: gameId}))
     // })
+    socket.on('replacePlayers', players => {
+      socket.broadcast.to(socket.room).emit('replacedPlayers', players);
+    })
 
     socket.on('addPlayertoRoom', playerInfo => {
       const rooms = store.getState().game;
-      console.log('ROOMS',rooms);
-      console.log(playerInfo);
+      //console.log('BEFORE', store.getState().game[playerInfo.code].gamePlayers);
       socket.room = playerInfo.code;
       console.log(`${socket.id} was in room ${socket.room}`)
       if(!rooms[playerInfo.code]) socket.emit('wrongCode', 'ya done fucked up sonny');
@@ -57,15 +63,23 @@ module.exports = (io) => {
       else{
 
         store.dispatch(addPlayerThunk({id: socket.id, name: playerInfo.playerName}));
-        store.dispatch(addPlayerToGameThunk({playerId: socket.id, gameId: playerInfo.code}))
-
+        store.dispatch(addPlayerToGameThunk({player: {name: playerInfo.playerName, id: socket.id}, gameId: playerInfo.code}))
+        console.log('AFTER', store.getState().game[playerInfo.code].gamePlayers);
         socket.playerName = playerInfo.playerName;
+        console.log('playerName: ', socket.playerName)
         socket.leave('Main', () => {
-          socket.join(playerInfo.code);
-          socket.broadcast.to(playerInfo.code).emit('message', {body: playerInfo.playerName + ' has connected to this room', from: 'server'});
-          //socket.emit('updateRooms', rooms, 'Main');
-          console.log(`${socket.id} has just joined room ${socket.room}`)
-          console.log('ROOMS',rooms);
+          socket.join(playerInfo.code, () => {
+            socket.room = playerInfo.code;
+            socket.broadcast.to(playerInfo.code).emit('message', {body: playerInfo.playerName + ' has connected to this room', from: 'server'});
+            socket.emit('correctRoom');
+            socket.to(socket.room).emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)
+            socket.emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)
+            console.log(`${socket.id} has just joined room ${socket.room}`)
+            console.log(`${socket.room} now contains the following players: ` )
+            console.log(io.sockets.adapter.rooms[socket.room]);
+    
+
+          });
         });
         //console.log(store.getState());
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
+import { addToPlayersThunk, replacePlayersThunk } from '../store';
 
 
 class GameRoom extends Component {
@@ -17,6 +18,14 @@ class GameRoom extends Component {
     // socket.on('getCode', (code) => {
     //   this.setState({gameId: code})
     // })
+    // socket.on('addPlayerLocally', player => {
+    //   console.log('pLAYER: ', this.props.player);
+    //   this.props.addToPlayersThunk(player);
+    //   socket.emit('replacePlayers', [...this.props.player.players, player])
+    // })
+    socket.on('replacedPlayers', players => {
+      this.props.replacePlayersThunk(players);
+    })
   }
 
   render() {
@@ -73,11 +82,14 @@ class GameRoom extends Component {
 // controls for current leader, ternary operator
 
 const mapStateToProps = function(state, ownProps) {
-  return {}
+  return {
+    player: state.players,
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
-
+  addToPlayersThunk: player => dispatch(addToPlayersThunk(player)),
+  replacePlayersThunk: players => dispatch(replacePlayersThunk(players))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameRoom)
