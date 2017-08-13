@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
-import axios from 'axios'
 
 
 class GameRoom extends Component {

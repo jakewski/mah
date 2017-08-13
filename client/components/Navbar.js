@@ -52,7 +52,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  removePlayerThunk: player => dispatch(removePlayerThunk(player)),
+  removePlayerThunk: () => dispatch(removePlayerThunk()),
 });
 
 // The `withRouter` wrapper makes sure that updates are not blocked
