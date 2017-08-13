@@ -16,9 +16,6 @@ import socket from './socket'
 class Routes extends Component {
   constructor(){
     super()
-    this.state = {
-      activePlayer: false
-    }
   }
 
   componentWillMount() {

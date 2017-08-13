@@ -14,6 +14,7 @@ router.post('/set', (req, res, next) => {
 })
 
 router.get('/me', (req, res, next) => {
+  console.log('req session:', req.session.name)
   res.send( { 
     sessionId: req.session.id,
     name: req.session.name,
@@ -23,7 +24,10 @@ router.get('/me', (req, res, next) => {
 });
 
 router.delete('/remove', (req, res, next) => {
-  delete req.session;
+  req.session.name = null;
+  req.session.socketId = null;
+  req.session.activePlayer = false;
+  req.session.sessionId = null;
   res.send('deleted');
 })
 
