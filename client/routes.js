@@ -1,20 +1,37 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
-import history from './history'
-import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName} from './components'
-import axios from 'axios'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Router} from 'react-router';
+import {Route, Switch} from 'react-router-dom';
+import history from './history';
+import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName} from './components';
+import axios from 'axios';
+import { setPlayerThunk } from './store';
+import socket from './socket'
+
+
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
+  constructor(){
+    super()
+    this.state = {
+      activePlayer: false
+    }
+  }
 
-  componentDidMount() {
-    axios.get('/api/player/check')
+  componentWillMount() {
+    axios.get('/api/player/me')
     .then(res => {
-      console.log('activeplayer? ', res.data)
+      if(res.data.activePlayer) {
+        this.props.setPlayerThunk({
+          name: res.data.name, 
+          socketId: socket.id, 
+          activePlayer: res.data.activePlayer, 
+          sessionId: res.data.sessionId,
+        })
+      }
     })
   }
 
@@ -22,14 +39,12 @@ class Routes extends Component {
     return (
       <Router history={history}>
         <Navbar>
-          { this.props.player.name ? // this.props.player.name, made this true for testing
-            //Routes available once name has been entered
+          { this.props.player.activePlayer ?
             <Switch>
-              <Route path='/home' component={Home} />
               <Route path='/room' component={GameRoom} />
               <Route path='/create' component={CreateGame} />
               <Route path='/join' component={JoinGame} />
-              <Route path='/' component={EnterName} />
+              <Route path='/' component={Home} />
             </Switch>
            :
            //Routes below only available with no name
@@ -50,7 +65,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-
+  setPlayerThunk: player => dispatch(setPlayerThunk(player)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes);

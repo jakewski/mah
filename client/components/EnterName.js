@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { setPlayerThunk } from '../store'
 import socket from '../socket'
+import axios from 'axios'
 
 class EnterName extends Component {
   constructor(){
@@ -21,9 +22,22 @@ class EnterName extends Component {
 
   formSubmit(e) {
     e.preventDefault();
-    this.props.setPlayerThunk({name: this.state.player.name, id: socket.id})
-    this.props.history.push('/home')
     socket.emit('setPlayerName', this.state.player.name);
+    axios.post('/api/player/set', {
+      name: this.state.player.name,
+      socketId: socket.id,
+    })
+    .then(res => {
+      this.props.setPlayerThunk({
+        name: res.data.name, 
+        socketId: res.data.socketId, 
+        activePlayer: res.data.activePlayer, 
+        sessionId: res.data.sessionId,
+      })
+    })
+    .then(() => {
+      this.props.history.push('/')
+    })
   }
 
   inputIsEmpty(){
