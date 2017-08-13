@@ -23,18 +23,7 @@ module.exports = app
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
-// passport.serializeUser((player, done) => {
-//   try {
-//     done(null, player.socketId);
-//   } catch (err) {
-//     done(err);
-//   }
-// });
-
-// passport.deserializeUser((player, done) => {
-//   return player => done(null, player)
-//   .catch(done)
-// });
+// removed
 
 
 const createApp = () => {
