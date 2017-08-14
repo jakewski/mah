@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const { Category } = require('../db/models')
-const Sequelize = require('sequelize')
 router.get('/', (req, res, next) => {
   Category.findAll()
     .then(categories => res.json(categories))
