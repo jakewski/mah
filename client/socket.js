@@ -6,8 +6,9 @@ const socket = io(window.location.origin);
 socket.on('connect', () => {
   console.log('Connected!');
   //commenting out line 9 for quicker refresh while testing, but you can put it back in
-//   console.log('a connection is happening... about to add user')
-//   socket.emit('addPlayertoRoom', prompt("What is your name? "));
+  //   console.log('a connection is happening... about to add user')
+  //   socket.emit('addPlayertoRoom', prompt("What is your name? "));
+  
 });
 
 socket.on('updateRooms', function(rooms, currentRoom) {

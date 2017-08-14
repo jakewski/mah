@@ -14,19 +14,15 @@ module.exports = (io) => {
       const code = randStr.generate(7);
       
       socket.emit('getCode', code);
-      console.log(`${socket.id} was in room ${socket.room}`)
       socket.leave('Main', () => {
         socket.room = code;
         socket.join(code, () => {
-          console.log('game created')
           store.dispatch(addPlayerThunk({name: game.playerName, id: socket.id}));
           store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: game.playerName}, categories: game.categories, playerNum: game.playerNum}))
-          console.log(`${socket.id} has just joined room ${socket.room}`)
 
         });
 
       });
-      // console.log(store.getState().game);
     })
 
     socket.on('setPlayerName', name => {
@@ -34,12 +30,9 @@ module.exports = (io) => {
     })
 
     socket.on('switchToMain', () => {
-      console.log('it works')
-      console.log(`${socket.id} was in room ${socket.room}`)
       socket.leave(socket.room, () => {
         socket.room = 'Main';
         socket.join('Main');
-        console.log(`${socket.id} has just joined room ${socket.room}`)
 
       });
     })
@@ -53,9 +46,7 @@ module.exports = (io) => {
 
     socket.on('addPlayertoRoom', playerInfo => {
       const rooms = store.getState().game;
-      //console.log('BEFORE', store.getState().game[playerInfo.code].gamePlayers);
       socket.room = playerInfo.code;
-      console.log(`${socket.id} was in room ${socket.room}`)
       if(!rooms[playerInfo.code]) socket.emit('wrongCode', 'ya done fucked up sonny');
       else if(rooms[playerInfo.code].gamePlayers.includes(socket.id)){
         socket.emit('alreadyInRoom', 'you are already in this room')
@@ -64,9 +55,7 @@ module.exports = (io) => {
 
         store.dispatch(addPlayerThunk({id: socket.id, name: playerInfo.playerName}));
         store.dispatch(addPlayerToGameThunk({player: {name: playerInfo.playerName, id: socket.id}, gameId: playerInfo.code}))
-        console.log('AFTER', store.getState().game[playerInfo.code].gamePlayers);
         socket.playerName = playerInfo.playerName;
-        console.log('playerName: ', socket.playerName)
         socket.leave('Main', () => {
           socket.join(playerInfo.code, () => {
             socket.room = playerInfo.code;
@@ -74,14 +63,10 @@ module.exports = (io) => {
             socket.emit('correctRoom');
             socket.to(socket.room).emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)
             socket.emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)
-            console.log(`${socket.id} has just joined room ${socket.room}`)
-            console.log(`${socket.room} now contains the following players: ` )
-            console.log(io.sockets.adapter.rooms[socket.room]);
     
 
           });
         });
-        //console.log(store.getState());
 
       }
 

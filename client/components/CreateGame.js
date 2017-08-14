@@ -25,7 +25,6 @@ class CreateGame extends Component {
   }
 
   setCategories(categoryId){
-    console.log(this.state);
     return () => this.setState(prev => {
       if(prev.categories[categoryId])
         prev.categories[categoryId] = false;
@@ -36,7 +35,6 @@ class CreateGame extends Component {
   }
 
   render() { 
-    console.log('props::', this.props)
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container">

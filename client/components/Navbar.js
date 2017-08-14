@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import Home from './Home';
+import axios from 'axios';
+import { removePlayerThunk } from '../store'
 
 
 /**
@@ -12,15 +14,27 @@ import Home from './Home';
  *  rendered out by the component's `children`.
  */
 const Navbar = (props) => {
-    const { children } = props;
+  const { children } = props;
 
-    return (
-        <div className="col-lg-12 text-center">
-            <NavLink className="mainTitleLink" to="/home"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
-            <hr />
-            { children }
-        </div>
-    );
+  const handleQuit = () => {
+    axios.delete('/api/player/remove')
+    .then(() => props.removePlayerThunk())
+    .then(() => {
+      props.history.push('/')
+    })
+  }
+
+  return (
+      <div className="col-lg-12 text-center">
+          { props.player.activePlayer ?
+            <button type="button" onClick={handleQuit} className="btn btn-danger quit">X</button>
+            : null
+          }
+          <NavLink className="mainTitleLink" to="/"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
+          <hr />
+          { children }
+      </div>
+  );
 };
 
 
@@ -33,11 +47,13 @@ Navbar.propTypes = {
 
 const mapStateToProps = function(state, ownProps) {
   return {
-
+    player: state.players.player
   }
 }
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  removePlayerThunk: () => dispatch(removePlayerThunk()),
+});
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
