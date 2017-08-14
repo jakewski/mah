@@ -106,7 +106,7 @@ body {
     margin: auto;
     margin-top: 30px;
     margin-bottom: 30px;
-    font-size: 2em;
+    font-size: 1em;
     width: 400px;
     height: 300px;
     flex: 1;
@@ -119,10 +119,6 @@ body {
 .playerScoreFlexBox{
   display: flex;
   justify-content: space-around;
-}
-
-.memeStreamImg {
-  max-height: 300px;
 }
 
 .memeSlider {
