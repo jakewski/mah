@@ -109,4 +109,28 @@ body {
 .playerScoreFlexBox{
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: space-around;
+  flex-direction: row;
+}
+.gameForm{
+  align-content: center
+}
+// .gameFormContainer{
+//   width: 100%;
+// }
+.gameAnswerFlex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.scoreText{
+  margin: 3px;
+}
+
+@media (min-width: 800px) {
+  .endOfGameRoom {
+    margin-bottom: 25px;
+  }
 }
