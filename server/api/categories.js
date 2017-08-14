@@ -6,12 +6,6 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/random', (req, res, next) => {
-  Category.findAll()
-    .then(categories => res.json(categories[Math.floor(Math.random() * categories.length)]))
-    .catch(next);
-})
-
 router.post('/', (req, res, next) => {
   const text = req.body.text
   Category.create({text})
