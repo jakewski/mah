@@ -19,7 +19,7 @@ class Routes extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/player/me')
+    axios.get('/api/player/')
     .then(res => {
       if(res.data.activePlayer) {
         this.props.setPlayerThunk({

@@ -23,7 +23,7 @@ class EnterName extends Component {
   formSubmit(e) {
     e.preventDefault();
     socket.emit('setPlayerName', this.state.player.name);
-    axios.post('/api/player/set', {
+    axios.post('/api/player/', {
       name: this.state.player.name,
       socketId: socket.id,
     })

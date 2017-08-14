@@ -34,7 +34,7 @@ const removePlayer = () => ({type: REMOVE_PLAYER});
  * THUNK CREATORS
  */
 export const setPlayerThunk = player => dispatch => {
-  axios.post('/api/player/set', player)
+  axios.post('/api/player/', player)
   .then(res =>  { 
     dispatch(setPlayer(res.data))
   })

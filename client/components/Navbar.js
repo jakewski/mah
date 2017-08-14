@@ -17,7 +17,7 @@ const Navbar = (props) => {
   const { children } = props;
 
   const handleQuit = () => {
-    axios.delete('/api/player/remove')
+    axios.delete('/api/player/')
     .then(() => props.removePlayerThunk())
     .then(() => {
       props.history.push('/')

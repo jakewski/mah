@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.post('/set', (req, res, next) => {
+router.post('/', (req, res, next) => {
   req.session.name = req.body.name;
   req.session.socketId = req.body.socketId;
   req.session.activePlayer = true;
@@ -13,7 +13,7 @@ router.post('/set', (req, res, next) => {
   });
 })
 
-router.get('/me', (req, res, next) => {
+router.get('/', (req, res, next) => {
   console.log('req session:', req.session.name)
   res.send( { 
     sessionId: req.session.id,
@@ -23,7 +23,7 @@ router.get('/me', (req, res, next) => {
   });
 });
 
-router.delete('/remove', (req, res, next) => {
+router.delete('/', (req, res, next) => {
   req.session.destroy()
   res.send('player removed')
 })
