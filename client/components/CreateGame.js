@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getCategoriesThunk } from '../store';
+import { getCategoriesThunk, setRoomThunk } from '../store';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
+import history from '../history';
 
 class CreateGame extends Component {
   constructor(){
@@ -18,11 +19,12 @@ class CreateGame extends Component {
   componentDidMount() {
     this.props.getCategoriesThunk()
     socket.on('getCode', code => {
+      console.log('GAME CODE: ', code);
+      this.props.setRoomThunk(code);
     })
   }
 
   setCategories(categoryId){
-    console.log(this.state);
     return () => this.setState(prev => {
       if(prev.categories[categoryId])
         prev.categories[categoryId] = false;
@@ -33,12 +35,11 @@ class CreateGame extends Component {
   }
 
   render() { 
-    console.log('props::', this.props)
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container">
           <h1>Create a New Game</h1>
-            <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories)}>
+            <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories, this.props.player.name)}>
 
               <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
               <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
@@ -81,18 +82,22 @@ class CreateGame extends Component {
 const mapStateToProps = function(state, ownProps) {
   return {
     categories: state.categories.categories,
+    player: state.players.player,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   getCategoriesThunk: () => dispatch(getCategoriesThunk()),
-  handleSubmit: categories => event => {
+  setRoomThunk: code => dispatch(setRoomThunk(code)),
+  handleSubmit: (categories, playerName) => event => {
     event.preventDefault();
     let checkedCategories = Object.keys(categories).filter(key => categories[key])
     socket.emit('createGame', {
       categories: checkedCategories,
-      playerNum: event.target.players.value
+      playerNum: event.target.players.value,
+      playerName: playerName,
     })
+    history.push('/room')
 
   }
 });
