@@ -11,4 +11,10 @@ const Meme = db.define('meme', {
   },
 })
 
+Meme.prototype.getRandomMeme = () => {
+  return Meme.findAll()
+    .then(memes => memes[Math.floor(Math.random() * memes.length)])
+    .catch(next);
+}
+
 module.exports = Meme
