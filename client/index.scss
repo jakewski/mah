@@ -118,7 +118,7 @@ body {
   flex-direction: row;
 }
 .gameForm{
-  align-content: center
+  align-content: center;
 }
 // .gameFormContainer{
 //   width: 100%;
@@ -128,7 +128,15 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
 }
+
+#inputAnswer {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
 .scoreText{
   margin: 3px;
 }
