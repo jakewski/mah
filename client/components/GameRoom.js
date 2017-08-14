@@ -19,6 +19,7 @@ class GameRoom extends Component {
       memeUrl: 'https://imgflip.com/s/meme/Futurama-Fry.jpg',
       gameRoomName: 'Bad Boys and Girls of America',
       playerNames: ['Brion', 'Jakubucci', "lil' BAnnBAnn", 'Madelean', 'King Ray', 'CharlesMan', 'Ray Chartles'],
+
     }
   }
 
@@ -55,6 +56,10 @@ class GameRoom extends Component {
             <img className="img-responsive center-block" src={this.state.memeUrl} />
           </div>
           <div className="row">
+
+            {currentLeader ?
+            <div>hello leader</div> : <div>}
+
             {/*judge logic  */}
             {this.state.playerIsCurrentJudge ?
 
