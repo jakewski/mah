@@ -43,7 +43,7 @@ class GameRoom extends Component {
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
         <div key="transition" className="container-fluid">
-          <h3 style={{marginTop: 0}} >{this.state.gameRoomName}</h3>
+          <h3 style={{marginTop: 0}} >{this.state.gameRoomName}-Room Code: {this.props.room}</h3>
           <div className="row">
             <div className="col-xs-6">
               <h5>Turn Number: 35</h5>
@@ -147,7 +147,9 @@ class GameRoom extends Component {
 
 const mapStateToProps = function(state, ownProps) {
   return {
-    player: state.players,
+    player: state.players.player,
+    players: state.players.players,
+    room: state.players.room
   }
 }
 
