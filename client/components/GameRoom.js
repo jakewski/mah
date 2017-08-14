@@ -130,7 +130,8 @@ class GameRoom extends Component {
                   <img className="img-responsive center-block" src={this.state.memeUrl}   />
 
                   <div className="form-group col-md-9 col-xs-12 col-lg-6" >
-                    <textarea placeholder="me me" className="form-control formPlaceholder" id="inputAnswer" rows="1" />
+                    <textarea placeholder="me me" className="form-control formPlaceholder" id="formInputTop" rows="1" />
+                    <textarea placeholder="me me" className="form-control formPlaceholder" id="formInputBottom" rows="1" />
                   </div>
                   <div className="row">
                     <button type="submit" className="btn btn-success">Submit</button>
