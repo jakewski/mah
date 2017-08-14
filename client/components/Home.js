@@ -38,7 +38,9 @@ class Home extends Component {
                                 </button>
                             </NavLink>
                         </div>
-                        <ChatBox />
+                        <div className="col-sm-6 col-md-6 col-lg-6">
+                            <ChatBox />
+                        </div>
                     </div>
                 </CSSTransitionGroup>
             </div>
