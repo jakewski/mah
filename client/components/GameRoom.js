@@ -7,12 +7,18 @@ import { addToPlayersThunk, replacePlayersThunk } from '../store';
 import ChatBox from './ChatBox'
 
 
+var divStyle = {
+  backgroundImage: 'url(' + 'https://imgflip.com/s/meme/Futurama-Fry.jpg' + ')',
+};
+
 class GameRoom extends Component {
   constructor(){
     super();
     this.state = {
       gameId: '',
       submittedAnswers: ['this component is working, or if it is just the right time of day', 'I should submit an answer, or stall','this component is working, or if it is just the right time of day', 'I should submit an answer, or stall','this component is working, or if it is just the right time of day', 'I should submit an answer, or stall'],
+      formInputTop: '',
+      formInputBottom: '',
       allAnswersSubmitted: false,
       playerIsCurrentJudge: false,
       playerAnswerSubmitted: false,
@@ -62,9 +68,8 @@ class GameRoom extends Component {
           </div>
           <hr />
           <div className="row">
-            <img className="img-responsive center-block" src={this.state.memeUrl} />
-          </div>
-          <div className="row">
+            {/* <img className="img-responsive center-block" src={this.state.memeUrl} /> */}
+
 
             {/*{currentLeader ?
             <div>hello leader</div> : <div>}*/}
@@ -119,13 +124,19 @@ class GameRoom extends Component {
 
               <div> {/*player view when they have not answered yet  */}
                 <form className="gameAnswerFlex">
+
+                  <div className="col-lg-6 col-md-6 col-sm-6" style={divStyle}>
+
+                  <img className="img-responsive center-block" src={this.state.memeUrl}   />
+
                   <div className="form-group col-md-9 col-xs-12 col-lg-6" >
-                    <label htmlFor="inputAnswer">Dank Meme here: </label>
-                    <textarea placeholder="me me" className="form-control" id="inputAnswer" rows="2" />
+                    <textarea placeholder="me me" className="form-control formPlaceholder" id="formInputTop" rows="1" />
+                    <textarea placeholder="me me" className="form-control formPlaceholder" id="formInputBottom" rows="1" />
                   </div>
                   <div className="row">
                     <button type="submit" className="btn btn-success">Submit</button>
                   </div>
+                </div>
                 </form>
               </div>}
             </div>}
