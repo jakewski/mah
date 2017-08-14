@@ -23,14 +23,6 @@ router.get('/me', (req, res, next) => {
   });
 });
 
-// router.delete('/remove', (req, res, next) => {
-//   req.session.name = null;
-//   req.session.socketId = null;
-//   req.session.activePlayer = false;
-//   req.session.sessionId = null;
-//   res.send('deleted');
-// })
-
 router.delete('/remove', (req, res, next) => {
   req.session.destroy()
   res.send('player removed')
