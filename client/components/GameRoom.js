@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayersThunk, replacePlayersThunk } from '../store';
-import ChatBox from './ChatBox'
+import { JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
 
 
 var divStyle = {
@@ -20,7 +20,7 @@ class GameRoom extends Component {
       formInputTop: '',
       formInputBottom: '',
       allAnswersSubmitted: false,
-      playerIsCurrentJudge: false,
+      playerIsCurrentJudge: true,
       playerAnswerSubmitted: false,
       currentJudgeIndex: 0,
       memeUrl: 'https://imgflip.com/s/meme/Futurama-Fry.jpg',
@@ -68,77 +68,21 @@ class GameRoom extends Component {
           </div>
           <hr />
           <div className="row">
-            {/* <img className="img-responsive center-block" src={this.state.memeUrl} /> */}
-
-
-            {/*{currentLeader ?
-            <div>hello leader</div> : <div>}*/}
-
             {/*judge logic  */}
             {this.state.playerIsCurrentJudge ?
-
             <div>
               {this.state.allAnswersSubmitted ?
-
-              <div> {/* judge view when all answers are submitted */}
-                <div className="row">
-                  <h5>Wield your immense power and deem the proper candidate worthy with an almighty click</h5>
-                  <div className="playerScoreFlexBox">
-                    {this.state.submittedAnswers.map((answer, index) => {
-                      return <button className="scoreText" key={index}>{answer}</button>
-                    })}
-                  </div>
-                </div>
-              </div> :
-
-              <div> {/*judge view when waiting on all answers  */}
-                  <div className="row">
-                  <h5>Waiting on the plebs. Have mercy, good lord</h5>
-                  <img src="https://media.tenor.com/images/c3133e236670d969de3b493b1be783b0/tenor.gif" style={{margin: '5px'}} />
-                  </div>
-              </div>}
-
+              <Judgement submittedAnswers={this.state.submittedAnswers} /> :
+              <JudgeWaiting />}
             </div> :
             <div> {/*player logic  */}
               {this.state.playerAnswerSubmitted ?
-
               <div>
                 {this.state.allAnswersSubmitted ?
-
-                <div> {/*player view when all answers are submitted  */}
-                  <h5>Submitted Meme-ories:</h5>
-                  <div className="playerScoreFlexBox">
-                    {this.state.submittedAnswers.map((answer, index) => {
-                      return <button disabled className="scoreText" key={index}>{answer}</button>
-                    })}
-                  </div>
-                </div> :
-
-                <div> {/*player view when they have answered, but others haven't  */}
-                  <div className="row">
-                    <h5>Answer submitted, awaiting responses and judge's decision</h5>
-                    <img src="https://media.tenor.com/images/cc6658b83d611b906386f779cf37ab0c/tenor.gif" style={{margin: '5px'}} />
-                  </div>
-                </div>}
+                <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
+                <PlayerWaiting />}
               </div> :
-
-              <div> {/*player view when they have not answered yet  */}
-                <form className="gameAnswerFlex">
-
-                  <div className="col-lg-6 col-md-6 col-sm-6" style={divStyle}>
-
-                  <img className="img-responsive center-block" src={this.state.memeUrl}   />
-
-                  <div className="form-group col-md-9 col-xs-12 col-lg-6" >
-                    <textarea placeholder="me me" className="form-control formPlaceholder" id="formInputTop" rows="1" />
-                    <textarea placeholder="me me" className="form-control formPlaceholder" id="formInputBottom" rows="1" />
-                  </div>
-                  <div className="row">
-                    <button type="submit" className="btn btn-success">Submit</button>
-                  </div>
-                </div>
-                </form>
-              </div>}
+              <PlayerAnswering memeUrl={this.state.memeUrl} />}
             </div>}
           </div>
           <div className="row">
