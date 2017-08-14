@@ -79,8 +79,6 @@ const reducer = function(state = initialState, action) {
         currentTurn: currentTurn,
         playerNum: action.game.playerNum
       };
-      //console.log(obj1[action.game.gameId].currentTurn.meme.text);
-      //console.log('STATE', state);
       return Object.assign({}, state, obj1);
 
     case REMOVE_GAME:
@@ -96,9 +94,7 @@ const reducer = function(state = initialState, action) {
       return obj3;
 
     case SWITCH_TO_NEXT_TURN:
-      //console.log('STATE', state);
       let thisGame = R.clone(state[action.gameId]);
-     // console.log(thisGame);
       let meme2 = grabRandomMeme();
       let nextTurn = {
         category: grabRandomCategory(thisGame.categories),
@@ -110,7 +106,6 @@ const reducer = function(state = initialState, action) {
       thisGame.currentTurn = nextTurn;
       let obj4 = {};
       obj4[action.gameId] = thisGame;
-      console.log(obj4);
       return Object.assign({}, state, obj4);
 
     case POST_ANSWER:
