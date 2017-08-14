@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class PlayerJudgement extends React.Component {
+export default class PlayerAnswering extends React.Component {
   constructor(props) {
     super(props)
   }
