@@ -1,6 +1,6 @@
 const store = require('../store');
 const { addPlayerThunk } = require('../store/player');
-const { addPlayerToGameThunk, addGameThunk } = require('../store/game');
+const { addPlayerToGameThunk, addGameThunk, switchToNextTurnThunk } = require('../store/game');
 const randStr = require('randomstring');
 
 
@@ -29,6 +29,10 @@ module.exports = (io) => {
       socket.playerName = name;
     })
 
+    socket.on('switchToNextTurn', something => {
+      store.dispatch(switchToNextTurnThunk(socket.room));
+    })
+    
     socket.on('switchToMain', () => {
       socket.leave(socket.room, () => {
         socket.room = 'Main';
@@ -46,7 +50,7 @@ module.exports = (io) => {
 
     socket.on('addPlayertoRoom', playerInfo => {
       const rooms = store.getState().game;
-      socket.room = playerInfo.code;
+      //socket.room = playerInfo.code;
       if(!rooms[playerInfo.code]) socket.emit('wrongCode', 'ya done fucked up sonny');
       else if(rooms[playerInfo.code].gamePlayers.includes(socket.id)){
         socket.emit('alreadyInRoom', 'you are already in this room')
@@ -59,7 +63,7 @@ module.exports = (io) => {
         socket.leave('Main', () => {
           socket.join(playerInfo.code, () => {
             socket.room = playerInfo.code;
-            socket.broadcast.to(playerInfo.code).emit('message', {body: playerInfo.playerName + ' has connected to this room', from: 'server'});
+            socket.broadcast.to(playerInfo.code).emit('message', {body: playerInfo.playerName + ' has connected to this room', from: 'MemeBot'});
             socket.emit('correctRoom');
             socket.to(socket.room).emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)
             socket.emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)

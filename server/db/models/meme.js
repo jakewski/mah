@@ -11,4 +11,5 @@ const Meme = db.define('meme', {
   },
 })
 
+
 module.exports = Meme

@@ -42,6 +42,7 @@ class GameRoom extends Component {
     socket.on('replacedPlayers', players => {
       this.props.replacePlayersThunk(players);
     })
+    //socket.emit('switchToNextTurn');
   }
 
   render() {
