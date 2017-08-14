@@ -57,8 +57,8 @@ class GameRoom extends Component {
           </div>
           <div className="row">
 
-            {currentLeader ?
-            <div>hello leader</div> : <div>}
+            {/*{currentLeader ?
+            <div>hello leader</div> : <div>}*/}
 
             {/*judge logic  */}
             {this.state.playerIsCurrentJudge ?
