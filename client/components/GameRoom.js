@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayersThunk, replacePlayersThunk } from '../store';
-import { JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
+import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
 
 
 var divStyle = {
@@ -15,15 +15,17 @@ class GameRoom extends Component {
   constructor(){
     super();
     this.state = {
-      gameId: '',
-      submittedAnswers: ['this component is working, or if it is just the right time of day', 'I should submit an answer, or stall','this component is working, or if it is just the right time of day', 'I should submit an answer, or stall','this component is working, or if it is just the right time of day', 'I should submit an answer, or stall'],
+      judge: {},
+      gameStarted: false,
+      submittedAnswers: [],
       formInputTop: '',
       formInputBottom: '',
       allAnswersSubmitted: false,
       playerIsCurrentJudge: true,
       playerAnswerSubmitted: false,
       currentJudgeIndex: 0,
-      memeUrl: 'https://imgflip.com/s/meme/Futurama-Fry.jpg',
+      memeUrl: '',
+      memeText: '',
       gameRoomName: 'Bad Boys and Girls of America',
       playerNames: ['Brion', 'Jakubucci', "lil' BAnnBAnn", 'Madelean', 'King Ray', 'CharlesMan', 'Ray Chartles'],
 
@@ -31,18 +33,25 @@ class GameRoom extends Component {
   }
 
   componentDidMount() {
-    // socket.on('getCode', (code) => {
-    //   this.setState({gameId: code})
-    // })
-    // socket.on('addPlayerLocally', player => {
-    //   console.log('pLAYER: ', this.props.player);
-    //   this.props.addToPlayersThunk(player);
-    //   socket.emit('replacePlayers', [...this.props.player.players, player])
-    // })
+
     socket.on('replacedPlayers', players => {
       this.props.replacePlayersThunk(players);
     })
-    //socket.emit('switchToNextTurn');
+    socket.on('gameStarted', turn => {
+      let isJudge = turn.judge.id === this.props.player.socketId;
+      console.log('isJudge:', isJudge)
+      let newState = { 
+        gameStarted : true,
+        memeUrl: turn.meme.image,
+        memeText: turn.meme.text,
+        category: turn.category,
+        judge: turn.judge,
+        playerIsCurrentJudge: isJudge,
+        playerNames: turn.playerNames,
+      }
+      console.log(newState)
+      this.setState(newState)
+    })
   }
 
   render() {
@@ -51,12 +60,12 @@ class GameRoom extends Component {
 
         <div key="transition" className="container-fluid">
           <h3 style={{marginTop: 0}} >{this.state.gameRoomName}-Room Code: {this.props.room}</h3>
-          <div className="row">
+          {this.state.gameStarted ? (<div><div className="row">
             <div className="col-xs-6">
               <h5>Turn Number: 35</h5>
             </div>
             <div className="col-xs-6">
-              <h5>Current Judge: {this.state.playerNames[this.state.currentJudgeIndex]}</h5>
+              <h5>Current Judge: {this.state.judge.name}</h5>
             </div>
           </div>
           <hr />
@@ -93,6 +102,7 @@ class GameRoom extends Component {
               </div>
             </div>
           </div>
+          </div>) : <Pregame />}
         </div>
 
       </CSSTransitionGroup>
