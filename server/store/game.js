@@ -4,7 +4,7 @@ const ADD_GAME = "ADD_GAME";
 const REMOVE_GAME = "REMOVE_GAME";
 const ADD_PLAYER_TO_GAME = "ADD_PLAYER_TO_GAME";
 const SWITCH_TO_NEXT_TURN = "SWITCH_TO_NEXT_TURN";
-const POST_ANSWER = 'POST_ANSWER'
+const POST_ANSWER = 'POST_ANSWER';
 //on the backend we store all of our players, on the front end we will store the current player
 const initialState = {};
 let memes; 
@@ -113,6 +113,7 @@ const reducer = function(state = initialState, action) {
     case POST_ANSWER:
       //this might have bugs
       let thisGame2 = R.clone(state[action.answer.gameId]);
+      console.log(thisGame2);
       let tempAnswer = {};
       tempAnswer[action.answer.playerId] = action.answer.text;
       thisGame2.currentTurn.answers = Object.assign({}, thisGame2.currentTurn.answers, tempAnswer)
@@ -125,4 +126,4 @@ const reducer = function(state = initialState, action) {
   }
 };
 
-module.exports = { addPlayerToGameThunk, addGameThunk, reducer, switchToNextTurnThunk };
+module.exports = { addPlayerToGameThunk, addGameThunk, reducer, switchToNextTurnThunk, postAnswer };
