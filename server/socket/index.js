@@ -1,6 +1,6 @@
 const store = require('../store');
 const { addPlayerThunk } = require('../store/player');
-const { addPlayerToGameThunk, addGameThunk, switchToNextTurnThunk } = require('../store/game');
+const { postAnswer, addPlayerToGameThunk, addGameThunk, switchToNextTurnThunk } = require('../store/game');
 const randStr = require('randomstring');
 
 
@@ -15,7 +15,7 @@ module.exports = (io) => {
       let firstTurn = store.getState().game[socket.room].currentTurn;
       let playerNames = store.getState().game[socket.room].gamePlayers;
       let playerArray = playerNames.map(player => player.name)
-      console.log(playerArray);
+      //console.log(playerArray);
       // console.log(firstTurn);
       socket.emit('gameStarted', { meme: firstTurn.meme, category: firstTurn.category, judge: firstTurn.judge, playerNames: playerArray });
       socket.broadcast.to(socket.room).emit('gameStarted', { meme: firstTurn.meme, category: firstTurn.category, judge: firstTurn.judge, playerNames: playerArray });
@@ -24,14 +24,30 @@ module.exports = (io) => {
 
     //need to emit back the playerId to make a flag that the player answered on the front end
     //check if everybody answered, and if they did, emit something to the front that well let us know it's time for the judge to choose one
-    socket.on('answerPosted', () => {
+    socket.on('answerPosted', answer => {
+      store.dispatch(postAnswer({
+        gameId: socket.room,
+        text: answer,
+        playerId: socket.id,
+      }))
+      let currentState = store.getState().game[socket.room];
+      socket.emit('playerAnswered');
+      socket.broadcast.to(socket.room).emit('playerAnswered');
+      console.log('playernum: ', currentState.playerNum);
+      console.log('stuff: ', Object.keys(currentState.currentTurn.answers).length)
+      if(currentState.gamePlayers.length - 1 === Object.keys(currentState.currentTurn.answers).length){
+        socket.emit('gotAllAnswers', currentState.currentTurn.answers)
+        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.currentTurn.answers)
+      }
 
     })
 
     //post to database, emit something that lets us know to render the winning meme for everybody
     //score++
-    socket.on('winningMeme', ({ text, imageUrl }) => {
-
+    socket.on('winningMeme', playerId => {
+      console.log('hit Winner');
+      let winningAnswer = store.getState().game[socket.room].currentTurn.answers[playerId];
+      socket.emit('roundFinished', winningAnswer)
     })
 
     //gotta send back all the new turn info (category and meme)
@@ -49,7 +65,7 @@ module.exports = (io) => {
         socket.room = code;
         socket.join(code, () => {
           store.dispatch(addPlayerThunk({name: playerName, id: socket.id}));
-          store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: playerName}, categories: categories, playerNum: playerNum}));
+          store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: playerName, score: 0}, categories: categories, playerNum: playerNum}));
         });
       });
     })
@@ -83,7 +99,7 @@ module.exports = (io) => {
       }
       else{
         store.dispatch(addPlayerThunk({id: socket.id, name: playerName}));
-        store.dispatch(addPlayerToGameThunk({player: {name: playerName, id: socket.id}, gameId: code}));
+        store.dispatch(addPlayerToGameThunk({player: {name: playerName, id: socket.id, score: 0}, gameId: code}));
         socket.playerName = playerName;
         socket.leave('Main', () => {
           socket.join(code, () => {

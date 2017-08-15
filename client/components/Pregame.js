@@ -23,9 +23,10 @@ class Pregame extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
         <div className="row">
-            {(this.props.players.host.id === this.props.players.player.id) ?
+            {(this.props.players.host.sessionId === this.props.players.player.sessionId) ?
                 <button onClick={this.handleClick} className="btn btn-success">
                     Start Da Game Bro
                 </button>

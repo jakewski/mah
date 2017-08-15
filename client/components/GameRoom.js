@@ -62,6 +62,17 @@ class GameRoom extends Component {
       console.log(newState)
       this.setState(newState)
     })
+    socket.on('gotAllAnswers', answers => {
+      this.setState({
+        submittedAnswers: answers,
+        allAnswersSubmitted: true,
+      })
+    })
+    socket.on('playerAnswered', () =>{
+      this.setState({
+        playerAnswerSubmitted: true,
+      })
+    })
   }
 
   render() {
@@ -70,48 +81,52 @@ class GameRoom extends Component {
 
         <div key="transition" className="container-fluid">
           <h3 style={{marginTop: 0}} >{this.state.gameRoomName}-Room Code: {this.props.room}</h3>
-          {this.state.gameStarted ? (<div><div className="row">
-            <div className="col-xs-6">
-              <h5>Turn Number: 35</h5>
-            </div>
-            <div className="col-xs-6">
-              <h5>Current Judge: {this.state.judge.name}</h5>
-            </div>
-          </div>
-          <hr />
-          <div className="row">
-            <div className="playerScoreFlexBox">
-              {this.state.playerNames.map((player, index) => {
-                return <div className="scoreText" key={index}>{player}: ##</div>
-              })}
-            </div>
-          </div>
-          <hr />
-          <div className="row">
-            {/*judge logic  */}
-            {this.state.playerIsCurrentJudge ?
-            <div>
-              {this.state.allAnswersSubmitted ?
-              <Judgement submittedAnswers={this.state.submittedAnswers} /> :
-              <JudgeWaiting />}
-            </div> :
-            <div> {/*player logic  */}
-              {this.state.playerAnswerSubmitted ?
-              <div>
-                {this.state.allAnswersSubmitted ?
-                <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
-                <PlayerWaiting />}
-              </div> :
-              <PlayerAnswering memeUrl={this.state.memeUrl} />}
-            </div>}
-          </div>
-          <div className="row">
-            <div className="gameAnswerFlex endOfGameRoom">
-              <div className="col-sm-12 col-md-10 col-lg-10">
-                <ChatBox />
+          {this.state.gameStarted ? 
+          (<div>
+            <div className="row">
+              <div className="col-xs-6">
+                <h5>Turn Number: 35</h5>
+              </div>
+              <div className="col-xs-6">
+                <h5>Current Judge: {this.state.judge.name}</h5>
               </div>
             </div>
-          </div>
+            <hr />
+            <div className="row">
+              <div className="playerScoreFlexBox">
+                {this.state.playerNames.map((player, index) => {
+                  return <div className="scoreText" key={index}>{player}: ##</div>
+                })}
+              </div>
+            </div>
+            <hr />
+            <div className="row">
+              {/*judge logic  */}
+              {this.state.playerIsCurrentJudge ?
+              <div>
+                {this.state.allAnswersSubmitted ?
+                <Judgement submittedAnswers={this.state.submittedAnswers} /> :
+                <JudgeWaiting />}
+              </div> 
+              :
+              <div> {/*player logic  */}
+                {this.state.playerAnswerSubmitted ?
+                <div>
+                  {this.state.allAnswersSubmitted ?
+                  <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
+                  <PlayerWaiting />}
+                </div> 
+                :
+               <PlayerAnswering memeUrl={this.state.memeUrl} />}
+              </div>}
+            </div>
+            <div className="row">
+              <div className="gameAnswerFlex endOfGameRoom">
+                <div className="col-sm-12 col-md-10 col-lg-10">
+                  <ChatBox />
+                </div>
+              </div>
+            </div>
           </div>) : <Pregame />}
         </div>
 
