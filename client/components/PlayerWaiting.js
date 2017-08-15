@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default class PlayerWaiting extends React.Component {
+export default class PlayerWaiting extends Component {
   constructor(props) {
     super(props)
   }

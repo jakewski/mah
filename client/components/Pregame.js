@@ -15,7 +15,12 @@ class Pregame extends Component {
   }
 
   componentDidMount() {
-
+    socket.on('getHost', host => {
+      console.log('HOST: ', host.name);
+      this.setState({
+        host: host.name
+      });
+    })
   }
 
   handleClick() {
@@ -23,6 +28,7 @@ class Pregame extends Component {
   }
 
   render() {
+    console.log("state", this.state.host)
     return (
         <div className="row">
             {(this.props.players.host.id === this.props.players.player.id) ?
@@ -30,7 +36,21 @@ class Pregame extends Component {
                     Start Da Game Bro
                 </button>
             :
-                <h1>Please wait until host chooses to start the game</h1>}
+              <div>
+                <h1>Please wait until host chooses to start the game</h1>
+                <h3>Game Players: </h3>
+                <h5>Host: {this.props.players.players[0].name}</h5>
+                {
+                  this.props.players.players.map((player, index) => {
+                    if(!(index === 0)) {
+                      return (
+                        <div>Player {index+1}: {player.name}</div>
+                      )
+                    }
+                  })
+                }
+              </div>
+              }
         </div>
 
     );

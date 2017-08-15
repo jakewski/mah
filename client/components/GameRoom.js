@@ -43,7 +43,7 @@ class GameRoom extends Component {
   }
 
   componentDidMount() {
-
+    console.log('state', this.state)
     socket.on('replacedPlayers', players => {
       this.props.replacePlayersThunk(players);
     })
@@ -59,7 +59,6 @@ class GameRoom extends Component {
         playerIsCurrentJudge: isJudge,
         playerNames: turn.playerNames,
       }
-      console.log(newState)
       this.setState(newState)
     })
   }
@@ -112,7 +111,7 @@ class GameRoom extends Component {
               </div>
             </div>
           </div>
-          </div>) : <Pregame />}
+          </div>) : <Pregame host={this.state.judge.name} />}
         </div>
 
       </CSSTransitionGroup>

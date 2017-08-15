@@ -8,7 +8,7 @@ module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
     // socket.join('Main');
-    // socket.room = 'Main';
+    // socket.room = 'Main';    
 
     //we need to emit back category and meme for when the host chooses to start the game 
     socket.on('startGame', () => {
@@ -50,6 +50,9 @@ module.exports = (io) => {
         socket.join(code, () => {
           store.dispatch(addPlayerThunk({name: playerName, id: socket.id}));
           store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: playerName}, categories: categories, playerNum: playerNum}));
+          // let host = store.getState().game[socket.room].host;
+          // socket.emit('getHost', { name: host.name });
+          // socket.broadcast.to(socket.room).emit('getHost', { name: host.name });
         });
       });
     })
