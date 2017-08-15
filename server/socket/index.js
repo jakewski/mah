@@ -10,18 +10,47 @@ module.exports = (io) => {
     // socket.join('Main');
     // socket.room = 'Main';
 
-    socket.on('createGame', game => {
+    //we need to emit back category and meme for when the host chooses to start the game 
+    socket.on('startGame', () => {
+      let firstTurn = store.getState().game[socket.room].currentTurn;
+      let playerNames = store.getState().game[socket.room].gamePlayers;
+      let playerArray = playerNames.map(player => player.name)
+      console.log(playerArray);
+      // console.log(firstTurn);
+      socket.emit('gameStarted', { meme: firstTurn.meme, category: firstTurn.category, judge: firstTurn.judge, playerNames: playerArray });
+      socket.broadcast.to(socket.room).emit('gameStarted', { meme: firstTurn.meme, category: firstTurn.category, judge: firstTurn.judge, playerNames: playerArray });
+    })
+
+
+    //need to emit back the playerId to make a flag that the player answered on the front end
+    //check if everybody answered, and if they did, emit something to the front that well let us know it's time for the judge to choose one
+    socket.on('answerPosted', () => {
+
+    })
+
+    //post to database, emit something that lets us know to render the winning meme for everybody
+    //score++
+    socket.on('winningMeme', ({ text, imageUrl }) => {
+
+    })
+
+    //gotta send back all the new turn info (category and meme)
+    socket.on('switchToNextTurn', something => {
+      store.dispatch(switchToNextTurnThunk(socket.room));
+      
+      //socket.emit('nextTurn' {})
+    })
+
+    socket.on('createGame', ({ playerName, playerNum, categories }) => {
       const code = randStr.generate(7);
       
       socket.emit('getCode', code);
       socket.leave('Main', () => {
         socket.room = code;
         socket.join(code, () => {
-          store.dispatch(addPlayerThunk({name: game.playerName, id: socket.id}));
-          store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: game.playerName}, categories: game.categories, playerNum: game.playerNum}))
-
+          store.dispatch(addPlayerThunk({name: playerName, id: socket.id}));
+          store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: playerName}, categories: categories, playerNum: playerNum}));
         });
-
       });
     })
 
@@ -29,9 +58,6 @@ module.exports = (io) => {
       socket.playerName = name;
     })
 
-    socket.on('switchToNextTurn', something => {
-      store.dispatch(switchToNextTurnThunk(socket.room));
-    })
     
     socket.on('switchToMain', () => {
       socket.leave(socket.room, () => {
@@ -48,27 +74,24 @@ module.exports = (io) => {
       socket.broadcast.to(socket.room).emit('replacedPlayers', players);
     })
 
-    socket.on('addPlayertoRoom', playerInfo => {
+    socket.on('addPlayertoRoom', ({ code, playerName }) => {
       const rooms = store.getState().game;
-      //socket.room = playerInfo.code;
-      if(!rooms[playerInfo.code]) socket.emit('wrongCode', 'ya done fucked up sonny');
-      else if(rooms[playerInfo.code].gamePlayers.includes(socket.id)){
-        socket.emit('alreadyInRoom', 'you are already in this room')
+      //socket.room = code;
+      if(!rooms[code]) socket.emit('wrongCode', 'ya done fucked up sonny');
+      else if(rooms[code].gamePlayers.includes(socket.id)){
+        socket.emit('alreadyInRoom', 'you are already in this room');
       }
       else{
-
-        store.dispatch(addPlayerThunk({id: socket.id, name: playerInfo.playerName}));
-        store.dispatch(addPlayerToGameThunk({player: {name: playerInfo.playerName, id: socket.id}, gameId: playerInfo.code}))
-        socket.playerName = playerInfo.playerName;
+        store.dispatch(addPlayerThunk({id: socket.id, name: playerName}));
+        store.dispatch(addPlayerToGameThunk({player: {name: playerName, id: socket.id}, gameId: code}));
+        socket.playerName = playerName;
         socket.leave('Main', () => {
-          socket.join(playerInfo.code, () => {
-            socket.room = playerInfo.code;
-            socket.broadcast.to(playerInfo.code).emit('message', {body: playerInfo.playerName + ' has connected to this room', from: 'MemeBot'});
-            socket.emit('correctRoom');
-            socket.to(socket.room).emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)
-            socket.emit('replacedPlayers', store.getState().game[playerInfo.code].gamePlayers)
-    
-
+          socket.join(code, () => {
+            socket.room = code;
+            socket.broadcast.to(code).emit('message', {body: playerName + ' has connected to this room', from: 'MemeBot'});
+            socket.emit('correctRoom', rooms[code].host);
+            socket.to(socket.room).emit('replacedPlayers', store.getState().game[code].gamePlayers);
+            socket.emit('replacedPlayers', store.getState().game[code].gamePlayers);
           });
         });
 
@@ -87,11 +110,8 @@ module.exports = (io) => {
     //     //socket.emit('updateRooms', rooms, socket.room);
     // });
 
-    socket.on('startGame', (gameInfo) => {
-      store.dispatch(addGameThunk(gameInfo));
-    })
 
-    socket.on('message', ( body ) => {
+    socket.on('message', (body) => {
       console.log(`emmiting message from ${socket.id} to ${socket.room}`);
       socket.to(socket.room).emit('message', {
         body,

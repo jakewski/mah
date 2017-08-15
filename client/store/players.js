@@ -18,6 +18,7 @@ const initialState = {
   room: 'Main',
   player: {},
   players: [],
+  host: {},
 }
 
 /**
@@ -65,7 +66,7 @@ export default function (state = initialState, action) {
     case SET_PLAYER:
       return Object.assign({}, state, { player: action.player, players: [action.player] });
     case SET_ROOM:
-      return Object.assign({}, state, {room: action.room});
+      return Object.assign({}, state, {room: action.room.id, host: action.room.host });
     case ADD_TO_PLAYERS:
       return Object.assign({}, state, {players: [...state.players, action.player]})
     case REPLACE_PLAYERS:

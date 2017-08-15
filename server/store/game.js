@@ -13,6 +13,7 @@ Meme.findAll().then(stuff => memes = stuff);
 /*
 {
     gameId: {
+        host: {},
         gamePlayers: [],
         categories: [],
         playerNum: NaN,
@@ -74,6 +75,7 @@ const reducer = function(state = initialState, action) {
         answers: {}
       };
       obj1[action.game.gameId] = {
+        host: action.game.host,
         gamePlayers: [action.game.host],
         categories: action.game.categories,
         currentTurn: currentTurn,

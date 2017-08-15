@@ -21,7 +21,7 @@ class CreateGame extends Component {
     this.props.getCategoriesThunk()
     socket.on('getCode', code => {
       console.log('GAME CODE: ', code);
-      this.props.setRoomThunk(code)
+      this.props.setRoomThunk({id: code, host: this.props.player});
       axios.post('/api/room', {
         room: code,
       })

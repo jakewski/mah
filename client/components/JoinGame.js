@@ -32,8 +32,8 @@ class JoinGame extends Component {
       code: event.target.code.value,
       playerName: this.props.player.player.name
     });
-    socket.on("correctRoom", () => {
-      this.props.setRoomThunk(event.target.code.value);
+    socket.on("correctRoom", host => {
+      this.props.setRoomThunk({id: event.target.code.value, host: host});
       history.push("/room");
     });
   }
