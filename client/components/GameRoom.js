@@ -111,7 +111,7 @@ class GameRoom extends Component {
               </div>
             </div>
           </div>
-          </div>) : <Pregame host />}
+          </div>) : <Pregame />}
         </div>
 
       </CSSTransitionGroup>
