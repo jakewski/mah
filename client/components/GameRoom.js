@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
-import { addToPlayersThunk, replacePlayersThunk } from '../store';
+import { addToPlayersThunk, replacePlayersThunk, setRoomThunk } from '../store';
 import { JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
+import axios from 'axios'
 
 
 var divStyle = {
@@ -28,6 +29,15 @@ class GameRoom extends Component {
       playerNames: ['Brion', 'Jakubucci', "lil' BAnnBAnn", 'Madelean', 'King Ray', 'CharlesMan', 'Ray Chartles'],
 
     }
+  }
+
+  componentWillMount() {
+    axios.get('/api/room')
+    .then(res => {
+      if(res.data.activeRoom) {
+        this.props.setRoomThunk(res.data.room)
+      }
+    })
   }
 
   componentDidMount() {
@@ -111,7 +121,8 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = dispatch => ({
   addToPlayersThunk: player => dispatch(addToPlayersThunk(player)),
-  replacePlayersThunk: players => dispatch(replacePlayersThunk(players))
+  replacePlayersThunk: players => dispatch(replacePlayersThunk(players)),
+  setRoomThunk: code => dispatch(setRoomThunk(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameRoom)
