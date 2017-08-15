@@ -50,9 +50,6 @@ module.exports = (io) => {
         socket.join(code, () => {
           store.dispatch(addPlayerThunk({name: playerName, id: socket.id}));
           store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: playerName}, categories: categories, playerNum: playerNum}));
-          // let host = store.getState().game[socket.room].host;
-          // socket.emit('getHost', { name: host.name });
-          // socket.broadcast.to(socket.room).emit('getHost', { name: host.name });
         });
       });
     })

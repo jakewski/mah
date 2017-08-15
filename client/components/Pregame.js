@@ -15,12 +15,6 @@ class Pregame extends Component {
   }
 
   componentDidMount() {
-    socket.on('getHost', host => {
-      console.log('HOST: ', host.name);
-      this.setState({
-        host: host.name
-      });
-    })
   }
 
   handleClick() {
@@ -28,7 +22,6 @@ class Pregame extends Component {
   }
 
   render() {
-    console.log("state", this.state.host)
     return (
         <div className="row">
             {(this.props.players.host.id === this.props.players.player.id) ?

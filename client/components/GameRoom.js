@@ -111,7 +111,7 @@ class GameRoom extends Component {
               </div>
             </div>
           </div>
-          </div>) : <Pregame host={this.state.judge.name} />}
+          </div>) : <Pregame host />}
         </div>
 
       </CSSTransitionGroup>
