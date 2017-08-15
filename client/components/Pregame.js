@@ -37,7 +37,7 @@ class Pregame extends Component {
                   this.props.players.players.map((player, index) => {
                     if(!(index === 0)) {
                       return (
-                        <div>Player {index+1}: {player.name}</div>
+                        <div key={index} >Player {index+1}: {player.name}</div>
                       )
                     }
                   })
