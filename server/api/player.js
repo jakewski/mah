@@ -4,7 +4,7 @@ router.post('/', (req, res, next) => {
   req.session.name = req.body.name;
   req.session.socketId = req.body.socketId;
   req.session.activePlayer = true;
-  req.session.sessionId = req.session.id
+  req.session.sessionId = req.session.id;
   res.send( {
     name: req.body.name,
     socketId: req.body.socketId,

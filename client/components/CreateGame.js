@@ -5,6 +5,7 @@ import { getCategoriesThunk, setRoomThunk } from '../store';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import history from '../history';
+import axios from 'axios'
 
 class CreateGame extends Component {
   constructor(){
@@ -21,6 +22,9 @@ class CreateGame extends Component {
     socket.on('getCode', code => {
       console.log('GAME CODE: ', code);
       this.props.setRoomThunk({id: code, host: this.props.player});
+      axios.post('/api/room', {
+        room: code,
+      })
     })
   }
 
