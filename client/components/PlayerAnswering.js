@@ -10,7 +10,7 @@ export default class PlayerAnswering extends React.Component {
       <div> {/*player view when they have not answered yet  */}
         <form className="gameAnswerFlex">
 
-          <div className="col-lg-6 col-md-6 col-sm-6" style={divStyle}>
+          <div className="col-lg-6 col-md-6 col-sm-6">
 
             <img className="img-responsive center-block" src={this.props.memeUrl} />
 
