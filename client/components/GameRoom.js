@@ -21,7 +21,7 @@ class GameRoom extends Component {
       formInputTop: '',
       formInputBottom: '',
       allAnswersSubmitted: false,
-      playerIsCurrentJudge: true,
+      playerIsCurrentJudge: false,
       playerAnswerSubmitted: false,
       currentJudgeIndex: 0,
       memeUrl: '',
