@@ -43,7 +43,6 @@ class GameRoom extends Component {
   }
 
   componentDidMount() {
-
     socket.on('replacedPlayers', players => {
       this.props.replacePlayersThunk(players);
     })
@@ -59,7 +58,6 @@ class GameRoom extends Component {
         playerIsCurrentJudge: isJudge,
         playerNames: turn.playerNames,
       }
-      console.log(newState)
       this.setState(newState)
     })
   }

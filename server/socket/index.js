@@ -8,7 +8,7 @@ module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
     // socket.join('Main');
-    // socket.room = 'Main';
+    // socket.room = 'Main';    
 
     //we need to emit back category and meme for when the host chooses to start the game 
     socket.on('startGame', () => {
