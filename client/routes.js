@@ -23,9 +23,9 @@ class Routes extends Component {
     .then(res => {
       if(res.data.activePlayer) {
         this.props.setPlayerThunk({
-          name: res.data.name, 
-          socketId: socket.id, 
-          activePlayer: res.data.activePlayer, 
+          name: res.data.name,
+          socketId: socket.id,
+          activePlayer: res.data.activePlayer,
           sessionId: res.data.sessionId,
         })
       }
@@ -45,7 +45,7 @@ class Routes extends Component {
             </Switch>
            :
            //Routes below only available with no name
-            <Route path='/' component={EnterName} /> 
+            <Route path='/' component={EnterName} />
           }
         </Navbar>
       </Router>

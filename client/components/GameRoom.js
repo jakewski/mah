@@ -50,7 +50,7 @@ class GameRoom extends Component {
     socket.on('gameStarted', turn => {
       let isJudge = turn.judge.id === this.props.player.socketId;
       console.log('isJudge:', isJudge)
-      let newState = { 
+      let newState = {
         gameStarted : true,
         memeUrl: turn.meme.image,
         memeText: turn.meme.text,
