@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import Home from './Home';
 import axios from 'axios';
-import { removePlayerThunk } from '../store'
+import { removePlayer } from '../store'
 
 
 /**
@@ -18,7 +18,7 @@ const Navbar = (props) => {
 
   const handleQuit = () => {
     axios.delete('/api/player/')
-    .then(() => props.removePlayerThunk())
+    .then(() => props.removePlayer())
     .then(() => {
       props.history.push('/')
     })
@@ -52,7 +52,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  removePlayerThunk: () => dispatch(removePlayerThunk()),
+  removePlayer: () => dispatch(removePlayer()),
 });
 
 // The `withRouter` wrapper makes sure that updates are not blocked
