@@ -1,6 +1,6 @@
 const store = require('../store');
-const { addPlayerThunk } = require('../store/player');
-const { postAnswer, addPlayerToGameThunk, addGameThunk, switchToNextTurnThunk } = require('../store/game');
+const { addPlayer } = require('../store/player');
+const { postAnswer, addPlayerToGame, addGame, switchToNextTurn } = require('../store/game');
 const randStr = require('randomstring');
 
 
@@ -52,7 +52,7 @@ module.exports = (io) => {
 
     //gotta send back all the new turn info (category and meme)
     socket.on('switchToNextTurn', something => {
-      store.dispatch(switchToNextTurnThunk(socket.room));
+      store.dispatch(switchToNextTurn(socket.room));
 
       //socket.emit('nextTurn' {})
     })
@@ -64,8 +64,8 @@ module.exports = (io) => {
       socket.leave('Main', () => {
         socket.room = code;
         socket.join(code, () => {
-          store.dispatch(addPlayerThunk({name: playerName, id: socket.id, sessionId: sessionId }));
-          store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: playerName, score: 0, sessionId: sessionId, activePlayer: activePlayer }, categories: categories, playerNum: playerNum}));
+          store.dispatch(addPlayer({name: playerName, id: socket.id, sessionId: sessionId }));
+          store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0, sessionId: sessionId, activePlayer: activePlayer }, categories: categories, playerNum: playerNum}));
         });
       });
     })
@@ -97,8 +97,8 @@ module.exports = (io) => {
         socket.emit('alreadyInRoom', 'you are already in this room');
       }
       else{
-        store.dispatch(addPlayerThunk({id: socket.id, name: playerName, sessionId }));
-        store.dispatch(addPlayerToGameThunk({player: { name: playerName, id: socket.id, score: 0, sessionId: sessionId, activePlayer: activePlayer }, gameId: code }));
+        store.dispatch(addPlayer({id: socket.id, name: playerName, sessionId }));
+        store.dispatch(addPlayerToGame({player: { name: playerName, id: socket.id, score: 0, sessionId: sessionId, activePlayer: activePlayer }, gameId: code }));
         socket.playerName = playerName;
         socket.leave('Main', () => {
           socket.join(code, () => {

@@ -47,7 +47,6 @@ class GameRoom extends Component {
 
   componentDidMount() {
     socket.on('replacedPlayers', players => {
-      console.log('my players in dis thunk', players)
       this.props.replacePlayersThunk(players);
     })
     socket.on('gameStarted', turn => {
