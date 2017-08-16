@@ -7,15 +7,18 @@ export default class PlayerAnswering extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(props)
+
         this.state = {
-            topText: '',
+            topText: this.props.topText,
             topXcoord: 10,
             topYcoord: 10,
-            bottomText: '',
+            bottomText: this.props.bottomText,
             bottomXcoord: 10,
             bottomYcoord: 0,
             topFontSize: 40,
             bottomFontSize: 40,
+            memeUrl: this.props.memeUrl,
             memeImg: null, //DO NOT CHANGE THIS -- React-konva relies on the null keyword
         };
 
@@ -32,7 +35,7 @@ export default class PlayerAnswering extends React.Component {
 
     componentDidMount() {
         const image = new window.Image();
-        image.src = 'https://imgflip.com/s/meme/Futurama-Fry.jpg';
+        image.src = this.state.memeUrl;
         image.onload = () => {
           this.setState({
             memeImg: image

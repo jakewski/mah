@@ -6,9 +6,12 @@ const Meme = db.define('meme', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  text: {
+  topText: {
     type: Sequelize.STRING
   },
+  bottomText: {
+    type: Sequelize.STRING
+  }
 })
 
 
