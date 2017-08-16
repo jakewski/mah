@@ -12,9 +12,12 @@ class CreateGame extends Component {
     super();
     this.state = {
       categories: {},
+      categoriesDirty: false,
       playerNum: 3,
     }
     this.setCategories = this.setCategories.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.markCategoriesDirty = this.markCategoriesDirty.bind(this);
   }
 
   componentDidMount() {
@@ -33,9 +36,40 @@ class CreateGame extends Component {
       if(prev.categories[categoryId])
         prev.categories[categoryId] = false;
       else prev.categories[categoryId] = true;
-
       return prev;
     })
+  }
+
+  noCategoriesSelected(categories) {
+    for(var keys in categories){
+      if(categories[keys] === true) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  markCategoriesDirty(){
+    this.setState({
+      categoriesDirty: true
+    })
+  }
+
+  handleSubmit(event, categories, player) {
+    event.preventDefault();
+    let checkedCategories = Object.keys(categories).filter(key => categories[key])
+    if(checkedCategories.length > 0) {
+      socket.emit('createGame', {
+        categories: checkedCategories,
+        playerNum: event.target.players.value,
+        playerName: player.name,
+        sessionId: player.sessionId,
+        socketId: player.socketId,
+      })
+      history.push('/room')
+    } else {
+      this.markCategoriesDirty();
+    }
   }
 
   render() { 
@@ -43,7 +77,7 @@ class CreateGame extends Component {
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container">
           <h1>Create a New Game</h1>
-            <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories, this.props.player.name)}>
+            <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player)}>
 
               <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
               <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
@@ -65,7 +99,7 @@ class CreateGame extends Component {
                   this.props.categories && this.props.categories.map(category => {
                     return (
                       <div key={category.id} className="checkbox">
-                        <label><input type="checkbox" onChange={this.setCategories(category.text)} name={`category${category.id}`} value={category.text} />{category.text}</label>
+                        <label><input type="checkbox" onClick={this.markCategoriesDirty} onChange={this.setCategories(category.text)} name={`category${category.id}`} value={category.text} />{category.text}</label>
                       </div>
                       )
                   })
@@ -76,6 +110,12 @@ class CreateGame extends Component {
               <br />
               
             <button type="submit" className="btn btn-success">Create</button>
+            <br />
+            {
+              this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty ?
+                <span className="alert alert-danger validationSpan">Must select at least one category</span> :
+                null 
+            }
           </form>
         </div>
       </CSSTransitionGroup>
@@ -93,17 +133,6 @@ const mapStateToProps = function(state, ownProps) {
 const mapDispatchToProps = dispatch => ({
   getCategoriesThunk: () => dispatch(getCategoriesThunk()),
   setRoom: code => dispatch(setRoom(code)),
-  handleSubmit: (categories, playerName) => event => {
-    event.preventDefault();
-    let checkedCategories = Object.keys(categories).filter(key => categories[key])
-    socket.emit('createGame', {
-      categories: checkedCategories,
-      playerNum: event.target.players.value,
-      playerName: playerName,
-    })
-    history.push('/room')
-
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGame)
