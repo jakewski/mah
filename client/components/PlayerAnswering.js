@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Layer, Stage, Image, Text } from 'react-konva';
+import socket from '../socket';
 
 export default class PlayerAnswering extends React.Component {
     constructor(props) {
@@ -85,6 +86,10 @@ export default class PlayerAnswering extends React.Component {
     onMemeSubmit = () => {
       //send almost entire state to db
       //we will recreate the memes via konva canvas on the slider
+      e.persist();
+      e.preventDefault();
+      let answer = [e.target.toptext.value, e.target.bottomtext.value]
+      socket.emit('answerPosted', answer);
     }
 
     render() {

@@ -4,7 +4,7 @@ const ADD_GAME = "ADD_GAME";
 const REMOVE_GAME = "REMOVE_GAME";
 const ADD_PLAYER_TO_GAME = "ADD_PLAYER_TO_GAME";
 const SWITCH_TO_NEXT_TURN = "SWITCH_TO_NEXT_TURN";
-const POST_ANSWER = 'POST_ANSWER'
+const POST_ANSWER = 'POST_ANSWER';
 //on the backend we store all of our players, on the front end we will store the current player
 const initialState = {};
 let memes; 
@@ -17,16 +17,15 @@ Meme.findAll().then(stuff => memes = stuff);
         gamePlayers: [],
         categories: [],
         playerNum: NaN,
-        currentTurn: {
-            category: '',
-            judge: {},
-            turnNumber: 0,
-            meme: '', 
-            answers: {
-                playerId: their answer
-            }
-        },
-    }
+        currentTurn: turnId,
+        category: '',
+        judge: {},
+        turnNumber: 0,
+        meme: '', 
+        answers: {
+            playerId: their answer
+        }
+    },
 }
 */
 
@@ -40,22 +39,6 @@ const addPlayerToGame = playerToGame => ({
 //switchToNextTurn action will assign a random category and meme
 const switchToNextTurn = gameId => ({ type: SWITCH_TO_NEXT_TURN, gameId });
 
-const switchToNextTurnThunk = gameId => dispatch =>{
-  dispatch(switchToNextTurn(gameId))
-}
-
-const addGameThunk = game => dispatch => {
-  dispatch(addGame(game));
-};
-
-const postAnswerThunk = game => dispatch => {
-  dispatch(postAnswer(game));
-};
-
-const addPlayerToGameThunk = playerToGame => dispatch => {
-  dispatch(addPlayerToGame(playerToGame));
-};
-
 const grabRandomMeme = () => {
   return memes[Math.floor(Math.random() * memes.length)];
 };
@@ -65,64 +48,65 @@ const grabRandomCategory = categories =>
 const reducer = function(state = initialState, action) {
   switch (action.type) {
     case ADD_GAME:
-      let obj1 = {};
+      let newGame = {};
       let meme = grabRandomMeme();
-      let currentTurn = {
+      newGame[action.game.gameId] = {
+        host: action.game.host,
+        gamePlayers: [action.game.host],
+        categories: action.game.categories,
+        playerNum: action.game.playerNum,
         category: grabRandomCategory(action.game.categories),
         judge: action.game.host,
         turnNumber: 0,
         meme: {image: meme.image, text: meme.text},
         answers: {}
       };
-      obj1[action.game.gameId] = {
-        host: action.game.host,
-        gamePlayers: [action.game.host],
-        categories: action.game.categories,
-        currentTurn: currentTurn,
-        playerNum: action.game.playerNum
-      };
-      return Object.assign({}, state, obj1);
+      return Object.assign({}, state, newGame);
 
     case REMOVE_GAME:
-      let obj2 = R.clone(state);
-      obj2[action.game.gameId] = undefined;
-      return obj2;
+      let deletedGame = {};
+      deletedGame[action.game.gameId] = undefined;
+      return Object.assign({}, state, deletedGame);
 
     case ADD_PLAYER_TO_GAME:
-      let obj3 = R.clone(state);
-      obj3[action.playerToGame.gameId].gamePlayers.push(
-        action.playerToGame.player
-      );
-      return obj3;
+      let addedPlayer = {
+        gamePlayers: [...state[action.playerToGame.gameId].gamePlayers, action.playerToGame.player]
+      }
+      let gameWithPlayer = {};
+      gameWithPlayer[action.playerToGame.gameId] = Object.assign({}, state[action.playerToGame.gameId], addedPlayer);
+      return Object.assign({}, state, gameWithPlayer);
 
     case SWITCH_TO_NEXT_TURN:
-      let thisGame = R.clone(state[action.gameId]);
+      let gameWithNewTurn = {};
       let meme2 = grabRandomMeme();
       let nextTurn = {
-        category: grabRandomCategory(thisGame.categories),
-        judge: thisGame.gamePlayers[++thisGame.currentTurn.turnNumber % thisGame.playerNum],
-        turnNumber: thisGame.currentTurn.turnNumber,
+        category: grabRandomCategory(state[action.gameId].categories),
+        judge: state[action.gameId].gamePlayers[++state[action.gameId].turnNumber % state[action.gameId].playerNum],
+        turnNumber: state[action.gameId].turnNumber,
         meme: {image: meme2.image, text: meme2.text},
         answers: {},
       };
-      thisGame.currentTurn = nextTurn;
-      let obj4 = {};
-      obj4[action.gameId] = thisGame;
-      return Object.assign({}, state, obj4);
+      let newTurnObject = Object.assign({}, state[action.gameId], nextTurn);
+      gameWithNewTurn[action.gameId] = newTurnObject;
+      return Object.assign({}, state, gameWithNewTurn);
 
     case POST_ANSWER:
       //this might have bugs
-      let thisGame2 = R.clone(state[action.answer.gameId]);
+
       let tempAnswer = {};
       tempAnswer[action.answer.playerId] = action.answer.text;
-      thisGame2.currentTurn.answers = Object.assign({}, thisGame2.currentTurn.answers, tempAnswer)
-      let obj6 = {};
-      obj6[action.answer.gameId] = thisGame2;
-      return Object.assign({}, state, obj6);
+      let newAnswers = Object.assign({}, state[action.answer.gameId].answers, tempAnswer);
+      let updatedAnswers = { 
+        answers: newAnswers 
+      };
+      let updatedGame = {};
+      updatedGame[action.answer.gameId] = Object.assign({}, state[action.answer.gameId], updatedAnswers);
+
+      return Object.assign({}, state, updatedGame);
 
     default:
       return state;
   }
 };
 
-module.exports = { addPlayerToGameThunk, addGameThunk, reducer, switchToNextTurnThunk };
+module.exports = { addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer };

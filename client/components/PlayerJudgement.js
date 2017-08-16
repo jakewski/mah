@@ -10,8 +10,8 @@ export default class PlayerJudgement extends React.Component {
       <div> {/*player view when all answers are submitted  */}
         <h5>Submitted Meme-ories:</h5>
         <div className="playerScoreFlexBox">
-          {this.props.submittedAnswers.map((answer, index) => {
-            return <button disabled className="scoreText" key={index}>{answer}</button>
+          {Object.keys(this.props.submittedAnswers).map((key, index) => {
+            return <button disabled className="scoreText" key={index}>{this.props.submittedAnswers[key]}</button>
           })}
         </div>
       </div>

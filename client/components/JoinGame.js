@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setRoomThunk } from "../store";
+import { setRoom } from "../store";
 import { CSSTransitionGroup } from "react-transition-group";
 import socket from "../socket";
 import history from "../history";
@@ -33,7 +33,7 @@ class JoinGame extends Component {
       playerName: this.props.player.player.name
     });
     socket.on("correctRoom", host => {
-      this.props.setRoomThunk({id: event.target.code.value, host: host});
+      this.props.setRoom({id: event.target.code.value, host: host});
       history.push("/room");
     });
   }
@@ -91,7 +91,7 @@ const mapStateToProps = function(state, ownProps) {
 const mapDispatchToProps = dispatch => ({
   //will need to dispatch our game code for our player
   //need to have playername accessible for the handle submit
-  setRoomThunk: code => dispatch(setRoomThunk(code))
+  setRoom: code => dispatch(setRoom(code))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoinGame);
