@@ -55,7 +55,7 @@ module.exports = (io) => {
       store.dispatch(switchToNextTurn(socket.room));
       setTimeout(() => {
         let game = store.getState().game[socket.room];
-        console.log('SWITCHGAME: ', game);
+        //console.log('SWITCHGAME: ', game);
         io.sockets.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
         //socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
       }, 5000)

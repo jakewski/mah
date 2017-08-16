@@ -11,7 +11,7 @@ export default class PlayerJudgement extends React.Component {
 
   componentDidMount(){
     socket.on('roundFinishedPlayer', winningMeme => {
-        console.log(winningMeme);
+        //console.log(winningMeme);
         this.setState({ winningMeme: winningMeme.join(' | ') });
     })
   }

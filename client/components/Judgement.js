@@ -15,7 +15,7 @@ export default class Judgement extends React.Component {
     return function(){
       socket.emit('winningMeme', key)
       socket.on('roundFinishedJudge', winningMeme => {
-        console.log(winningMeme);
+        //console.log(winningMeme);
         tempThis.setState({ winningMeme: winningMeme.join(' | ') });
         socket.emit('switchToNextTurn')
       })
