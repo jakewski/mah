@@ -22,30 +22,29 @@ class Pregame extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-        <div className="row">
-            {(this.props.players.host.sessionId === this.props.players.player.sessionId) ?
-                <button onClick={this.handleClick} className="btn btn-success">
-                    Start Da Game Bro
+      <div className="row">
+        {(this.props.players.players[0].sessionId === this.props.players.player.sessionId) ?
+          <button onClick={this.handleClick} className="btn btn-success">
+            Start Da Game Bro
                 </button>
-            :
-              <div>
-                <h1>Please wait until host chooses to start the game</h1>
-                <h3>Game Players: </h3>
-                <h5>Host: {this.props.players.players[0].name}</h5>
-                {
-                  this.props.players.players.map((player, index) => {
-                    if(!(index === 0)) {
-                      return (
-                        <div key={index} >Player {index+1}: {player.name}</div>
-                      )
-                    }
-                  })
+          :
+          <div>
+            <h1>Please wait until host chooses to start the game</h1>
+            <h3>Game Players: </h3>
+            <h5>Host: {this.props.players.players[0].name}</h5>
+            {
+              this.props.players.players.map((player, index) => {
+                if (!(index === 0)) {
+                  return (
+                    <div key={index} >Player {index + 1}: {player.name}</div>
+                  )
                 }
-              </div>
-              }
-        </div>
+              })
+            }
+          </div>
+        }
+      </div>
 
     );
   }

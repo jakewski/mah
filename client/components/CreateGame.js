@@ -38,12 +38,12 @@ class CreateGame extends Component {
     })
   }
 
-  render() { 
+  render() {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container">
           <h1>Create a New Game</h1>
-            <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories, this.props.player.name)}>
+            <form className="form-group" onSubmit={this.props.handleSubmit(this.state.categories, this.props.player.name, this.props.player.sessionId, this.props.player.activePlayer)}>
 
               <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
               <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
@@ -74,7 +74,7 @@ class CreateGame extends Component {
 
               <br />
               <br />
-              
+
             <button type="submit" className="btn btn-success">Create</button>
           </form>
         </div>
@@ -93,13 +93,15 @@ const mapStateToProps = function(state, ownProps) {
 const mapDispatchToProps = dispatch => ({
   getCategoriesThunk: () => dispatch(getCategoriesThunk()),
   setRoomThunk: code => dispatch(setRoomThunk(code)),
-  handleSubmit: (categories, playerName) => event => {
+  handleSubmit: (categories, playerName, sessionId, socketId) => event => {
     event.preventDefault();
     let checkedCategories = Object.keys(categories).filter(key => categories[key])
     socket.emit('createGame', {
       categories: checkedCategories,
       playerNum: event.target.players.value,
       playerName: playerName,
+      sessionId: sessionId,
+      socketId: socketId,
     })
     history.push('/room')
 

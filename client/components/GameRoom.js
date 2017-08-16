@@ -47,6 +47,7 @@ class GameRoom extends Component {
 
   componentDidMount() {
     socket.on('replacedPlayers', players => {
+      console.log('my players in dis thunk', players)
       this.props.replacePlayersThunk(players);
     })
     socket.on('gameStarted', turn => {
@@ -140,7 +141,7 @@ class GameRoom extends Component {
             </div>
             <div className="row">
               <div className="gameAnswerFlex">
-                {(this.state.isHost) ?
+                {(this.props.players[0].sessionId === this.props.player.sessionId) ?
                 <button type="button" onClick={this.endGameButton} className="btn btn-primary btn-lg btn-block btn-danger">End Game</button> :
                 <button type="button" onClick={this.leaveGameButton} className="btn btn-primary btn-lg btn-block btn-danger">Leave Game</button>}
               </div>
