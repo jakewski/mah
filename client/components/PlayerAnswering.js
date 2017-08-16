@@ -117,8 +117,9 @@ export default class PlayerAnswering extends React.Component {
                       <Image image={this.state.memeImg} />
                     </Layer>
                     <Layer>
-                      <Text align="center" x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
-                      <Text x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
+                      <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.memeImg.width - 20} draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
+
+                      <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.memeImg.width - 20} wrap='char' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
                     </Layer>
                   </Stage>
                 : <div />}
