@@ -137,8 +137,16 @@ body {
   color: white;
 }
 
+.memeForm {
+  width: 400px;
+}
+
 .scoreText{
   margin: 3px;
+}
+
+.center {
+  justify-content: center;
 }
 
 @media (min-width: 800px) {
