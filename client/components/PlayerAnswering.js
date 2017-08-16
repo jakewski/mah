@@ -83,7 +83,7 @@ export default class PlayerAnswering extends React.Component {
       })
     }
 
-    onMemeSubmit = () => {
+    onMemeSubmit = (e) => {
       //send almost entire state to db
       //we will recreate the memes via konva canvas on the slider
       e.persist();
@@ -96,13 +96,13 @@ export default class PlayerAnswering extends React.Component {
         return (
             <div>
               <div className="gameAnswerFlex">
-                <form>
+                <form onSubmit={this.onMemeSubmit}>
                   <div className="form-group col-md-9 col-xs-12 col-lg-6" >
-                    <input placeholder="top text" className="form-control formPlaceholder memeInput" id="formInputTop" onChange={this.topTxtChange}/>
+                    <input placeholder="top text" name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" onChange={this.topTxtChange}/>
                     <button className="btn btn-success center" onClick={this.onTopPlusClick}>+</button>
                     <button className="btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
 
-                    <input placeholder="bottom text" className="form-control formPlaceholder memeInput" id="formInputBottom" onChange={this.bottomTxtChange}/>
+                    <input placeholder="bottom text" name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" onChange={this.bottomTxtChange}/>
                     <button className="btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
                     <button className="btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
                     <br />
