@@ -55,14 +55,16 @@ class CreateGame extends Component {
     })
   }
 
-  handleSubmit(event, categories, playerName) {
+  handleSubmit(event, categories, player) {
     event.preventDefault();
     let checkedCategories = Object.keys(categories).filter(key => categories[key])
     if(checkedCategories.length > 0) {
       socket.emit('createGame', {
         categories: checkedCategories,
         playerNum: event.target.players.value,
-        playerName: playerName,
+        playerName: player.name,
+        sessionId: player.sessionId,
+        socketId: player.socketId,
       })
       history.push('/room')
     } else {
@@ -75,7 +77,7 @@ class CreateGame extends Component {
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container">
           <h1>Create a New Game</h1>
-            <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player.name)}>
+            <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player)}>
 
               <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
               <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
