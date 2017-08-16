@@ -30,7 +30,13 @@ const Navbar = (props) => {
             <button type="button" onClick={handleQuit} className="btn btn-danger quit">X</button>
             : null
           }
-          <NavLink className="mainTitleLink" to="/"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
+          <div className="row">
+            <NavLink className="mainTitleLink" to="/"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
+            { props.player.activePlayer ?
+              <h3>Welcome, {props.player.name}</h3>
+              : null
+            }
+          </div>
           <hr />
           { children }
       </div>
