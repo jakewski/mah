@@ -89,7 +89,6 @@ module.exports = (io) => {
     socket.on('replacePlayers', players => {
       socket.broadcast.to(socket.room).emit('replacedPlayers', players);
     })
-    //brian!!!!!!!!!!!!!!
     socket.on('addPlayertoRoom', ({ code, playerName, sessionId, activePlayer }) => {
       const rooms = store.getState().game;
       //socket.room = code;
