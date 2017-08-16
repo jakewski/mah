@@ -5,6 +5,7 @@ const REMOVE_GAME = "REMOVE_GAME";
 const ADD_PLAYER_TO_GAME = "ADD_PLAYER_TO_GAME";
 const SWITCH_TO_NEXT_TURN = "SWITCH_TO_NEXT_TURN";
 const POST_ANSWER = 'POST_ANSWER';
+const INCREMENT_SCORE = 'INCREMENT_SCORE';
 //on the backend we store all of our players, on the front end we will store the current player
 const initialState = {};
 let memes; 
@@ -36,6 +37,8 @@ const addPlayerToGame = playerToGame => ({
   type: ADD_PLAYER_TO_GAME,
   playerToGame
 });
+
+const incrementScore = game => ({ type: INCREMENT_SCORE, game});
 //switchToNextTurn action will assign a random category and meme
 const switchToNextTurn = gameId => ({ type: SWITCH_TO_NEXT_TURN, gameId });
 
@@ -79,10 +82,11 @@ const reducer = function(state = initialState, action) {
     case SWITCH_TO_NEXT_TURN:
       let gameWithNewTurn = {};
       let meme2 = grabRandomMeme();
+      //console.log('switch state:', state);
       let nextTurn = {
         category: grabRandomCategory(state[action.gameId].categories),
-        judge: state[action.gameId].gamePlayers[++state[action.gameId].turnNumber % state[action.gameId].playerNum],
-        turnNumber: state[action.gameId].turnNumber,
+        judge: state[action.gameId].gamePlayers[state[action.gameId].turnNumber + 1 % state[action.gameId].playerNum],
+        turnNumber: state[action.gameId].turnNumber + 1,
         meme: {image: meme2.image, text: meme2.text},
         answers: {},
       };
@@ -104,9 +108,22 @@ const reducer = function(state = initialState, action) {
 
       return Object.assign({}, state, updatedGame);
 
+    case INCREMENT_SCORE:
+      let newGamePlayers = R.clone(state[action.game.gameId].gamePlayers);
+      newGamePlayers = newGamePlayers.map(player => {
+        if(player.id === action.game.playerId) {
+          ++player.score;
+        }
+        return player;
+      })
+      let innerGamePlayers = {gamePlayers: newGamePlayers}
+      let newThang = {};
+      newThang[action.game.gameId] = Object.assign({}, state[action.game.gameId], innerGamePlayers);
+      //console.log('NEWTHANG', newThang);
+      return Object.assign({}, state, newThang);
     default:
       return state;
   }
 };
 
-module.exports = { addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer };
+module.exports = { addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer, incrementScore };

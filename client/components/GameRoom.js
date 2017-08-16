@@ -17,18 +17,16 @@ class GameRoom extends Component {
     super();
     this.state = {
       judge: {},
+      turnNumber: 0,
       gameStarted: false,
       submittedAnswers: [],
-      formInputTop: '',
-      formInputBottom: '',
       allAnswersSubmitted: false,
       playerIsCurrentJudge: false,
       playerAnswerSubmitted: false,
-      currentJudgeIndex: 0,
       memeUrl: '',
       memeText: '',
       gameRoomName: 'Bad Boys and Girls of America',
-      playerNames: ['Brion', 'Jakubucci', "lil' BAnnBAnn", 'Madelean', 'King Ray', 'CharlesMan', 'Ray Chartles'],
+      gamePlayers: [],
       isHost: true,
 
     }
@@ -54,13 +52,16 @@ class GameRoom extends Component {
       let isJudge = turn.judge.id === this.props.player.socketId;
       console.log('isJudge:', isJudge)
       let newState = {
-        gameStarted : true,
+        gameStarted: true,
         memeUrl: turn.meme.image,
         memeText: turn.meme.text,
         category: turn.category,
         judge: turn.judge,
         playerIsCurrentJudge: isJudge,
-        playerNames: turn.playerNames,
+        gamePlayers: turn.gamePlayers,
+        allAnswersSubmitted: false,
+        playerAnswerSubmitted: false,
+        turnNumber: turn.turnNumber,
       }
       this.setState(newState)
     })
@@ -75,6 +76,9 @@ class GameRoom extends Component {
         playerAnswerSubmitted: true,
       })
     })
+    // socket.on('incrementScore', (playerId) => {
+
+    // })
   }
   leaveGameButton(){
     console.log('clicked leave game')
@@ -97,7 +101,7 @@ class GameRoom extends Component {
           (<div>
             <div className="row">
               <div className="col-xs-6">
-                <h5>Turn Number: 35</h5>
+                <h5>Turn Number: {this.state.turnNumber}</h5>
               </div>
               <div className="col-xs-6">
                 <h5>Current Judge: {this.state.judge.name}</h5>
@@ -106,8 +110,8 @@ class GameRoom extends Component {
             <hr />
             <div className="row">
               <div className="playerScoreFlexBox">
-                {this.state.playerNames.map((player, index) => {
-                  return <div className="scoreText" key={index}>{player}: ##</div>
+                {this.state.gamePlayers.map((player, index) => {
+                  return <div className="scoreText" key={index}>{player.name}: {player.score}</div>
                 })}
               </div>
             </div>
