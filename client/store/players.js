@@ -25,10 +25,10 @@ const initialState = {
  * ACTION CREATORS
  */
 const setPlayer = player => ({type: SET_PLAYER, player});
-const setRoom = room => ({type: SET_ROOM, room});
-const addToPlayers = player => ({type: ADD_TO_PLAYERS, player})
-const replacePlayers = players => ({type: REPLACE_PLAYERS, players})
-const removePlayer = () => ({type: REMOVE_PLAYER});
+export const setRoom = room => ({type: SET_ROOM, room});
+export const addToPlayers = player => ({type: ADD_TO_PLAYERS, player})
+export const replacePlayers = players => ({type: REPLACE_PLAYERS, players})
+export const removePlayer = () => ({type: REMOVE_PLAYER});
 
 /**
  *
@@ -41,21 +41,6 @@ export const setPlayerThunk = player => dispatch => {
   })
 }
 
-export const removePlayerThunk = () => dispatch => {
-  dispatch(removePlayer())
-}
-
-export const setRoomThunk = room => dispatch => {
-  dispatch(setRoom(room))
-}
-
-export const addToPlayersThunk = player => dispatch => {
-  dispatch(addToPlayers(player))
-}
-
-export const replacePlayersThunk = players => dispatch => {
-  dispatch(replacePlayers(players))
-}
 
 
 /**

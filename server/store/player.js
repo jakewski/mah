@@ -7,9 +7,6 @@ const initialState = {}
 const addPlayer = playerInfo => ({ type: ADD_PLAYER, playerInfo });
 const removePlayer = playerId => ({ type: REMOVE_PLAYER, playerId });
 
-const addPlayerThunk = playerInfo => dispatch => {
-  dispatch(addPlayer(playerInfo));
-}
 
 const reducer = function (state = initialState, action){
     switch (action.type){
@@ -26,4 +23,4 @@ const reducer = function (state = initialState, action){
     }
 }
 
-module.exports = { addPlayerThunk, reducer };
+module.exports = { addPlayer, reducer };

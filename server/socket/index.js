@@ -12,13 +12,11 @@ module.exports = (io) => {
 
     //we need to emit back category and meme for when the host chooses to start the game
     socket.on('startGame', () => {
-      let firstTurn = store.getState().game[socket.room].currentTurn;
-      let playerNames = store.getState().game[socket.room].gamePlayers;
-      let playerArray = playerNames.map(player => player.name)
-      //console.log(playerArray);
-      // console.log(firstTurn);
-      socket.emit('gameStarted', { meme: firstTurn.meme, category: firstTurn.category, judge: firstTurn.judge, playerNames: playerArray });
-      socket.broadcast.to(socket.room).emit('gameStarted', { meme: firstTurn.meme, category: firstTurn.category, judge: firstTurn.judge, playerNames: playerArray });
+      let game = store.getState().game[socket.room]
+      let playerArray = game.gamePlayers.map(player => player.name)
+
+      socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, playerNames: playerArray });
+      socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, playerNames: playerArray });
     })
 
 
@@ -33,11 +31,9 @@ module.exports = (io) => {
       let currentState = store.getState().game[socket.room];
       socket.emit('playerAnswered');
       socket.broadcast.to(socket.room).emit('playerAnswered');
-      console.log('playernum: ', currentState.playerNum);
-      console.log('stuff: ', Object.keys(currentState.currentTurn.answers).length)
-      if(currentState.gamePlayers.length - 1 === Object.keys(currentState.currentTurn.answers).length){
-        socket.emit('gotAllAnswers', currentState.currentTurn.answers)
-        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.currentTurn.answers)
+      if(currentState.gamePlayers.length - 1 === Object.keys(currentState.answers).length){
+        socket.emit('gotAllAnswers', currentState.answers)
+        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers)
       }
 
     })
@@ -45,15 +41,13 @@ module.exports = (io) => {
     //post to database, emit something that lets us know to render the winning meme for everybody
     //score++
     socket.on('winningMeme', playerId => {
-      console.log('hit Winner');
-      let winningAnswer = store.getState().game[socket.room].currentTurn.answers[playerId];
+      let winningAnswer = store.getState().game[socket.room].answers[playerId];
       socket.emit('roundFinished', winningAnswer)
     })
 
     //gotta send back all the new turn info (category and meme)
     socket.on('switchToNextTurn', something => {
       store.dispatch(switchToNextTurn(socket.room));
-
       //socket.emit('nextTurn' {})
     })
 
@@ -64,8 +58,11 @@ module.exports = (io) => {
       socket.leave('Main', () => {
         socket.room = code;
         socket.join(code, () => {
+
           store.dispatch(addPlayer({name: playerName, id: socket.id, sessionId: sessionId }));
           store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0, sessionId: sessionId, activePlayer: activePlayer }, categories: categories, playerNum: playerNum}));
+          store.dispatch(addPlayer({name: playerName, id: socket.id}));
+          store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0}, categories: categories, playerNum: playerNum}));
         });
       });
     })
@@ -84,7 +81,7 @@ module.exports = (io) => {
     })
 
     // socket.on('addPlayerToGame', gameId => {
-    //   store.dispatch(addPlayerToGameThunk({playerId: socket.id, gameId: gameId}))
+    //   store.dispatch(addPlayerToGame({playerId: socket.id, gameId: gameId}))
     // })
     socket.on('replacePlayers', players => {
       socket.broadcast.to(socket.room).emit('replacedPlayers', players);
@@ -118,7 +115,7 @@ module.exports = (io) => {
     });
 
     // socket.on('createRoom ', function(room) {
-    //     //call addRoom thunk here
+    //     //call addRoom  here
     //     //rooms.push(room);
     //     const code = randStr.generate(7);
     //     store.dispatch()
@@ -159,7 +156,7 @@ module.exports = (io) => {
 
     socket.on('disconnect', () => {
       //delete players[socket.playerName]
-      //call deletePlayer thunk here
+      //call deletePlayer  here
 
       //io.sockets.emit('updatePlayers', players);
       // socket.broadcast.emit('message', {body: socket.playerName + ' has disconnected', from:'server'});
