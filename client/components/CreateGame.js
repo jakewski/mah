@@ -40,6 +40,7 @@ class CreateGame extends Component {
     })
   }
 
+
   noCategoriesSelected(categories) {
     for(var keys in categories){
       if(categories[keys] === true) {
@@ -108,7 +109,7 @@ class CreateGame extends Component {
 
               <br />
               <br />
-              
+
             <button type="submit" className="btn btn-success">Create</button>
             <br />
             {
