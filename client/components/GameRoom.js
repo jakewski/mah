@@ -132,6 +132,7 @@ class GameRoom extends Component {
                <PlayerAnswering memeUrl={this.state.memeUrl} />}
               </div>}
             </div>
+          </div>) : <Pregame />}
             <div className="row">
               <div className="gameAnswerFlex endOfGameRoom">
                 <div className="col-sm-12 col-md-10 col-lg-10">
@@ -139,6 +140,7 @@ class GameRoom extends Component {
                 </div>
               </div>
             </div>
+            {this.state.gameStarted ?
             <div className="row">
               <div className="gameAnswerFlex">
                 {(this.props.players[0].sessionId === this.props.player.sessionId) ?
@@ -146,8 +148,8 @@ class GameRoom extends Component {
                 <button type="button" onClick={this.leaveGameButton} className="btn btn-primary btn-lg btn-block btn-danger">Leave Game</button>}
               </div>
               <br />
-            </div>
-          </div>) : <Pregame />}
+            </div> : <div />}
+
         </div>
 
       </CSSTransitionGroup>
