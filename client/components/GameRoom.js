@@ -35,12 +35,13 @@ class GameRoom extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/room')
-    .then(res => {
-      if(res.data.activeRoom) {
-        this.props.setRoom(res.data.room)
-      }
-    })
+    // axios.get('/api/room')
+    // .then(res => {
+    //   if(res.data.activeRoom) {
+    //     console.log('is this api call to room happening?')
+    //     this.props.setRoom(res.data.room)
+    //   }
+    // })
   }
 
   componentDidMount() {
@@ -135,6 +136,7 @@ class GameRoom extends Component {
                <PlayerAnswering memeUrl={this.state.memeUrl} />}
               </div>}
             </div>
+          </div>) : <Pregame />}
             <div className="row">
               <div className="gameAnswerFlex endOfGameRoom">
                 <div className="col-sm-12 col-md-10 col-lg-10">
@@ -142,15 +144,16 @@ class GameRoom extends Component {
                 </div>
               </div>
             </div>
+            {this.state.gameStarted ?
             <div className="row">
               <div className="gameAnswerFlex">
-                {(this.state.isHost) ?
+                {(this.props.players[0].sessionId === this.props.player.sessionId) ?
                 <button type="button" onClick={this.endGameButton} className="btn btn-primary btn-lg btn-block btn-danger">End Game</button> :
                 <button type="button" onClick={this.leaveGameButton} className="btn btn-primary btn-lg btn-block btn-danger">Leave Game</button>}
               </div>
               <br />
-            </div>
-          </div>) : <Pregame />}
+            </div> : <div />}
+
         </div>
 
       </CSSTransitionGroup>

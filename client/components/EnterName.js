@@ -64,14 +64,14 @@ class EnterName extends Component {
               <input onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Jane Doe" />
               <button type="submit" className="btn btn-success marginLeft" disabled={!this.inputIsValid()}>Enter</button>
               <br />
-              {
+                {
                   this.inputIsEmpty() && this.state.player.dirty ?
                   <span className="alert alert-danger validationSpan">You must enter a name</span> :
                   null }
-                  {!this.inputWithinLimit() && this.state.player.dirty ?
+                {!this.inputWithinLimit() && this.state.player.dirty ?
                   <span className="alert alert-danger validationSpan">Name too long</span> :
                   null 
-              }
+                }
             </form>
           </CSSTransitionGroup>
       </div>

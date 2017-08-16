@@ -30,7 +30,9 @@ class JoinGame extends Component {
     //console.log("player name submit: ", this.props.player.player);
     socket.emit("addPlayertoRoom", {
       code: event.target.code.value,
-      playerName: this.props.player.player.name
+      playerName: this.props.players.player.name,
+      sessionId: this.props.players.player.sessionId,
+      activePlayer: this.props.players.player.activePlayer,
     });
     socket.on("correctRoom", host => {
       this.props.setRoom({id: event.target.code.value, host: host});
@@ -84,7 +86,7 @@ class JoinGame extends Component {
 
 const mapStateToProps = function(state, ownProps) {
   return {
-    player: state.players
+    players: state.players
   };
 };
 

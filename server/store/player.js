@@ -12,7 +12,7 @@ const reducer = function (state = initialState, action){
     switch (action.type){
         case ADD_PLAYER:
             let obj1 = Object.assign({}, state);
-            obj1[action.playerInfo.id] = { score: 0, name: action.playerInfo.name }
+            obj1[action.playerInfo.id] = { score: 0, name: action.playerInfo.name, sessionId: action.playerInfo.sessionId }
             return Object.assign({}, state, obj1)
         case REMOVE_PLAYER:
             let obj2 = Object.assign({}, state);
