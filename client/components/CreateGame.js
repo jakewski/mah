@@ -41,13 +41,12 @@ class CreateGame extends Component {
   }
 
   noCategoriesSelected(categories) {
-    let categorySelected = [];
     for(var keys in categories){
       if(categories[keys] === true) {
-        categorySelected.push(categories[keys])
+        return false;
       }
     }
-    return categorySelected.length === 0;
+    return true;
   }
 
   markCategoriesDirty(){
