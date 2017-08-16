@@ -61,8 +61,6 @@ module.exports = (io) => {
 
           store.dispatch(addPlayer({name: playerName, id: socket.id, sessionId: sessionId }));
           store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0, sessionId: sessionId, activePlayer: activePlayer }, categories: categories, playerNum: playerNum}));
-          store.dispatch(addPlayer({name: playerName, id: socket.id}));
-          store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0}, categories: categories, playerNum: playerNum}));
         });
       });
     })
