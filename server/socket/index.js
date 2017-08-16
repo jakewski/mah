@@ -1,6 +1,6 @@
 const store = require('../store');
 const { addPlayer } = require('../store/player');
-const { postAnswer, addPlayerToGame, addGame, switchToNextTurn } = require('../store/game');
+const { postAnswer, addPlayerToGame, addGame, switchToNextTurn, incrementScore} = require('../store/game');
 const randStr = require('randomstring');
 
 
@@ -13,10 +13,10 @@ module.exports = (io) => {
     //we need to emit back category and meme for when the host chooses to start the game 
     socket.on('startGame', () => {
       let game = store.getState().game[socket.room]
-      let playerArray = game.gamePlayers.map(player => player.name)
+      //let playerArray = game.gamePlayers.map(player => player.name)
 
-      socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, playerNames: playerArray });
-      socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, playerNames: playerArray });
+      socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
+      socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
     })
 
 
@@ -30,7 +30,7 @@ module.exports = (io) => {
       }))
       let currentState = store.getState().game[socket.room];
       socket.emit('playerAnswered');
-      socket.broadcast.to(socket.room).emit('playerAnswered');
+      //socket.broadcast.to(socket.room).emit('playerAnswered');
       if(currentState.gamePlayers.length - 1 === Object.keys(currentState.answers).length){
         socket.emit('gotAllAnswers', currentState.answers)
         socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers)
@@ -42,12 +42,23 @@ module.exports = (io) => {
     //score++
     socket.on('winningMeme', playerId => {
       let winningAnswer = store.getState().game[socket.room].answers[playerId];
-      socket.emit('roundFinished', winningAnswer)
+      store.dispatch(incrementScore({
+        playerId: playerId,
+        gameId: socket.room,
+      }))
+      socket.emit('roundFinishedJudge', winningAnswer);
+      socket.broadcast.to(socket.room).emit('roundFinishedPlayer', winningAnswer);
     })
 
     //gotta send back all the new turn info (category and meme)
     socket.on('switchToNextTurn', something => {
       store.dispatch(switchToNextTurn(socket.room));
+      setTimeout(() => {
+        let game = store.getState().game[socket.room];
+        console.log('SWITCHGAME: ', game);
+        io.sockets.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
+        //socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
+      }, 5000)
       //socket.emit('nextTurn' {})
     })
 
