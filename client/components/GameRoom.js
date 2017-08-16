@@ -37,12 +37,13 @@ class GameRoom extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/room')
-    .then(res => {
-      if(res.data.activeRoom) {
-        this.props.setRoom(res.data.room)
-      }
-    })
+    // axios.get('/api/room')
+    // .then(res => {
+    //   if(res.data.activeRoom) {
+    //     console.log('is this api call to room happening?')
+    //     this.props.setRoom(res.data.room)
+    //   }
+    // })
   }
 
   componentDidMount() {
