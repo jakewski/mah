@@ -17,16 +17,17 @@ Meme.findAll().then(stuff => memes = stuff);
         gamePlayers: [],
         categories: [],
         playerNum: NaN,
-        currentTurn: {
-            category: '',
-            judge: {},
-            turnNumber: 0,
-            meme: '', 
-            answers: {
-                playerId: their answer
-            }
-        },
+        currentTurn: turnId,
     }
+    turnId: {
+        category: '',
+        judge: {},
+        turnNumber: 0,
+        meme: '', 
+        answers: {
+            playerId: their answer
+        }
+    },
 }
 */
 
@@ -39,22 +40,6 @@ const addPlayerToGame = playerToGame => ({
 });
 //switchToNextTurn action will assign a random category and meme
 const switchToNextTurn = gameId => ({ type: SWITCH_TO_NEXT_TURN, gameId });
-
-const switchToNextTurnThunk = gameId => dispatch =>{
-  dispatch(switchToNextTurn(gameId))
-}
-
-const addGameThunk = game => dispatch => {
-  dispatch(addGame(game));
-};
-
-const postAnswerThunk = game => dispatch => {
-  dispatch(postAnswer(game));
-};
-
-const addPlayerToGameThunk = playerToGame => dispatch => {
-  dispatch(addPlayerToGame(playerToGame));
-};
 
 const grabRandomMeme = () => {
   return memes[Math.floor(Math.random() * memes.length)];
@@ -126,4 +111,4 @@ const reducer = function(state = initialState, action) {
   }
 };
 
-module.exports = { addPlayerToGameThunk, addGameThunk, reducer, switchToNextTurnThunk, postAnswer };
+module.exports = { addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer };

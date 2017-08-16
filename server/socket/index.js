@@ -1,6 +1,6 @@
 const store = require('../store');
-const { addPlayerThunk } = require('../store/player');
-const { postAnswer, addPlayerToGameThunk, addGameThunk, switchToNextTurnThunk } = require('../store/game');
+const { addPlayer } = require('../store/player');
+const { postAnswer, addPlayerToGame, addGame, switchToNextTurn } = require('../store/game');
 const randStr = require('randomstring');
 
 
@@ -52,7 +52,7 @@ module.exports = (io) => {
 
     //gotta send back all the new turn info (category and meme)
     socket.on('switchToNextTurn', something => {
-      store.dispatch(switchToNextTurnThunk(socket.room));
+      store.dispatch(switchToNextTurn(socket.room));
       
       //socket.emit('nextTurn' {})
     })
@@ -64,8 +64,8 @@ module.exports = (io) => {
       socket.leave('Main', () => {
         socket.room = code;
         socket.join(code, () => {
-          store.dispatch(addPlayerThunk({name: playerName, id: socket.id}));
-          store.dispatch(addGameThunk({gameId: code, host: {id: socket.id, name: playerName, score: 0}, categories: categories, playerNum: playerNum}));
+          store.dispatch(addPlayer({name: playerName, id: socket.id}));
+          store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0}, categories: categories, playerNum: playerNum}));
         });
       });
     })
@@ -84,7 +84,7 @@ module.exports = (io) => {
     })
 
     // socket.on('addPlayerToGame', gameId => {
-    //   store.dispatch(addPlayerToGameThunk({playerId: socket.id, gameId: gameId}))
+    //   store.dispatch(addPlayerToGame({playerId: socket.id, gameId: gameId}))
     // })
     socket.on('replacePlayers', players => {
       socket.broadcast.to(socket.room).emit('replacedPlayers', players);
@@ -98,8 +98,8 @@ module.exports = (io) => {
         socket.emit('alreadyInRoom', 'you are already in this room');
       }
       else{
-        store.dispatch(addPlayerThunk({id: socket.id, name: playerName}));
-        store.dispatch(addPlayerToGameThunk({player: {name: playerName, id: socket.id, score: 0}, gameId: code}));
+        store.dispatch(addPlayer({id: socket.id, name: playerName}));
+        store.dispatch(addPlayerToGame({player: {name: playerName, id: socket.id, score: 0}, gameId: code}));
         socket.playerName = playerName;
         socket.leave('Main', () => {
           socket.join(code, () => {
@@ -119,7 +119,7 @@ module.exports = (io) => {
     });
 
     // socket.on('createRoom ', function(room) {
-    //     //call addRoom thunk here
+    //     //call addRoom  here
     //     //rooms.push(room);
     //     const code = randStr.generate(7);
     //     store.dispatch()
@@ -160,7 +160,7 @@ module.exports = (io) => {
 
     socket.on('disconnect', () => {
       //delete players[socket.playerName]
-      //call deletePlayer thunk here
+      //call deletePlayer  here
 
       //io.sockets.emit('updatePlayers', players);
       // socket.broadcast.emit('message', {body: socket.playerName + ' has disconnected', from:'server'});

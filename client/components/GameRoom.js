@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
-import { addToPlayersThunk, replacePlayersThunk, setRoomThunk } from '../store';
+import { addToPlayers, replacePlayers, setRoom } from '../store';
 import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
 import axios from 'axios'
 
@@ -37,14 +37,14 @@ class GameRoom extends Component {
     axios.get('/api/room')
     .then(res => {
       if(res.data.activeRoom) {
-        this.props.setRoomThunk(res.data.room)
+        this.props.setRoom(res.data.room)
       }
     })
   }
 
   componentDidMount() {
     socket.on('replacedPlayers', players => {
-      this.props.replacePlayersThunk(players);
+      this.props.replacePlayers(players);
     })
     socket.on('gameStarted', turn => {
       let isJudge = turn.judge.id === this.props.player.socketId;
@@ -143,9 +143,9 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToPlayersThunk: player => dispatch(addToPlayersThunk(player)),
-  replacePlayersThunk: players => dispatch(replacePlayersThunk(players)),
-  setRoomThunk: code => dispatch(setRoomThunk(code)),
+  addToPlayers: player => dispatch(addToPlayers(player)),
+  replacePlayers: players => dispatch(replacePlayers(players)),
+  setRoom: code => dispatch(setRoom(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameRoom)

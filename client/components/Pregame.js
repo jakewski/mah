@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setRoomThunk } from "../store";
 import { CSSTransitionGroup } from "react-transition-group";
 import socket from "../socket";
 import history from "../history";

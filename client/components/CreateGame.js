@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getCategoriesThunk, setRoomThunk } from '../store';
+import { getCategoriesThunk, setRoom } from '../store';
 import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import history from '../history';
@@ -21,7 +21,7 @@ class CreateGame extends Component {
     this.props.getCategoriesThunk()
     socket.on('getCode', code => {
       console.log('GAME CODE: ', code);
-      this.props.setRoomThunk({id: code, host: this.props.player});
+      this.props.setRoom({id: code, host: this.props.player});
       axios.post('/api/room', {
         room: code,
       })
@@ -92,7 +92,7 @@ const mapStateToProps = function(state, ownProps) {
 
 const mapDispatchToProps = dispatch => ({
   getCategoriesThunk: () => dispatch(getCategoriesThunk()),
-  setRoomThunk: code => dispatch(setRoomThunk(code)),
+  setRoom: code => dispatch(setRoom(code)),
   handleSubmit: (categories, playerName) => event => {
     event.preventDefault();
     let checkedCategories = Object.keys(categories).filter(key => categories[key])
