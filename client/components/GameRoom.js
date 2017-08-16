@@ -29,8 +29,11 @@ class GameRoom extends Component {
       memeText: '',
       gameRoomName: 'Bad Boys and Girls of America',
       playerNames: ['Brion', 'Jakubucci', "lil' BAnnBAnn", 'Madelean', 'King Ray', 'CharlesMan', 'Ray Chartles'],
+      isHost: true,
 
     }
+    this.leaveGameButton = this.leaveGameButton.bind(this);
+    this.endGameButton = this.endGameButton.bind(this);
   }
 
   componentWillMount() {
@@ -49,7 +52,7 @@ class GameRoom extends Component {
     socket.on('gameStarted', turn => {
       let isJudge = turn.judge.id === this.props.player.socketId;
       console.log('isJudge:', isJudge)
-      let newState = { 
+      let newState = {
         gameStarted : true,
         memeUrl: turn.meme.image,
         memeText: turn.meme.text,
@@ -72,14 +75,24 @@ class GameRoom extends Component {
       })
     })
   }
+  leaveGameButton(){
+    console.log('clicked leave game')
+    //need to remove player from the game, reset his room, and direct him to the home lobby
+    //
+   }
+  endGameButton(){
+    console.log('clicked leave game')
+    //need to remove player from the game, reset his room, and direct him to the home lobby
+    //
+   }
 
   render() {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
         <div key="transition" className="container-fluid">
-          <h3 style={{marginTop: 0}} >{this.state.gameRoomName}-Room Code: {this.props.room}</h3>
-          {this.state.gameStarted ? 
+          <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
+          {this.state.gameStarted ?
           (<div>
             <div className="row">
               <div className="col-xs-6">
@@ -105,7 +118,7 @@ class GameRoom extends Component {
                 {this.state.allAnswersSubmitted ?
                 <Judgement submittedAnswers={this.state.submittedAnswers} /> :
                 <JudgeWaiting />}
-              </div> 
+              </div>
               :
               <div> {/*player logic  */}
                 {this.state.playerAnswerSubmitted ?
@@ -113,7 +126,7 @@ class GameRoom extends Component {
                   {this.state.allAnswersSubmitted ?
                   <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
                   <PlayerWaiting />}
-                </div> 
+                </div>
                 :
                <PlayerAnswering memeUrl={this.state.memeUrl} />}
               </div>}
@@ -124,6 +137,14 @@ class GameRoom extends Component {
                   <ChatBox />
                 </div>
               </div>
+            </div>
+            <div className="row">
+              <div className="gameAnswerFlex">
+                {(this.state.isHost) ?
+                <button type="button" onClick={this.endGameButton} className="btn btn-primary btn-lg btn-block btn-danger">End Game</button> :
+                <button type="button" onClick={this.leaveGameButton} className="btn btn-primary btn-lg btn-block btn-danger">Leave Game</button>}
+              </div>
+              <br />
             </div>
           </div>) : <Pregame />}
         </div>
