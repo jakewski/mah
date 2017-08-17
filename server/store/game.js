@@ -98,7 +98,7 @@ const reducer = function(state = initialState, action) {
       //this might have bugs
 
       let tempAnswer = {};
-      tempAnswer[action.answer.playerId] = action.answer.text;
+      tempAnswer[action.answer.playerId] = action.answer;
       let newAnswers = Object.assign({}, state[action.answer.gameId].answers, tempAnswer);
       let updatedAnswers = {
         answers: newAnswers

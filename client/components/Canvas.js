@@ -3,38 +3,52 @@ import ReactDOM from 'react-dom';
 import { Layer, Stage, Image, Text } from 'react-konva';
 import socket from '../socket';
 
-export default function(props) {
-            // topText: '',
-            // topXcoord: 0,
-            // topYcoord: 0,
-            // bottomText: '',
-            // bottomXcoord: 0,
-            // bottomYcoord: 0,
-            // topFontSize: 0,
-            // bottomFontSize: 0,
-            // memeImg: null, //DO NOT CHANGE THIS -- React-konva relies on the null keyword
+export default class Canvas extends React.Component {
 
-  const {topText, topXcoord, topYcoord, topFontSize, bottomText, bottomXcoord, bottomYcoord, bottomFontSize, imageUrl} = props;
+  constructor(props) {
+    super(props);
 
-  const image = new window.Image();
-  image.src = imageUrl;
-  image.onload = () => {
-    const memeImg = image
+    this.state = {
+      topText: this.props.topText,
+      topXcoord: this.props.topXcoord,
+      topYcoord: this.props.topYcoord,
+      topFontSize: this.props.topFontSize,
+      bottomText: this.props.bottomText,
+      bottomXcoord: this.props.bottomXcoord,
+      bottomYcoord: this.props.bottomYcoord,
+      bottomFontSize: this.props.bottomFontSize,
+      memeUrl: this.props.memeUrl,
+      memeImg: null
+    }
   }
+
+  componentDidMount() {
+    const image = new window.Image();
+    image.src = this.state.memeUrl;
+    image.onload = () => {
+      this.setState({
+        memeImg: image
+      })
+    this.setState({bottomYcoord: this.state.memeImg.height - 50})
+    };
+  }
+
+  render() {
 
   return (
     <div>
-        {memeImg ?
-          <Stage height={memeImg.height} width={memeImg.width}>
+        {this.state.memeImg ?
+          <Stage height={this.state.memeImg.height} width={this.state.memeImg.width}>
             <Layer>
-              <Image image={memeImg} />
+              <Image image={this.state.memeImg} />
             </Layer>
             <Layer>
-              <Text align='center' x={topXcoord} y={topYcoord} fontSize={topFontSize} fontFamily='Impact' fill='white' wrap='char' width={memeImg.width - 20} shadowColor='black' text={topText} />
+              <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.memeImg.width - 20} shadowColor='black' text={this.state.topText} />
 
-              <Text align='center' x={bottomXcoord} y={bottomYcoord} fontSize={bottomFontSize} fontFamily='Impact' fill='white' width={memeImg.width - 20} wrap='char' shadowColor='black' text={bottomText} />
+              <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.memeImg.width - 20} wrap='char' shadowColor='black' text={this.state.bottomText} />
             </Layer>
           </Stage>
         : <div />}
     </div>);
+  }
 }

@@ -7,8 +7,6 @@ export default class PlayerAnswering extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props)
-
         this.state = {
             topText: this.props.memeTopText ? this.props.memeTopText.toUpperCase() : '',
             topXcoord: 10,
@@ -91,13 +89,22 @@ export default class PlayerAnswering extends React.Component {
       //we will recreate the memes via konva canvas on the slider
       e.persist();
       e.preventDefault();
-      console.log('submission', e);
-      let answer = [e.target.toptext.value, e.target.bottomtext.value]
+
+      let answer = {
+        topText: e.target.toptext.value,
+        topXcoord: this.state.topXcoord,
+        topYcoord: this.state.topYcoord,
+        topFontSize: this.state.topFontSize,
+        bottomText: e.target.bottomtext.value,
+        bottomXcoord: this.state.bottomXcoord,
+        bottomYcoord: this.state.bottomYcoord,
+        bottomFontSize: this.state.bottomFontSize,
+        memeUrl: this.state.memeUrl
+      }
       socket.emit('answerPosted', answer);
     }
 
     render() {
-      console.log(this.state)
         return (
             <div>
               <div className="gameAnswerFlex">
