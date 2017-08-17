@@ -26,7 +26,7 @@ class Pregame extends Component {
         {(this.props.players.players[0].sessionId === this.props.players.player.sessionId) ?
           <button onClick={this.handleClick} className="btn btn-success">
             Start Da Game Bro
-                </button>
+          </button>
           :
           <div>
             <h1>Please wait until host chooses to start the game</h1>
@@ -43,6 +43,7 @@ class Pregame extends Component {
             }
           </div>
         }
+        <hr />
       </div>
 
     );

@@ -42,7 +42,7 @@ class ChatBox extends Component {
         const messages = this.state.messages.map((message, index) => {
             if (message) {
                 return (
-                    <li className="messageLi" key={index}>
+                    <li className="messageLi animated bounceIn" key={index}>
                         <b className="messageFrom">
                             {message.from}: {' '}
                         </b>

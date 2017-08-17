@@ -98,7 +98,7 @@ class GameRoom extends Component {
         <div key="transition" className="container-fluid">
           <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
           {this.state.gameStarted ?
-          (<div>
+          (<div className="animated bounceInDown">
             <div className="row">
               <div className="col-xs-6">
                 <h5>Turn Number: {this.state.turnNumber}</h5>
@@ -114,6 +114,10 @@ class GameRoom extends Component {
                   return <div className="scoreText" key={index}>{player.name}: {player.score}</div>
                 })}
               </div>
+            </div>
+            <hr />
+            <div className="row">
+              <h3>Category: {this.state.category}</h3>
             </div>
             <hr />
             <div className="row">
