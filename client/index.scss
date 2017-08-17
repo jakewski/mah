@@ -65,6 +65,27 @@ body {
     margin-top: 2%;
     float: left;
   }
+
+  .blue {
+    color: blue;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .name {
+    display: inline;
+  }
+
+  .load {
+    margin: 5px 5px 0 5px;
+    margin-bottom: 0px;
+  }
 }
 
 .chatbox {
@@ -145,6 +166,14 @@ body {
   margin: 3px;
 }
 
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
 .center {
   justify-content: center;
 }
@@ -156,4 +185,40 @@ body {
   .btn-block {
     max-width: 50%;
   }
+}
+
+
+
+/*Loading Icon Animation*/
+$spin-duration: 1s;
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+html {
+  height: 100%;
+}
+
+.loadingRed {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    border: .15rem solid #ff0000;
+    border-top-color: #ffffff;
+    animation: spin $spin-duration infinite linear;
+}
+
+.loadingBlue {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    border: .15rem solid #0000ff;
+    border-top-color: #ffffff;
+    animation: spin $spin-duration infinite linear;
 }

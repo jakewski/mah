@@ -62,6 +62,8 @@ class GameRoom extends Component {
         allAnswersSubmitted: false,
         playerAnswerSubmitted: false,
         turnNumber: turn.turnNumber,
+        roundFinished: false,
+        submittedAnswers: {},
       }
       this.setState(newState)
     })
@@ -76,10 +78,15 @@ class GameRoom extends Component {
         submittedAnswers: currentAnswers,
       })
       if(isThisPlayer) {
-        this.setSTate({
+        this.setState({
           playerAnswerSubmitted: true,
         })
       }
+    })
+    socket.on('roundFinishedJudge', winningAnswer => {
+      this.setState({
+        roundFinished: true
+      })
     })
     // socket.on('incrementScore', (playerId) => {
 
@@ -97,6 +104,7 @@ class GameRoom extends Component {
    }
 
   render() {
+    console.log('state judge', this.state.judge)
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
@@ -116,15 +124,26 @@ class GameRoom extends Component {
             <div className="row">
               <div className="playerScoreFlexBox">
                 {this.state.gamePlayers.map((player, index) => {
-                  console.log('state: ', this.state.submittedAnswers)
-                  console.log('state keys: ', Object.keys(this.state.submittedAnswers))
-                  console.log('player', player)
                   return (
                     <div>
                       {
-                        Object.keys(this.state.submittedAnswers).includes(player.id)
-                        ? <div className="scoreText" key={index}>{player.name}: {player.score} SUBMITTED</div> 
-                        : <div className="scoreText" key={index}>{player.name}: {player.score}</div>
+                        this.state.judge.id === player.id ?
+                          this.state.allAnswersSubmitted && !this.state.roundFinished ? 
+                            <div>
+                              <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
+                              <div className="loadingBlue right load"></div>
+                            </div> 
+                          :
+                            <div>
+                              <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
+                            </div>
+                        :
+                          Object.keys(this.state.submittedAnswers).includes(player.id)
+                          ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div> 
+                          : <div>
+                              <div className="scoreText red name" key={index}>{player.name}: {player.score} </div> 
+                              <div className="loadingRed right load"></div>
+                            </div>
                       }
                     </div>
                   )
