@@ -124,7 +124,7 @@ class GameRoom extends Component {
               <div className="playerScoreFlexBox">
                 {this.state.gamePlayers.map((player, index) => {
                   return (
-                    <div>
+                    <div key={index}>
                       {
                         this.state.judge.id === player.id ?
                           this.state.allAnswersSubmitted && !this.state.roundUnjudged ? 

@@ -17,8 +17,16 @@ module.exports = (io) => {
 
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
       socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
-    })
 
+
+      //timeout for players taking too long
+      setTimeout(() => {
+        console.log('3 secs')
+        socket.emit('gotAllAnswers', currentState.answers)
+        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers)
+      }, 3000)
+    })
+    
 
     //need to emit back the playerId to make a flag that the player answered on the front end
     //check if everybody answered, and if they did, emit something to the front that well let us know it's time for the judge to choose one
