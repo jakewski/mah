@@ -8,7 +8,7 @@ const POST_ANSWER = 'POST_ANSWER';
 const INCREMENT_SCORE = 'INCREMENT_SCORE';
 //on the backend we store all of our players, on the front end we will store the current player
 const initialState = {};
-let memes; 
+let memes;
 Meme.findAll().then(stuff => memes = stuff);
 
 /*
@@ -22,7 +22,7 @@ Meme.findAll().then(stuff => memes = stuff);
         category: '',
         judge: {},
         turnNumber: 0,
-        meme: '', 
+        meme: '',
         answers: {
             playerId: their answer
         }
@@ -61,7 +61,7 @@ const reducer = function(state = initialState, action) {
         category: grabRandomCategory(action.game.categories),
         judge: action.game.host,
         turnNumber: 0,
-        meme: {image: meme.image, text: meme.text},
+        meme: {image: meme.image, topText: meme.topText, bottomText: meme.bottomText},
         answers: {}
       };
       return Object.assign({}, state, newGame);
@@ -87,7 +87,7 @@ const reducer = function(state = initialState, action) {
         category: grabRandomCategory(state[action.gameId].categories),
         judge: state[action.gameId].gamePlayers[state[action.gameId].turnNumber + 1 % state[action.gameId].playerNum],
         turnNumber: state[action.gameId].turnNumber + 1,
-        meme: {image: meme2.image, text: meme2.text},
+        meme: {image: meme2.image, topText: meme2.topText, bottomText: meme2.bottomText},
         answers: {},
       };
       let newTurnObject = Object.assign({}, state[action.gameId], nextTurn);
@@ -98,10 +98,10 @@ const reducer = function(state = initialState, action) {
       //this might have bugs
 
       let tempAnswer = {};
-      tempAnswer[action.answer.playerId] = action.answer.text;
+      tempAnswer[action.answer.playerId] = action.answer;
       let newAnswers = Object.assign({}, state[action.answer.gameId].answers, tempAnswer);
-      let updatedAnswers = { 
-        answers: newAnswers 
+      let updatedAnswers = {
+        answers: newAnswers
       };
       let updatedGame = {};
       updatedGame[action.answer.gameId] = Object.assign({}, state[action.answer.gameId], updatedAnswers);

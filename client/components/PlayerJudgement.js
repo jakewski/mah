@@ -1,5 +1,6 @@
 import React from 'react';
 import socket from '../socket';
+import Canvas from './Canvas';
 
 export default class PlayerJudgement extends React.Component {
   constructor(props) {
@@ -11,8 +12,7 @@ export default class PlayerJudgement extends React.Component {
 
   componentDidMount(){
     socket.on('roundFinishedPlayer', winningMeme => {
-        //console.log(winningMeme);
-        this.setState({ winningMeme: winningMeme.join(' | ') });
+        this.setState({ winningMeme: winningMeme });
     })
   }
 
@@ -22,14 +22,24 @@ export default class PlayerJudgement extends React.Component {
 
   render(){
     return (
-      !this.state.winningMeme ? (<div> {/*player view when all answers are submitted  */}
+      <div> {/*player view when all answers are submitted  */}
+        { !this.state.winningMeme ? <div>
         <h5>Submitted Meme-ories:</h5>
         <div className="playerScoreFlexBox">
           {Object.keys(this.props.submittedAnswers).map((key, index) => {
-            return <button disabled className="scoreText" key={index}>{this.props.submittedAnswers[key]}</button>
+            return <div className="scoreText" key={index}>
+
+                {/* instead here we will render each canvas */}
+                <Canvas topText={this.props.submittedAnswers[key].topText} topXcoord={this.props.submittedAnswers[key].topXcoord} topYcoord={this.props.submittedAnswers[key].topYcoord} topFontSize={this.props.submittedAnswers[key].topFontSize} bottomText={this.props.submittedAnswers[key].bottomText} bottomXcoord={this.props.submittedAnswers[key].bottomXcoord} bottomYcoord={this.props.submittedAnswers[key].bottomYcoord} bottomFontSize={this.props.submittedAnswers[key].bottomFontSize} memeUrl={this.props.submittedAnswers[key].memeUrl} />
+
+                </div>
           })}
         </div>
-      </div>) : <div>WINNING MEME: {this.state.winningMeme}</div>
-    )
+      </div> : <div>WINNING MEME:
+
+                <Canvas topText={this.state.winningMeme.topText} topXcoord={this.state.winningMeme.topXcoord} topYcoord={this.state.winningMeme.topYcoord} topFontSize={this.state.winningMeme.topFontSize} bottomText={this.state.winningMeme.bottomText} bottomXcoord={this.state.winningMeme.bottomXcoord} bottomYcoord={this.state.winningMeme.bottomYcoord} bottomFontSize={this.state.winningMeme.bottomFontSize} memeUrl={this.state.winningMeme.memeUrl} />
+            </div>
+    }
+    </div>)
   }
 }
