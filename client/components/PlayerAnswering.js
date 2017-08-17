@@ -98,13 +98,14 @@ export default class PlayerAnswering extends React.Component {
               <div className="gameAnswerFlex">
                 <form onSubmit={this.onMemeSubmit}>
                   <div className="form-group col-md-9 col-xs-12 col-lg-6" >
+
                     <input placeholder="top text" name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" onChange={this.topTxtChange}/>
-                    <button className="btn btn-success center" onClick={this.onTopPlusClick}>+</button>
-                    <button className="btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
+                    <button className="memeButtons btn btn-success center" onClick={this.onTopPlusClick}>+</button>
+                    <button className="memeButtons btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
 
                     <input placeholder="bottom text" name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" onChange={this.bottomTxtChange}/>
-                    <button className="btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
-                    <button className="btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
+                    <button className="memeButtons btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
+                    <button className="memeButtons btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
                     <br />
                     <br />
                     <button type="submit" className="btn btn-success center">Submit</button>
