@@ -10,10 +10,10 @@ export default class PlayerAnswering extends React.Component {
         console.log(props)
 
         this.state = {
-            topText: this.props.topText,
+            topText: this.props.memeTopText ? this.props.memeTopText.toUpperCase() : '',
             topXcoord: 10,
             topYcoord: 10,
-            bottomText: this.props.bottomText,
+            bottomText: this.props.memeBottomText ? this.props.memeBottomText.toUpperCase() : '',
             bottomXcoord: 10,
             bottomYcoord: 0,
             topFontSize: 40,
@@ -65,11 +65,11 @@ export default class PlayerAnswering extends React.Component {
     }
 
     topTxtChange = (e) => {
-      this.setState({topText: e.target.value});
+      this.setState({topText: e.target.value.toUpperCase()});
     }
 
     bottomTxtChange = (e) => {
-      this.setState({bottomText: e.target.value})
+      this.setState({bottomText: e.target.value.toUpperCase()})
     }
 
     dragTop = (e) => {
@@ -96,17 +96,18 @@ export default class PlayerAnswering extends React.Component {
     }
 
     render() {
+      console.log(this.state)
         return (
             <div>
               <div className="gameAnswerFlex">
                 <form onSubmit={this.onMemeSubmit}>
                   <div className="form-group col-md-9 col-xs-12 col-lg-6" >
 
-                    <input placeholder="top text" name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" onChange={this.topTxtChange}/>
+                    <input name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" value={this.state.topText} placeholder="top text" onChange={this.topTxtChange}/>
                     <button className="memeButtons btn btn-success center" onClick={this.onTopPlusClick}>+</button>
                     <button className="memeButtons btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
 
-                    <input placeholder="bottom text" name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" onChange={this.bottomTxtChange}/>
+                    <input name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" value={this.state.bottomText} placeholder="bottom text" onChange={this.bottomTxtChange}/>
                     <button className="memeButtons btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
                     <button className="memeButtons btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
                     <br />

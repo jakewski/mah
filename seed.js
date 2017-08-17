@@ -8,11 +8,13 @@ db.sync({ force: true })
   .then(() => {
     const meme1 = Meme.create({
       image: 'https://imgflip.com/s/meme/One-Does-Not-Simply.jpg',
-      text: 'One does not simply'
+      topText: 'One does not simply ',
+      bottomText: ''
     });
     const meme2 = Meme.create({
       image: 'https://imgflip.com/s/meme/Futurama-Fry.jpg',
-      text: 'Not sure if'
+      topText: 'Not sure if ',
+      bottomText: ''
     });
     const category1 = Category.create({
       text: 'Rough mornings',
