@@ -62,7 +62,7 @@ class GameRoom extends Component {
         allAnswersSubmitted: false,
         playerAnswerSubmitted: false,
         turnNumber: turn.turnNumber,
-        roundFinished: false,
+        roundUnjudged: false,
         submittedAnswers: {},
       }
       this.setState(newState)
@@ -85,7 +85,7 @@ class GameRoom extends Component {
     })
     socket.on('roundFinishedJudge', winningAnswer => {
       this.setState({
-        roundFinished: true
+        roundUnjudged: true
       })
     })
     // socket.on('incrementScore', (playerId) => {
@@ -127,7 +127,7 @@ class GameRoom extends Component {
                     <div>
                       {
                         this.state.judge.id === player.id ?
-                          this.state.allAnswersSubmitted && !this.state.roundFinished ? 
+                          this.state.allAnswersSubmitted && !this.state.roundUnjudged ? 
                             <div>
                               <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
                               <div className="loadingBlue right load"></div>
