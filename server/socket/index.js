@@ -29,8 +29,11 @@ module.exports = (io) => {
         playerId: socket.id,
       }))
       let currentState = store.getState().game[socket.room];
-      socket.emit('playerAnswered');
-      //socket.broadcast.to(socket.room).emit('playerAnswered');
+
+      //update answers real-time for answer submitted check
+      socket.emit('playerAnswered', currentState.answers, true);
+      socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false);
+
       if(currentState.gamePlayers.length - 1 === Object.keys(currentState.answers).length){
         socket.emit('gotAllAnswers', currentState.answers)
         socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers)
