@@ -104,7 +104,6 @@ class GameRoom extends Component {
    }
 
   render() {
-    console.log('state judge', this.state.judge)
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
