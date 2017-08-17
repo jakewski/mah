@@ -51,7 +51,7 @@ class GameRoom extends Component {
         gameStarted: true,
         memeUrl: turn.meme.image,
         memeTopText: turn.meme.topText,
-        memeBottomText: turn.meme.memeBottomText,
+        memeBottomText: turn.meme.bottomText,
         category: turn.category,
         judge: turn.judge,
         playerIsCurrentJudge: isJudge,

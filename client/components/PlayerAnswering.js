@@ -91,6 +91,7 @@ export default class PlayerAnswering extends React.Component {
       //we will recreate the memes via konva canvas on the slider
       e.persist();
       e.preventDefault();
+      console.log('submission', e);
       let answer = [e.target.toptext.value, e.target.bottomtext.value]
       socket.emit('answerPosted', answer);
     }
