@@ -124,7 +124,7 @@ export default class PlayerAnswering extends React.Component {
                   </div>
                 </form>
                 {this.state.memeImg ?
-                  <Stage height={this.state.memeImg.height} width={this.state.memeImg.width}>
+                  <Stage className="animated bounceInDown" height={this.state.memeImg.height} width={this.state.memeImg.width}>
                     <Layer>
                       <Image image={this.state.memeImg} />
                     </Layer>

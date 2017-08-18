@@ -59,6 +59,8 @@ class GameRoom extends Component {
         allAnswersSubmitted: false,
         playerAnswerSubmitted: false,
         turnNumber: turn.turnNumber,
+        roundUnjudged: false,
+        submittedAnswers: {},
       }
       this.setState(newState)
     })
@@ -68,9 +70,19 @@ class GameRoom extends Component {
         allAnswersSubmitted: true,
       })
     })
-    socket.on('playerAnswered', () =>{
+    socket.on('playerAnswered', (currentAnswers, isThisPlayer) => {
       this.setState({
-        playerAnswerSubmitted: true,
+        submittedAnswers: currentAnswers,
+      })
+      if(isThisPlayer) {
+        this.setState({
+          playerAnswerSubmitted: true,
+        })
+      }
+    })
+    socket.on('roundFinishedJudge', winningAnswer => {
+      this.setState({
+        roundUnjudged: true
       })
     })
     // socket.on('incrementScore', (playerId) => {
@@ -95,7 +107,7 @@ class GameRoom extends Component {
         <div key="transition" className="container-fluid">
           <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
           {this.state.gameStarted ?
-          (<div className="animated bounceInDown">
+          (<div>
             <div className="row">
               <div className="col-xs-6">
                 <h5>Turn Number: {this.state.turnNumber}</h5>
@@ -108,7 +120,29 @@ class GameRoom extends Component {
             <div className="row">
               <div className="playerScoreFlexBox">
                 {this.state.gamePlayers.map((player, index) => {
-                  return <div className="scoreText" key={index}>{player.name}: {player.score}</div>
+                  return (
+                    <div>
+                      {
+                        this.state.judge.id === player.id ?
+                          this.state.allAnswersSubmitted && !this.state.roundUnjudged ? 
+                            <div>
+                              <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
+                              <div className="loadingBlue right load"></div>
+                            </div> 
+                          :
+                            <div>
+                              <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
+                            </div>
+                        :
+                          Object.keys(this.state.submittedAnswers).includes(player.id)
+                          ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div> 
+                          : <div>
+                              <div className="scoreText red name" key={index}>{player.name}: {player.score} </div> 
+                              <div className="loadingRed right load"></div>
+                            </div>
+                      }
+                    </div>
+                  )
                 })}
               </div>
             </div>
@@ -123,7 +157,7 @@ class GameRoom extends Component {
               <div>
                 {this.state.allAnswersSubmitted ?
                 <Judgement submittedAnswers={this.state.submittedAnswers} /> :
-                <JudgeWaiting />}
+                <JudgeWaiting/>}
               </div>
               :
               <div> {/*player logic  */}
