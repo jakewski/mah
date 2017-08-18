@@ -24,7 +24,6 @@ class GameRoom extends Component {
       gameRoomName: 'Bad Boys and Girls of America',
       gamePlayers: [],
       isHost: true,
-
     }
     this.leaveGameButton = this.leaveGameButton.bind(this);
     this.endGameButton = this.endGameButton.bind(this);
@@ -64,14 +63,18 @@ class GameRoom extends Component {
         timeout: false,
       }
       this.setState(newState)
-      setTimeout(() => {socket.emit('timeout')}, 6000)
+
+      //timeout for players taking too long
+      setTimeout(() => {
+        socket.emit('timeout')
+      }, 7000)
+
     })
     socket.on('gotAllAnswers', answers => {
       this.setState({
         submittedAnswers: answers,
         allAnswersSubmitted: true,
       })
-
     })
     socket.on('playerAnswered', (currentAnswers, isThisPlayer, timeout) => {
       this.setState({
@@ -82,7 +85,7 @@ class GameRoom extends Component {
           playerAnswerSubmitted: true,
         })
       }
-      if(!this.state.playerAnswerSubmitted && timeout) {
+      if(timeout) {
         this.setState({
           timeout: true,
         })

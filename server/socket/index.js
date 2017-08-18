@@ -20,18 +20,17 @@ module.exports = (io) => {
       
     })
 
+    //on timeout for players taking too long;
     socket.on('timeout', () => {
-        let currentState = store.getState().game[socket.room]
-        socket.emit('gotAllAnswers', currentState.answers)
-        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers);
+      //Simulate gotAllAnswers with only current answers
+      let currentState = store.getState().game[socket.room]
+      socket.emit('gotAllAnswers', currentState.answers)
+      socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers);
 
-        //trying to switch to player waiting screen after 3 seconds
-        //isThisPlayer = false
-        //timeout = true
-        socket.emit('playerAnswered', currentState.answers, false, true);
-        //socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false, true);
-        console.log('end timeout state', store.getState().game[socket.room]);
-      })
+      //Simulate player answered with final boolean (timeout) to indicate timeout
+      socket.emit('playerAnswered', currentState.answers, false, true);
+      console.log('end timeout state', store.getState().game[socket.room]);
+    })
     
 
     //need to emit back the playerId to make a flag that the player answered on the front end
@@ -72,13 +71,9 @@ module.exports = (io) => {
     //gotta send back all the new turn info (category and meme)
     socket.on('switchToNextTurn', something => {
       store.dispatch(switchToNextTurn(socket.room));
-      setTimeout(() => {
-        let game = store.getState().game[socket.room];
-        //console.log('SWITCHGAME: ', game);
-        io.sockets.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
-        //socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
-      }, 5000)
-      //socket.emit('nextTurn' {})
+      let game = store.getState().game[socket.room];
+      console.log('eyooo')
+      io.sockets.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
     })
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer }) => {
