@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const store = require('../store');
+const { addPlayer } = require('../store/game');
 
 router.post('/', (req, res, next) => {
   req.session.room = req.body.room;
@@ -11,11 +13,17 @@ router.post('/', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
   console.log('req room:', req.session)
-  res.send( { 
+  res.send( {
     activeRoom: req.session.activeRoom,
     room: req.session.room,
   });
 });
+
+router.post('/players', (req, res, next) => {
+  if (!store.getState().game[req.body.room]) res.send({players: null})
+  let roomPlayers = store.getState().game[req.body.room].gamePlayers
+  res.send({players: roomPlayers})
+})
 
 router.delete('/', (req, res, next) => {
   req.session.room = null;

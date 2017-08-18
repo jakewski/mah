@@ -33,8 +33,7 @@ class CreateGame extends Component {
 
   setCategories(categoryId){
     return () => this.setState(prev => {
-      if(prev.categories[categoryId])
-        prev.categories[categoryId] = false;
+      if (prev.categories[categoryId]) prev.categories[categoryId] = false;
       else prev.categories[categoryId] = true;
       return prev;
     })
@@ -42,8 +41,8 @@ class CreateGame extends Component {
 
 
   noCategoriesSelected(categories) {
-    for(var keys in categories){
-      if(categories[keys] === true) {
+    for (var keys in categories){
+      if (categories[keys] === true) {
         return false;
       }
     }
@@ -65,6 +64,7 @@ class CreateGame extends Component {
         playerName: player.name,
         sessionId: player.sessionId,
         socketId: player.socketId,
+        gameStarted: false,
       })
       history.push('/room')
     } else {
@@ -72,7 +72,7 @@ class CreateGame extends Component {
     }
   }
 
-  render() { 
+  render() {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container">
@@ -102,7 +102,7 @@ class CreateGame extends Component {
             {
               this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty ?
                 <span className="alert alert-danger validationSpan">Must select at least one category</span> :
-                null 
+                null
             }
           </form>
         </div>

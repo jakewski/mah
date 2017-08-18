@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 import history from './history';
 import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName, PlayerAnswering} from './components';
 import axios from 'axios';
-import { setPlayerThunk } from './store';
+import { setPlayerThunk, setRoom, replacePlayers } from './store';
 import socket from './socket'
 
 
@@ -21,7 +21,7 @@ class Routes extends Component {
   componentWillMount() {
     axios.get('/api/player/')
     .then(res => {
-      if(res.data.activePlayer) {
+      if (res.data.activePlayer) {
         this.props.setPlayerThunk({
           name: res.data.name,
           socketId: socket.id,
@@ -30,6 +30,24 @@ class Routes extends Component {
         })
       }
     })
+    axios.get('/api/room')
+    .then( res => {
+      if (res.data.activeRoom) {
+        this.props.setRoom({id: res.data.room})
+      }
+      socket.emit('getPlayers', res.data.room)
+      socket.on('recievePlayers', players => {
+        this.props.replacePlayers(players)
+      })
+    })
+    // .then(room => {
+    //   axios.post('/api/room/players', {room})
+    //   .then( res => {
+    //     if (res.data.players !== null) {
+    //       this.props.replacePlayers(res.data.players)}
+    //   })
+    // })
+
   }
 
   render () {
@@ -59,12 +77,15 @@ class Routes extends Component {
  */
 const mapStateToProps = function(state, ownProps) {
   return {
-    player: state.players.player
+    player: state.players.player,
+    players: state.players,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   setPlayerThunk: player => dispatch(setPlayerThunk(player)),
+  setRoom: room => dispatch(setRoom(room)),
+  replacePlayers: players => dispatch(replacePlayers(players)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes);

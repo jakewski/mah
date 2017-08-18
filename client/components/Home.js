@@ -20,7 +20,7 @@ class Home extends Component {
 
 
     componentDidMount() {
-        socket.emit('switchToMain');
+        socket.emit('switchToMain', this.props.players.room);
     }
 
     toggleInstructions(){
@@ -70,7 +70,8 @@ class Home extends Component {
 
 const mapStateToProps = function(state, ownProps) {
   return {
-    player: state.players.player
+    player: state.players.player,
+    players: state.players
   }
 }
 

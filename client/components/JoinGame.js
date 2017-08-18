@@ -5,6 +5,7 @@ import { setRoom } from "../store";
 import { CSSTransitionGroup } from "react-transition-group";
 import socket from "../socket";
 import history from "../history";
+import axios from 'axios';
 
 class JoinGame extends Component {
   constructor() {
@@ -38,6 +39,7 @@ class JoinGame extends Component {
     socket.on("correctRoom", host => {
       this.props.setRoom({id: event.target.code.value, host: host});
       history.push("/room");
+      axios.post('/api/room', {room: event.target.code.value})
     });
     this.setState({ animateError: false });
   }

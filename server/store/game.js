@@ -61,7 +61,8 @@ const reducer = function(state = initialState, action) {
         judge: action.game.host,
         turnNumber: 0,
         meme: {image: meme.image, topText: meme.topText, bottomText: meme.bottomText},
-        answers: {}
+        answers: {},
+        gameStarted: false,
       };
       return Object.assign({}, state, newGame);
 
