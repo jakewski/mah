@@ -87,6 +87,14 @@ body {
   }
 }
 
+.memeSelect {
+  border: 3px solid white;
+}
+
+.memeSelect:hover {
+  border: 3px solid #5cb85c;
+}
+
 .chatbox {
   border: 1px solid #c4c5c6;
   border-radius: 10px;
