@@ -8,6 +8,8 @@ export default class PlayerAnswering extends React.Component {
         super(props);
 
         this.state = {
+            height: 0,
+            width: 0,
             topText: this.props.memeTopText ? this.props.memeTopText.toUpperCase() : '',
             topXcoord: 10,
             topYcoord: 10,
@@ -35,10 +37,26 @@ export default class PlayerAnswering extends React.Component {
         const image = new window.Image();
         image.src = this.state.memeUrl;
         image.onload = () => {
-          this.setState({
-            memeImg: image
-          })
-        this.setState({bottomYcoord: this.state.memeImg.height - 50})
+          if(window.innerWidth < 800) {
+            this.setState({
+              memeImg: image,
+              height: image.height * .75,
+              width: image.width * .75,
+              topXcoord: this.state.topXcoord * .75,
+              topYcoord: this.state.topYcoord * .75,
+              topFontSize: this.state.topFontSize * .75,
+              bottomXcoord: this.state.bottomXcoord * .75,
+              bottomYcoord: (image.height * .75) - 40,
+              bottomFontSize: this.state.bottomFontSize * .75,
+            })
+          } else {
+            this.setState({
+              memeImg: image,
+              height: image.height,
+              width: image.width,
+              bottomYcoord: image.height - 50
+            })
+          }
         };
     }
 
@@ -89,18 +107,34 @@ export default class PlayerAnswering extends React.Component {
       //we will recreate the memes via konva canvas on the slider
       e.persist();
       e.preventDefault();
-
-      let answer = {
-        topText: e.target.toptext.value,
-        topXcoord: this.state.topXcoord,
-        topYcoord: this.state.topYcoord,
-        topFontSize: this.state.topFontSize,
-        bottomText: e.target.bottomtext.value,
-        bottomXcoord: this.state.bottomXcoord,
-        bottomYcoord: this.state.bottomYcoord,
-        bottomFontSize: this.state.bottomFontSize,
-        memeUrl: this.state.memeUrl
+      let answer = {};
+      if(window.innerWidth < 800) {
+        answer = {
+          topText: e.target.toptext.value,
+          topXcoord: this.state.topXcoord / .75,
+          topYcoord: this.state.topYcoord / .75,
+          topFontSize: this.state.topFontSize / .75,
+          bottomText: e.target.bottomtext.value,
+          bottomXcoord: this.state.bottomXcoord / .75,
+          bottomYcoord: this.state.bottomYcoord / .75,
+          bottomFontSize: this.state.bottomFontSize / .75,
+          memeUrl: this.state.memeUrl
+        }
+      } else {
+        answer = {
+          topText: e.target.toptext.value,
+          topXcoord: this.state.topXcoord,
+          topYcoord: this.state.topYcoord,
+          topFontSize: this.state.topFontSize,
+          bottomText: e.target.bottomtext.value,
+          bottomXcoord: this.state.bottomXcoord,
+          bottomYcoord: this.state.bottomYcoord,
+          bottomFontSize: this.state.bottomFontSize,
+          memeUrl: this.state.memeUrl
+        }
       }
+
+
       socket.emit('answerPosted', answer);
     }
 
@@ -124,16 +158,20 @@ export default class PlayerAnswering extends React.Component {
                   </div>
                 </form>
                 {this.state.memeImg ?
-                  <Stage className="animated bounceInDown" height={this.state.memeImg.height} width={this.state.memeImg.width}>
+
+                <div className="animated bounceInDown stageWrapper">
+                  <Stage height={this.state.height} width={this.state.width}>
                     <Layer>
-                      <Image image={this.state.memeImg} />
+                      <Image width={this.state.width} height={this.state.height} image={this.state.memeImg} />
                     </Layer>
                     <Layer>
-                      <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.memeImg.width - 20} draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
+                      <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.width - 20} draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
 
-                      <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.memeImg.width - 20} wrap='char' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
+                      <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.width - 20} wrap='char' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
                     </Layer>
                   </Stage>
+                  </div>
+
                 : <div />}
                 </div>
                 <hr />
