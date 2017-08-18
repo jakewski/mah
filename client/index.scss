@@ -133,6 +133,7 @@ body {
     margin: 10px;
     font-size: 2em;
   }
+
 }
 .playerScoreFlexBox{
   display: flex;
@@ -153,6 +154,10 @@ body {
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
+}
+
+.stageWrapper {
+  margin-bottom: 20px;
 }
 
 #inputAnswer {

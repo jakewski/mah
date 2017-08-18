@@ -32,6 +32,9 @@ class Pregame extends Component {
             <h1>Please wait until host chooses to start the game</h1>
           </div>
         }
+
+        <hr />
+
         <h3>Game Players: </h3>
         <h5>Host: {this.props.players.players[0].name}</h5>
         {
@@ -43,6 +46,7 @@ class Pregame extends Component {
             }
           })
         }
+
       </div>
 
     );

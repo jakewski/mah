@@ -18,6 +18,10 @@ class ChatBox extends Component {
         });
     }
 
+    componentWillUnmount() {
+        socket.removeListener('message');
+    }
+
     componentDidUpdate() {
     // get the messagelist container and set the scrollTop to the height of the container
     const objDiv = document.getElementsByClassName('messagesUl');
@@ -41,7 +45,7 @@ class ChatBox extends Component {
         const messages = this.state.messages.map((message, index) => {
             if (message) {
                 return (
-                    <li className="messageLi" key={index}>
+                    <li className="messageLi animated bounceIn" key={index}>
                         <b className="messageFrom">
                             {message.from}: {' '}
                         </b>

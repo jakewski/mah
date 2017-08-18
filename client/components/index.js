@@ -16,4 +16,4 @@ export {default as Pregame} from './Pregame'
 export {default as PlayerJudgement} from './PlayerJudgement'
 export {default as PlayerWaiting} from './PlayerWaiting'
 export {default as PlayerAnswering} from './PlayerAnswering'
-
+export {default as Instructions} from './Instructions'

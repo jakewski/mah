@@ -9,6 +9,8 @@ export default class Canvas extends React.Component {
     super(props);
 
     this.state = {
+      height: 0,
+      width: 0,
       topText: this.props.topText,
       topXcoord: this.props.topXcoord,
       topYcoord: this.props.topYcoord,
@@ -23,29 +25,36 @@ export default class Canvas extends React.Component {
   }
 
   componentDidMount() {
+
     const image = new window.Image();
     image.src = this.state.memeUrl;
     image.onload = () => {
       this.setState({
-        memeImg: image
+        memeImg: image,
+        height: image.height * .75,
+        width: image.width * .75,
+        topxCoord: this.state.topXcoord * .75,
+        topYcoord: this.state.topYcoord * .75,
+        topFontSize: this.state.topFontSize * .75,
+        bottomXcoord: this.state.bottomXcoord * .75,
+        bottomYcoord: this.state.bottomYcoord * .75,
+        bottomFontSize: this.state.bottomFontSize * .75
       })
-    this.setState({bottomYcoord: this.state.memeImg.height - 50})
     };
   }
 
   render() {
-
   return (
-    <div>
+    <div className="stageWrapper">
         {this.state.memeImg ?
-          <Stage height={this.state.memeImg.height} width={this.state.memeImg.width}>
+          <Stage height={this.state.height} width={this.state.width}>
             <Layer>
-              <Image image={this.state.memeImg} />
+              <Image height={this.state.height} width={this.state.width} image={this.state.memeImg} />
             </Layer>
             <Layer>
-              <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.memeImg.width - 20} shadowColor='black' text={this.state.topText} />
+              <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.width - 20} shadowColor='black' text={this.state.topText} />
 
-              <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.memeImg.width - 20} wrap='char' shadowColor='black' text={this.state.bottomText} />
+              <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.width - 20} wrap='char' shadowColor='black' text={this.state.bottomText} />
             </Layer>
           </Stage>
         : <div />}
