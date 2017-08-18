@@ -12,6 +12,7 @@ class ChatBox extends Component {
 
     componentDidMount() {
         socket.on('message', message => {
+            console.log('got to reception on client@@@')
             this.setState(function(oldState) {
               return { messages: [...oldState.messages, message] }
             });
@@ -36,7 +37,7 @@ class ChatBox extends Component {
                 from: 'Me'
             };
             this.setState({ messages: [...this.state.messages, message] });
-            socket.emit('message', {body, room: this.props.players.room});
+            socket.emit('message', {body, room: this.props.players.room, from: this.props.players.player.name});
             event.target.value = '';
         }
     };

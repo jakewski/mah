@@ -8,8 +8,6 @@ const axios = require('axios');
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
-    // socket.join('Main');
-    // socket.room = 'Main';
 
     //we need to emit back category and meme for when the host chooses to start the game
     socket.on('startGame', (room) => {
@@ -24,8 +22,9 @@ module.exports = (io) => {
     //need to emit back the playerId to make a flag that the player answered on the front end
     //check if everybody answered, and if they did, emit something to the front that well let us know it's time for the judge to choose one
     socket.on('answerPosted', answerAndRoom => {
+      let answer = answerAndRoom.answer
       store.dispatch(postAnswer({
-        gameId: socket.room,
+        gameId: answerAndRoom.room,
         playerId: socket.id,
         topText: answer.topText,
         topXcoord: answer.topXcoord,
@@ -77,7 +76,7 @@ module.exports = (io) => {
       const code = randStr.generate(7);
 
       socket.emit('getCode', code);
-      socket.leave('Main', () => {
+      socket.leave('main', () => {
         socket.room = code;
         socket.join(code, () => {
 
@@ -93,12 +92,9 @@ module.exports = (io) => {
 
 
     socket.on('switchToMain', (room) => {
-      socket.leave(room, () => {
-        axios.post('/api/room', {room})
-        //socket.room = 'Main';
-        socket.join('Main');
-
-      });
+      axios.post('/api/room', {room: 'main'})
+      //socket.room = 'Main';
+      socket.join(room);
     })
     socket.on('getPlayers', (room) => {
       if (store.getState().game[room]) {
@@ -124,7 +120,7 @@ module.exports = (io) => {
         store.dispatch(addPlayer({id: socket.id, name: playerName, sessionId }));
         store.dispatch(addPlayerToGame({player: { name: playerName, id: socket.id, score: 0, sessionId: sessionId, activePlayer: activePlayer }, gameId: code }));
         socket.playerName = playerName;
-        socket.leave('Main', () => {
+        socket.leave('main', () => {
           socket.join(code, () => {
             socket.room = code;
             socket.broadcast.to(code).emit('message', {body: playerName + ' has connected to this room', from: 'MemeBot'});
@@ -150,11 +146,12 @@ module.exports = (io) => {
     // });
 
 
-    socket.on('message', ({body, room}) => {
+    socket.on('message', ({body, room, from}) => {
       console.log(`emmiting message from ${socket.id} to ${room}`);
+      console.log('wit a body of:', body)
       socket.to(room).emit('message', {
         body,
-        from: socket.playerName
+        from,
       })
     })
 

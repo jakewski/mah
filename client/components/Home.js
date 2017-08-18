@@ -5,6 +5,7 @@ import socket from '../socket';
 import { CSSTransitionGroup } from 'react-transition-group';
 import ChatBox from './ChatBox'
 import Instructions from './Instructions'
+import { setRoom } from '../store'
 
 /**
  * COMPONENT
@@ -21,6 +22,7 @@ class Home extends Component {
 
     componentDidMount() {
         socket.emit('switchToMain', this.props.players.room);
+        this.props.setRoom({id: 'main'})
     }
 
     toggleInstructions(){
@@ -60,7 +62,7 @@ class Home extends Component {
                     </button>
                     <hr />
                     <div className="col-sm-12 col-md-12 col-lg-12">
-                       <Instructions showInstructions={this.state.showInstructions} /> 
+                       <Instructions showInstructions={this.state.showInstructions} />
                     </div>
                 </CSSTransitionGroup>
             </div>
@@ -76,7 +78,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-
+    setRoom: code => dispatch(setRoom(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
