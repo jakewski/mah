@@ -18,6 +18,10 @@ class ChatBox extends Component {
         });
     }
 
+    componentWillUnmount() {
+        socket.removeListener('message');
+    }
+
     componentDidUpdate() {
     // get the messagelist container and set the scrollTop to the height of the container
     const objDiv = document.getElementsByClassName('messagesUl');
