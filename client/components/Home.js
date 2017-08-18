@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import socket from '../socket';
 import { CSSTransitionGroup } from 'react-transition-group';
 import ChatBox from './ChatBox'
+import Instructions from './Instructions'
 
 /**
  * COMPONENT
@@ -11,11 +12,19 @@ import ChatBox from './ChatBox'
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showInstructions: true,
+        }
+        this.toggleInstructions = this.toggleInstructions.bind(this);
     }
 
 
     componentDidMount() {
         socket.emit('switchToMain');
+    }
+
+    toggleInstructions(){
+        this.setState(prev => ({ showInstructions: !prev.showInstructions }));
     }
 
     render() {
@@ -37,10 +46,21 @@ class Home extends Component {
                                     Join Game
                                 </button>
                             </NavLink>
+                            <br />
+                            <br />
+                            <br />
                         </div>
                         <div className="col-sm-6 col-md-6 col-lg-6">
                             <ChatBox />
                         </div>
+                    </div>
+                    <hr />
+                    <button type="button" onClick={this.toggleInstructions} className="btn btn-info">
+                            {this.state.showInstructions ? 'Hide Instructions' : 'How to Play'}
+                    </button>
+                    <hr />
+                    <div className="col-sm-12 col-md-12 col-lg-12">
+                       <Instructions showInstructions={this.state.showInstructions} /> 
                     </div>
                 </CSSTransitionGroup>
             </div>

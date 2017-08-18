@@ -148,6 +148,10 @@ class GameRoom extends Component {
             </div>
             <hr />
             <div className="row">
+              <h3>Category: {this.state.category}</h3>
+            </div>
+            <hr />
+            <div className="row">
               {/*judge logic  */}
               {this.state.playerIsCurrentJudge ?
               <div>
