@@ -62,7 +62,6 @@ class CreateGame extends Component {
     if(checkedCategories.length > 0) {
       socket.emit('createGame', {
         categories: checkedCategories,
-        playerNum: event.target.players.value,
         playerName: player.name,
         sessionId: player.sessionId,
         socketId: player.socketId,
@@ -79,18 +78,6 @@ class CreateGame extends Component {
         <div key="transition" className="container">
           <h1>Create a New Game</h1>
             <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player)}>
-
-              <h3><label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Number of Players:</label></h3>
-              <select className="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" name="players">
-                <option value="3">Three</option>
-                <option value="4">Four</option>
-                <option value="5">Five</option>
-                <option value="6">Six</option>
-                <option value="7">Seven</option>
-                <option value="8">Eight</option>
-                <option value="9">Nine</option>
-                <option value="10">Ten</option>
-              </select>
 
               <br />
 

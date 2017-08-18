@@ -82,7 +82,7 @@ module.exports = (io) => {
         socket.join(code, () => {
 
           store.dispatch(addPlayer({name: playerName, id: socket.id, sessionId: sessionId }));
-          store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0, sessionId: sessionId, activePlayer: activePlayer }, categories: categories, playerNum: playerNum}));
+          store.dispatch(addGame({gameId: code, host: {id: socket.id, name: playerName, score: 0, sessionId: sessionId, activePlayer: activePlayer }, categories: categories}));
         });
       });
     })
@@ -109,9 +109,9 @@ module.exports = (io) => {
     socket.on('addPlayertoRoom', ({ code, playerName, sessionId, activePlayer }) => {
       const rooms = store.getState().game;
       //socket.room = code;
-      if(!rooms[code]) socket.emit('wrongCode', 'ya done fucked up sonny');
+      if(!rooms[code]) socket.emit('wrongCode', 'Room does not exist!');
       else if(rooms[code].gamePlayers.includes(socket.id)){
-        socket.emit('alreadyInRoom', 'you are already in this room');
+        socket.emit('alreadyInRoom', 'You are already in this room!');
       }
       else{
         store.dispatch(addPlayer({id: socket.id, name: playerName, sessionId }));

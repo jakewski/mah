@@ -158,10 +158,9 @@ export default class PlayerAnswering extends React.Component {
                     <button type="submit" className="btn btn-success center">Submit</button>
                   </div>
                 </form>
-
                 {this.state.memeImg ?
 
-                <div className="stageWrapper">
+                <div className="animated bounceInDown stageWrapper">
                   <Stage height={this.state.height} width={this.state.width}>
                     <Layer>
                       <Image width={this.state.width} height={this.state.height} image={this.state.memeImg} />
@@ -176,6 +175,7 @@ export default class PlayerAnswering extends React.Component {
 
                 : <div />}
                 </div>
+                <hr />
             </div>);
     }
 }

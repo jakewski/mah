@@ -10,14 +10,15 @@ class JoinGame extends Component {
   constructor() {
     super();
     this.state = {
-      error: ""
+      error: "",
+      animateError: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     socket.on("wrongCode", errorMessage => {
-      this.setState({ error: errorMessage });
+      this.setState({ error: errorMessage, animateError: true, });
     });
     socket.on("alreadyInRoom", errorMessage => {
       this.setState({ error: errorMessage });
@@ -38,6 +39,7 @@ class JoinGame extends Component {
       this.props.setRoom({id: event.target.code.value, host: host});
       history.push("/room");
     });
+    this.setState({ animateError: false });
   }
 
   render() {
@@ -76,9 +78,9 @@ class JoinGame extends Component {
             </button>
           </form>
         </div>
-        <div>
+        <h3 className={this.state.animateError ? "animated shake" : ""}>
           {this.state.error}
-        </div>
+        </h3>
       </CSSTransitionGroup>
     );
   }
