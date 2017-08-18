@@ -17,10 +17,10 @@ module.exports = (io) => {
 
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
       socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
+      
+    })
 
-      // timeout for players taking too long
-      setTimeout(() => {
-        console.log('3 secs')
+    socket.on('timeout', () => {
         let currentState = store.getState().game[socket.room]
         socket.emit('gotAllAnswers', currentState.answers)
         socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers);
@@ -29,10 +29,9 @@ module.exports = (io) => {
         //isThisPlayer = false
         //timeout = true
         socket.emit('playerAnswered', currentState.answers, false, true);
-        socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false, true);
-      }, 6000)
-      
-    })
+        //socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false, true);
+        console.log('end timeout state', store.getState().game[socket.room]);
+      })
     
 
     //need to emit back the playerId to make a flag that the player answered on the front end
@@ -80,21 +79,6 @@ module.exports = (io) => {
         //socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
       }, 5000)
       //socket.emit('nextTurn' {})
-      
-      // timeout for players taking too long
-      setTimeout(() => {
-        console.log('3 secs')
-        let currentState = store.getState().game[socket.room]
-        socket.emit('gotAllAnswers', currentState.answers)
-        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers);
-
-        //trying to switch to player waiting screen after 3 seconds
-        //isThisPlayer = false
-        //timeout = true
-        socket.emit('playerAnswered', currentState.answers, false, true);
-        socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false, true);
-      }, 6000)
-
     })
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer }) => {

@@ -64,6 +64,7 @@ class GameRoom extends Component {
         timeout: false,
       }
       this.setState(newState)
+      setTimeout(() => {socket.emit('timeout')}, 6000)
     })
     socket.on('gotAllAnswers', answers => {
       this.setState({
