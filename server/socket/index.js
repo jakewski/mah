@@ -33,8 +33,16 @@ module.exports = (io) => {
     socket.on('answerPosted', answer => {
       store.dispatch(postAnswer({
         gameId: socket.room,
-        text: answer,
         playerId: socket.id,
+        topText: answer.topText,
+        topXcoord: answer.topXcoord,
+        topYcoord: answer.topYcoord,
+        topFontSize: answer.topFontSize,
+        bottomText: answer.bottomText,
+        bottomXcoord: answer.bottomXcoord,
+        bottomYcoord: answer.bottomYcoord,
+        bottomFontSize: answer.bottomFontSize,
+        memeUrl: answer.memeUrl
       }))
       let currentState = store.getState().game[socket.room];
 
