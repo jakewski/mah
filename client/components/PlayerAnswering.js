@@ -8,14 +8,15 @@ export default class PlayerAnswering extends React.Component {
         super(props);
 
         this.state = {
-            topText: '',
+            topText: this.props.memeTopText ? this.props.memeTopText.toUpperCase() : '',
             topXcoord: 10,
             topYcoord: 10,
-            bottomText: '',
+            bottomText: this.props.memeBottomText ? this.props.memeBottomText.toUpperCase() : '',
             bottomXcoord: 10,
             bottomYcoord: 0,
             topFontSize: 40,
             bottomFontSize: 40,
+            memeUrl: this.props.memeUrl,
             memeImg: null, //DO NOT CHANGE THIS -- React-konva relies on the null keyword
         };
 
@@ -32,7 +33,7 @@ export default class PlayerAnswering extends React.Component {
 
     componentDidMount() {
         const image = new window.Image();
-        image.src = 'https://imgflip.com/s/meme/Futurama-Fry.jpg';
+        image.src = this.state.memeUrl;
         image.onload = () => {
           this.setState({
             memeImg: image
@@ -62,11 +63,11 @@ export default class PlayerAnswering extends React.Component {
     }
 
     topTxtChange = (e) => {
-      this.setState({topText: e.target.value});
+      this.setState({topText: e.target.value.toUpperCase()});
     }
 
     bottomTxtChange = (e) => {
-      this.setState({bottomText: e.target.value})
+      this.setState({bottomText: e.target.value.toUpperCase()})
     }
 
     dragTop = (e) => {
@@ -88,7 +89,18 @@ export default class PlayerAnswering extends React.Component {
       //we will recreate the memes via konva canvas on the slider
       e.persist();
       e.preventDefault();
-      let answer = [e.target.toptext.value, e.target.bottomtext.value]
+
+      let answer = {
+        topText: e.target.toptext.value,
+        topXcoord: this.state.topXcoord,
+        topYcoord: this.state.topYcoord,
+        topFontSize: this.state.topFontSize,
+        bottomText: e.target.bottomtext.value,
+        bottomXcoord: this.state.bottomXcoord,
+        bottomYcoord: this.state.bottomYcoord,
+        bottomFontSize: this.state.bottomFontSize,
+        memeUrl: this.state.memeUrl
+      }
       socket.emit('answerPosted', answer);
     }
 
@@ -98,13 +110,14 @@ export default class PlayerAnswering extends React.Component {
               <div className="gameAnswerFlex">
                 <form onSubmit={this.onMemeSubmit}>
                   <div className="form-group col-md-9 col-xs-12 col-lg-6" >
-                    <input placeholder="top text" name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" onChange={this.topTxtChange}/>
-                    <button className="btn btn-success center" onClick={this.onTopPlusClick}>+</button>
-                    <button className="btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
 
-                    <input placeholder="bottom text" name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" onChange={this.bottomTxtChange}/>
-                    <button className="btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
-                    <button className="btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
+                    <input name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" value={this.state.topText} placeholder="top text" onChange={this.topTxtChange}/>
+                    <button className="memeButtons btn btn-success center" onClick={this.onTopPlusClick}>+</button>
+                    <button className="memeButtons btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
+
+                    <input name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" value={this.state.bottomText} placeholder="bottom text" onChange={this.bottomTxtChange}/>
+                    <button className="memeButtons btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
+                    <button className="memeButtons btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
                     <br />
                     <br />
                     <button type="submit" className="btn btn-success center">Submit</button>
@@ -116,8 +129,9 @@ export default class PlayerAnswering extends React.Component {
                       <Image image={this.state.memeImg} />
                     </Layer>
                     <Layer>
-                      <Text align="center" x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
-                      <Text x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
+                      <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.memeImg.width - 20} draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
+
+                      <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.memeImg.width - 20} wrap='char' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
                     </Layer>
                   </Stage>
                 : <div />}

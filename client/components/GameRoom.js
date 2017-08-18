@@ -7,11 +7,6 @@ import { addToPlayers, replacePlayers, setRoom } from '../store';
 import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
 import axios from 'axios'
 
-
-var divStyle = {
-  backgroundImage: 'url(' + 'https://imgflip.com/s/meme/Futurama-Fry.jpg' + ')',
-};
-
 class GameRoom extends Component {
   constructor(){
     super();
@@ -24,7 +19,8 @@ class GameRoom extends Component {
       playerIsCurrentJudge: false,
       playerAnswerSubmitted: false,
       memeUrl: '',
-      memeText: '',
+      memeTopText: '',
+      memeBottomText: '',
       gameRoomName: 'Bad Boys and Girls of America',
       gamePlayers: [],
       isHost: true,
@@ -54,7 +50,8 @@ class GameRoom extends Component {
       let newState = {
         gameStarted: true,
         memeUrl: turn.meme.image,
-        memeText: turn.meme.text,
+        memeTopText: turn.meme.topText,
+        memeBottomText: turn.meme.bottomText,
         category: turn.category,
         judge: turn.judge,
         playerIsCurrentJudge: isJudge,
@@ -137,7 +134,7 @@ class GameRoom extends Component {
                   <PlayerWaiting />}
                 </div>
                 :
-               <PlayerAnswering memeUrl={this.state.memeUrl} />}
+               <PlayerAnswering memeUrl={this.state.memeUrl} memeTopText={this.state.memeTopText} memeBottomText={this.state.memeBottomText} />}
               </div>}
             </div>
           </div>) : <Pregame />}
