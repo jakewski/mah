@@ -61,6 +61,7 @@ class GameRoom extends Component {
         turnNumber: turn.turnNumber,
         roundUnjudged: false,
         submittedAnswers: {},
+        timeout: false,
       }
       this.setState(newState)
     })
@@ -69,14 +70,20 @@ class GameRoom extends Component {
         submittedAnswers: answers,
         allAnswersSubmitted: true,
       })
+
     })
-    socket.on('playerAnswered', (currentAnswers, isThisPlayer) => {
+    socket.on('playerAnswered', (currentAnswers, isThisPlayer, timeout) => {
       this.setState({
         submittedAnswers: currentAnswers,
       })
       if(isThisPlayer) {
         this.setState({
           playerAnswerSubmitted: true,
+        })
+      }
+      if(!this.state.playerAnswerSubmitted && timeout) {
+        this.setState({
+          timeout: true,
         })
       }
     })
@@ -133,13 +140,20 @@ class GameRoom extends Component {
                             <div>
                               <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
                             </div>
-                        :
-                          Object.keys(this.state.submittedAnswers).includes(player.id)
-                          ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div> 
-                          : <div>
-                              <div className="scoreText red name" key={index}>{player.name}: {player.score} </div> 
-                              <div className="loadingRed right load"></div>
-                            </div>
+                        : Object.keys(this.state.submittedAnswers).includes(player.id) || this.state.timeout ?
+                            //if answer submitted OR timeout
+                            //if submitted
+                            Object.keys(this.state.submittedAnswers).includes(player.id) ?
+                                <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div> 
+                              : //if timeout
+                                <div>
+                                  <div className="scoreText grey name" key={index}>{player.name}: {player.score} X</div> 
+                                </div>
+                            : //waiting....
+                              <div>
+                                <div className="scoreText red name" key={index}>{player.name}: {player.score} </div> 
+                                <div className="loadingRed right load"></div>
+                              </div>
                       }
                     </div>
                   )
@@ -157,9 +171,9 @@ class GameRoom extends Component {
               </div>
               :
               <div> {/*player logic  */}
-                {this.state.playerAnswerSubmitted ?
+                {this.state.playerAnswerSubmitted || this.state.timeout ?
                 <div>
-                  {this.state.allAnswersSubmitted ?
+                  {this.state.allAnswersSubmitted || this.state.timeout ?
                   <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
                   <PlayerWaiting />}
                 </div>

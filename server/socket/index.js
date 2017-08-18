@@ -18,13 +18,20 @@ module.exports = (io) => {
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
       socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
 
-
-      //timeout for players taking too long
+      // timeout for players taking too long
       setTimeout(() => {
         console.log('3 secs')
+        let currentState = store.getState().game[socket.room]
         socket.emit('gotAllAnswers', currentState.answers)
-        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers)
-      }, 3000)
+        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers);
+
+        //trying to switch to player waiting screen after 3 seconds
+        //isThisPlayer = false
+        //timeout = true
+        socket.emit('playerAnswered', currentState.answers, false, true);
+        socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false, true);
+      }, 6000)
+      
     })
     
 
@@ -49,12 +56,6 @@ module.exports = (io) => {
       //update answers real-time for answer submitted check
       socket.emit('playerAnswered', currentState.answers, true);
       socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false);
-
-      if(currentState.gamePlayers.length - 1 === Object.keys(currentState.answers).length){
-        socket.emit('gotAllAnswers', currentState.answers)
-        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers)
-      }
-
     })
 
     //post to database, emit something that lets us know to render the winning meme for everybody
@@ -79,6 +80,21 @@ module.exports = (io) => {
         //socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
       }, 5000)
       //socket.emit('nextTurn' {})
+      
+      // timeout for players taking too long
+      setTimeout(() => {
+        console.log('3 secs')
+        let currentState = store.getState().game[socket.room]
+        socket.emit('gotAllAnswers', currentState.answers)
+        socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers);
+
+        //trying to switch to player waiting screen after 3 seconds
+        //isThisPlayer = false
+        //timeout = true
+        socket.emit('playerAnswered', currentState.answers, false, true);
+        socket.broadcast.to(socket.room).emit('playerAnswered', currentState.answers, false, true);
+      }, 6000)
+
     })
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer }) => {
