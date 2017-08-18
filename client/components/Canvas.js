@@ -29,7 +29,6 @@ export default class Canvas extends React.Component {
       this.setState({
         memeImg: image
       })
-    this.setState({bottomYcoord: this.state.memeImg.height - 50})
     };
   }
 
