@@ -30,6 +30,9 @@ class CreateGame extends Component {
       })
     })
   }
+  componentWillUnmount(){
+    socket.removeListener('getCode');
+  }
 
   setCategories(categoryId){
     return () => this.setState(prev => {

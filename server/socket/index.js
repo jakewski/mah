@@ -92,12 +92,16 @@ module.exports = (io) => {
 
 
     socket.on('switchToMain', (room) => {
+      console.log('error right here?')
       axios.post('/api/room', {room: 'main'})
-      //socket.room = 'Main';
-      socket.join(room);
+      console.log('or after?')
+      socket.leave(room)
+      console.log('or here?')
+      socket.join('main');
     })
-    socket.on('getPlayers', (room) => {
+    socket.on('getGameState', (room) => {
       if (store.getState().game[room]) {
+      socket.leave('main')
       socket.join(room)
       socket.emit('recievePlayers', store.getState().game[room].gamePlayers)
       }

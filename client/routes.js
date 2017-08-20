@@ -30,16 +30,6 @@ class Routes extends Component {
         })
       }
     })
-    axios.get('/api/room')
-    .then( res => {
-      if (res.data.activeRoom) {
-        this.props.setRoom({id: res.data.room})
-      }
-      socket.emit('getPlayers', res.data.room)
-      socket.on('recievePlayers', players => {
-        this.props.replacePlayers(players)
-      })
-    })
     // .then(room => {
     //   axios.post('/api/room/players', {room})
     //   .then( res => {
