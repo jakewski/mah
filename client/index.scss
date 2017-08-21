@@ -88,11 +88,12 @@ body {
 }
 
 .memeSelect {
-  border: 3px solid white;
+  border: 10px solid white;
 }
 
 .memeSelect:hover {
-  border: 3px solid #5cb85c;
+  border: 10px solid #5cb85c;
+  border-radius: 10px;
 }
 
 .chatbox {

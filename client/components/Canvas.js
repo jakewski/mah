@@ -45,7 +45,7 @@ export default class Canvas extends React.Component {
 
   render() {
   return (
-    <div className="stageWrapper">
+    <div className="stageWrapper animated bounceInDown memeSelect">
         {this.state.memeImg ?
           <Stage height={this.state.height} width={this.state.width}>
             <Layer>

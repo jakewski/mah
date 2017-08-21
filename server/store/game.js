@@ -6,6 +6,7 @@ const ADD_PLAYER_TO_GAME = "ADD_PLAYER_TO_GAME";
 const SWITCH_TO_NEXT_TURN = "SWITCH_TO_NEXT_TURN";
 const POST_ANSWER = 'POST_ANSWER';
 const INCREMENT_SCORE = 'INCREMENT_SCORE';
+const START_GAME = 'START_GAME'
 //on the backend we store all of our players, on the front end we will store the current player
 const initialState = {};
 let memes;
@@ -14,6 +15,7 @@ Meme.findAll().then(stuff => memes = stuff);
 /*
 {
     gameId: {
+        gameStarted: false,
         host: {},
         gamePlayers: [],
         categories: [],
@@ -37,6 +39,8 @@ const addPlayerToGame = playerToGame => ({
   type: ADD_PLAYER_TO_GAME,
   playerToGame
 });
+
+const startGame = gameId => ({ type: START_GAME, gameId });
 
 const incrementScore = game => ({ type: INCREMENT_SCORE, game});
 //switchToNextTurn action will assign a random category and meme
@@ -120,9 +124,17 @@ const reducer = function(state = initialState, action) {
       newThang[action.game.gameId] = Object.assign({}, state[action.game.gameId], innerGamePlayers);
       //console.log('NEWTHANG', newThang);
       return Object.assign({}, state, newThang);
+
+    case START_GAME:
+      let started = { gameStarted: true }
+      let startedGame = {};
+      startedGame[action.gameId] = Object.assign({}, state[action.gameId], started);
+      //console.log('startedGame', startedGame)
+      return Object.assign({}, state, startedGame);
+
     default:
       return state;
   }
 };
 
-module.exports = { addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer, incrementScore };
+module.exports = { startGame, addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer, incrementScore };
