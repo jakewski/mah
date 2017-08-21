@@ -29,9 +29,9 @@ class EnterName extends Component {
     })
     .then(res => {
       this.props.setPlayerThunk({
-        name: res.data.name, 
-        socketId: res.data.socketId, 
-        activePlayer: res.data.activePlayer, 
+        name: res.data.name,
+        socketId: res.data.socketId,
+        activePlayer: res.data.activePlayer,
         sessionId: res.data.sessionId,
       })
     })
@@ -70,7 +70,7 @@ class EnterName extends Component {
                   null }
                 {!this.inputWithinLimit() && this.state.player.dirty ?
                   <span className="alert alert-danger validationSpan">Name too long</span> :
-                  null 
+                  null
                 }
             </form>
           </CSSTransitionGroup>
