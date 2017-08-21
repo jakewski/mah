@@ -1,8 +1,9 @@
 import React from 'react';
 import socket from "../socket";
 import Canvas from './Canvas';
+import { connect } from 'react-redux';
 
-export default class Judgement extends React.Component {
+class Judgement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,10 +15,10 @@ export default class Judgement extends React.Component {
   selectAnswer(key){
     let tempThis = this;
     return function(){
-      socket.emit('winningMeme', key)
+      socket.emit('winningMeme', {key, room: tempThis.props.players.room})
       socket.on('roundFinishedJudge', winningMeme => {
         tempThis.setState({ winningMeme: winningMeme });
-        socket.emit('switchToNextTurn')
+        socket.emit('switchToNextTurn', tempThis.props.players.room)
       })
     }
   }
@@ -41,7 +42,7 @@ export default class Judgement extends React.Component {
                 </div>
             })}
           </div>
-        </div>) : 
+        </div>) :
             <div>
                 <h3>WINNING MEME:</h3>
                 <div className="animated swing gameAnswerFlex">
@@ -52,3 +53,14 @@ export default class Judgement extends React.Component {
     )
   }
 }
+const mapStateToProps = function(state, ownProps) {
+  return {
+    players: state.players
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Judgement);

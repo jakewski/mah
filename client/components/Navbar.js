@@ -20,8 +20,9 @@ const Navbar = (props) => {
     axios.delete('/api/player/')
     .then(() => props.removePlayer())
     .then(() => {
-      props.history.push('/')
+      return props.history.push('/')
     })
+    .catch(err => console.log(err))
   }
 
   return (

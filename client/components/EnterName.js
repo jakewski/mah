@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { setPlayerThunk } from '../store'
+import { setPlayer } from '../store'
 import socket from '../socket'
 import axios from 'axios'
 
@@ -28,16 +28,17 @@ class EnterName extends Component {
       socketId: socket.id,
     })
     .then(res => {
-      this.props.setPlayerThunk({
-        name: res.data.name, 
-        socketId: res.data.socketId, 
-        activePlayer: res.data.activePlayer, 
+      return this.props.setPlayer({
+        name: res.data.name,
+        socketId: res.data.socketId,
+        activePlayer: res.data.activePlayer,
         sessionId: res.data.sessionId,
       })
     })
     .then(() => {
-      this.props.history.push('/')
+      return this.props.history.push('/')
     })
+    .catch(err => console.log(err))
   }
 
   inputIsEmpty(){
@@ -70,7 +71,7 @@ class EnterName extends Component {
                   null }
                 {!this.inputWithinLimit() && this.state.player.dirty ?
                   <span className="alert alert-danger validationSpan">Name too long</span> :
-                  null 
+                  null
                 }
             </form>
           </CSSTransitionGroup>
@@ -85,7 +86,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setPlayerThunk: player => dispatch(setPlayerThunk(player)),
+  setPlayer: code => dispatch(setPlayer(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterName)

@@ -17,7 +17,7 @@ class Pregame extends Component {
   }
 
   handleClick() {
-    socket.emit('startGame');
+    socket.emit('startGame', this.props.players.room);
   }
 
   render() {
