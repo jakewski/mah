@@ -24,7 +24,7 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-const setPlayer = player => ({type: SET_PLAYER, player});
+export const setPlayer = player => ({type: SET_PLAYER, player});
 export const setRoom = room => ({type: SET_ROOM, room});
 export const addToPlayers = player => ({type: ADD_TO_PLAYERS, player})
 export const replacePlayers = players => ({type: REPLACE_PLAYERS, players})
@@ -34,13 +34,13 @@ export const removePlayer = () => ({type: REMOVE_PLAYER});
  *
  * THUNK CREATORS
  */
-export const setPlayerThunk = player => dispatch => {
-  axios.post('/api/player/', player)
-  .then(res =>  {
-    return dispatch(setPlayer(res.data))
-  })
-  .catch(err => console.log(err))
-}
+// export const setPlayerThunk = player => dispatch => {
+//   axios.post('/api/player/', player)
+//   .then(res =>  {
+//     return dispatch(setPlayer(res.data))
+//   })
+//   .catch(err => console.log(err))
+// }
 
 
 

@@ -6,6 +6,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import ChatBox from './ChatBox'
 import Instructions from './Instructions'
 import { setRoom } from '../store'
+import axios from 'axios'
 
 /**
  * COMPONENT
@@ -23,6 +24,8 @@ class Home extends Component {
     componentDidMount() {
         socket.emit('switchToMain', this.props.players.room);
         this.props.setRoom({id: 'main'})
+        axios.post('/api/room', {room: 'main'})
+        .catch(err => console.log(err))
     }
 
     toggleInstructions(){

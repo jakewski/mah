@@ -4,7 +4,7 @@ const store = require('../store');
 router.post('/', (req, res, next) => {
   req.session.room = req.body.room;
   req.session.activeRoom = true;
-  res.send( {
+  res.status(202).send( {
     activeRoom: req.session.activeRoom,
     room: req.body.room,
   });

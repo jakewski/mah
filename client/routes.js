@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 import history from './history';
 import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName, PlayerAnswering} from './components';
 import axios from 'axios';
-import { setPlayerThunk, setRoom, replacePlayers } from './store';
+import { setPlayer, setRoom, replacePlayers } from './store';
 import socket from './socket'
 
 
@@ -22,7 +22,7 @@ class Routes extends Component {
     axios.get('/api/player/')
     .then(res => {
       if (res.data.activePlayer) {
-        return this.props.setPlayerThunk({
+        return this.props.setPlayer({
           name: res.data.name,
           socketId: socket.id,
           activePlayer: res.data.activePlayer,
@@ -74,7 +74,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setPlayerThunk: player => dispatch(setPlayerThunk(player)),
+  setPlayer: player => dispatch(setPlayer(player)),
   setRoom: room => dispatch(setRoom(room)),
   replacePlayers: players => dispatch(replacePlayers(players)),
 });

@@ -31,19 +31,11 @@ class GameRoom extends Component {
   }
 
   componentWillMount() {
-    // axios.get('/api/room')
-    // .then(res => {
-    //   if(res.data.activeRoom) {
-    //     console.log('is this api call to room happening?')
-    //     this.props.setRoom(res.data.room)
-    //   }
-    // })
     socket.on('recievePlayers', players => {
       this.props.replacePlayers(players)
     })
     axios.get('/api/room')
     .then( res => {
-      console.log('session room is ', res.data)
       this.props.setRoom({id: res.data.room})
       return socket.emit('getGameState', res.data.room)
     })

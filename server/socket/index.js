@@ -18,7 +18,6 @@ module.exports = (io) => {
         console.log('error! no game to connect to')
         return {error: 'game room error'}
       }
-      console.log('gameee', game)
       //let playerArray = game.gamePlayers.map(player => player.name)
 
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
@@ -81,7 +80,6 @@ module.exports = (io) => {
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer, gameStarted }) => {
       const code = randStr.generate(7);
-      console.log('created game???', code)
 
       socket.emit('getCode', code);
       socket.leave('main', () => {
@@ -100,15 +98,14 @@ module.exports = (io) => {
 
 
     socket.on('switchToMain', (room) => {
-      if (room !== 'main') socket.leave(room)
-      socket.join('main');
-      axios.post('/api/room', {room: 'main'})
-      .catch(err => console.log(err))
+      if (room !== 'main') socket.leave(room, () => socket.join('main'))
+      else socket.join('main');
+      // axios.post('/api/room', {room: 'main'})
+      // .catch(err => console.log(err))
     })
     socket.on('getGameState', (room) => {
       if (store.getState().game[room]) {
-      socket.leave('main')
-      socket.join(room)
+      socket.leave('main', () => socket.join(room))
       socket.emit('recievePlayers', store.getState().game[room].gamePlayers)
       }
     })
@@ -121,7 +118,6 @@ module.exports = (io) => {
     })
     socket.on('addPlayertoRoom', ({ code, playerName, sessionId, activePlayer }) => {
       const rooms = store.getState().game;
-      console.log('list of current rooms', rooms)
       //socket.room = code;
       if(!rooms[code]) socket.emit('wrongCode', 'Room does not exist!');
       else if(rooms[code].gamePlayers.includes(socket.id)){
@@ -159,7 +155,6 @@ module.exports = (io) => {
 
     socket.on('message', ({body, room, from}) => {
       console.log(`emmiting message from ${socket.id} to ${room}`);
-      console.log('wit a body of:', body)
       socket.to(room).emit('message', {
         body,
         from,

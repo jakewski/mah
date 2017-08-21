@@ -25,9 +25,7 @@ class CreateGame extends Component {
     socket.on('getCode', code => {
       console.log('GAME CODE: ', code);
       this.props.setRoom({id: code, host: this.props.player});
-      axios.post('/api/room', {
-        room: code,
-      })
+      axios.post('/api/room', { room: code })
       .then(() => {
         history.push('/room')
       })

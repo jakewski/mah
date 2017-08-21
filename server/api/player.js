@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 router.post('/', (req, res, next) => {
-  console.log('do i get to api/player for post?')
   req.session.name = req.body.name || null;
   req.session.socketId = req.body.socketId || null;
   req.session.activePlayer = true;

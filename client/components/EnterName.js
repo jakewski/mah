@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { setPlayerThunk } from '../store'
+import { setPlayer } from '../store'
 import socket from '../socket'
 import axios from 'axios'
 
@@ -28,7 +28,7 @@ class EnterName extends Component {
       socketId: socket.id,
     })
     .then(res => {
-      return this.props.setPlayerThunk({
+      return this.props.setPlayer({
         name: res.data.name,
         socketId: res.data.socketId,
         activePlayer: res.data.activePlayer,
@@ -86,7 +86,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setPlayerThunk: player => dispatch(setPlayerThunk(player)),
+  setPlayer: code => dispatch(setPlayer(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterName)
