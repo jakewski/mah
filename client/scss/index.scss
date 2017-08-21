@@ -2,7 +2,6 @@
 @import "canvas";
 @import "enterName";
 @import "typingIndicator";
-@import "svg";
 
 // {
 //   display: table-cell;
@@ -11,6 +10,7 @@
 
 body {
   font-family: 'Bree Serif', serif;
+  background-color: #09173E;
 
   a {
     text-decoration: none;
