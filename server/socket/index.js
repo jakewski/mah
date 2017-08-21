@@ -10,10 +10,10 @@ module.exports = (io) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
 
     //we need to emit back category and meme for when the host chooses to start the game
-    socket.on('startGame', (room) => {
+    socket.on('startGame', () => {
       let allState = store.getState()
       let gameState = allState.game
-      let game = gameState[room]
+      let game = gameState[socket.room]
       if (!game) {
         console.log('error! no game to connect to')
         return {error: 'game room error'}
@@ -22,7 +22,7 @@ module.exports = (io) => {
       store.dispatch(startGame(socket.room))
       //console.log('stateski ', store.getState().game[socket.room])
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
-      socket.broadcast.to(room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
+      socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
     })
 
 
@@ -131,12 +131,12 @@ module.exports = (io) => {
         socket.leave('main', () => {
           socket.join(code, () => {
             console.log('gameStarted var', rooms[code].gameStarted)
+            if(rooms[code].gameStarted) socket.emit('gameStarted', {});
             socket.room = code;
             socket.broadcast.to(code).emit('message', {body: playerName + ' has connected to this room', from: 'MemeBot'});
             socket.emit('correctRoom', rooms[code].host);
             socket.broadcast.to(code).emit('replacedPlayers', store.getState().game[code].gamePlayers);
             socket.emit('replacedPlayers', store.getState().game[code].gamePlayers);
-            if(rooms[code].gameStarted) socket.emit('lateAdd');
           });
         });
 
