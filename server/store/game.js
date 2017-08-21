@@ -61,7 +61,8 @@ const reducer = function(state = initialState, action) {
         judge: action.game.host,
         turnNumber: 0,
         meme: {image: meme.image, topText: meme.topText, bottomText: meme.bottomText},
-        answers: {}
+        answers: {},
+        gameStarted: false,
       };
       return Object.assign({}, state, newGame);
 
@@ -81,7 +82,6 @@ const reducer = function(state = initialState, action) {
     case SWITCH_TO_NEXT_TURN:
       let gameWithNewTurn = {};
       let meme2 = grabRandomMeme();
-      //console.log('switch state:', state);
       let nextTurn = {
         category: grabRandomCategory(state[action.gameId].categories),
         judge: state[action.gameId].gamePlayers[++state[action.gameId].turnNumber % state[action.gameId].gamePlayers.length],
@@ -118,7 +118,6 @@ const reducer = function(state = initialState, action) {
       let innerGamePlayers = {gamePlayers: newGamePlayers}
       let newThang = {};
       newThang[action.game.gameId] = Object.assign({}, state[action.game.gameId], innerGamePlayers);
-      //console.log('NEWTHANG', newThang);
       return Object.assign({}, state, newThang);
     default:
       return state;

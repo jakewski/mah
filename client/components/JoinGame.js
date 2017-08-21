@@ -5,6 +5,7 @@ import { setRoom } from "../store";
 import { CSSTransitionGroup } from "react-transition-group";
 import socket from "../socket";
 import history from "../history";
+import axios from 'axios';
 
 class JoinGame extends Component {
   constructor() {
@@ -26,6 +27,12 @@ class JoinGame extends Component {
   }
 
   handleSubmit(event) {
+    socket.on("correctRoom", host => {
+      this.props.setRoom({id: event.target.code.value, host: host});
+      axios.post('/api/room', {room: event.target.code.value})
+      .then(() => history.push("/room"))
+      .catch(err => console.log(err))
+    });
     event.persist();
     event.preventDefault();
     //console.log("player name submit: ", this.props.player.player);
@@ -35,10 +42,7 @@ class JoinGame extends Component {
       sessionId: this.props.players.player.sessionId,
       activePlayer: this.props.players.player.activePlayer,
     });
-    socket.on("correctRoom", host => {
-      this.props.setRoom({id: event.target.code.value, host: host});
-      history.push("/room");
-    });
+    //what is animateError?
     this.setState({ animateError: false });
   }
 

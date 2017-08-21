@@ -3,8 +3,8 @@ const { UserFavorite } = require('../db/models')
 
 router.get('/', (req, res, next) => {
   UserFavorite.findAll()
-    .then(userFavorites => res.json(userFavorites))
-    .catch(next);
+  .then(userFavorites => res.json(userFavorites))
+  .catch(next);
 });
 
 router.post('/', (req, res, next) => {

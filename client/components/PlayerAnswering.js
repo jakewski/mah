@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Layer, Stage, Image, Text } from 'react-konva';
 import socket from '../socket';
+import { connect } from 'react-redux';
 
-export default class PlayerAnswering extends React.Component {
+class PlayerAnswering extends React.Component {
     constructor(props) {
         super(props);
 
@@ -135,7 +136,7 @@ export default class PlayerAnswering extends React.Component {
       }
 
 
-      socket.emit('answerPosted', answer);
+      socket.emit('answerPosted', {answer, room: this.props.players.room });
     }
 
     render() {
@@ -178,3 +179,14 @@ export default class PlayerAnswering extends React.Component {
             </div>);
     }
 }
+const mapStateToProps = function(state, ownProps) {
+  return {
+    players: state.players
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerAnswering);
