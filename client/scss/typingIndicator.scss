@@ -54,15 +54,3 @@
     transform: scale(1.05);
   }
 }
-
-// vertically center demo
-html {
-  display: table;
-  height: 100%;
-  width: 100%;
-}
-
-body {
-  display: table-cell;
-  vertical-align: middle;
-}
