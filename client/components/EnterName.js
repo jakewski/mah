@@ -55,7 +55,6 @@ class EnterName extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="nameBanner"/>
         <div className="row">
           <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
             <form key="transition" className="form-inline" onSubmit={this.formSubmit}>
