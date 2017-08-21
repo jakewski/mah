@@ -124,20 +124,20 @@ class GameRoom extends Component {
                     <div>
                       {
                         this.state.judge.id === player.id ?
-                          this.state.allAnswersSubmitted && !this.state.roundUnjudged ? 
+                          this.state.allAnswersSubmitted && !this.state.roundUnjudged ?
                             <div>
                               <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
                               <div className="loadingBlue right load"></div>
-                            </div> 
+                            </div>
                           :
                             <div>
                               <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
                             </div>
                         :
                           Object.keys(this.state.submittedAnswers).includes(player.id)
-                          ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div> 
+                          ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
                           : <div>
-                              <div className="scoreText red name" key={index}>{player.name}: {player.score} </div> 
+                              <div className="scoreText red name" key={index}>{player.name}: {player.score} </div>
                               <div className="loadingRed right load"></div>
                             </div>
                       }
@@ -147,8 +147,8 @@ class GameRoom extends Component {
               </div>
             </div>
             <hr />
-            <div className="row">
-              <h3>Category: {this.state.category}</h3>
+            <div className="row catRow">
+              <h4>Category: </h4>&nbsp;&nbsp;<h4 className="catText">{this.state.category}</h4>
             </div>
             <hr />
             <div className="row">
@@ -174,7 +174,7 @@ class GameRoom extends Component {
           </div>) : <Pregame />}
             <div className="row">
               <div className="gameAnswerFlex endOfGameRoom">
-                <div className="col-sm-12 col-md-10 col-lg-10">
+                <div className="col-sm-12 col-md-6 col-lg-6">
                   <ChatBox />
                 </div>
               </div>
