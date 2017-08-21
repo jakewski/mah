@@ -38,25 +38,24 @@ class GameRoom extends Component {
     //     this.props.setRoom(res.data.room)
     //   }
     // })
+    socket.on('recievePlayers', players => {
+      this.props.replacePlayers(players)
+    })
     axios.get('/api/room')
     .then( res => {
-      console.log('session room is ', {id: res.data.room})
+      console.log('session room is ', res.data)
       this.props.setRoom({id: res.data.room})
-      socket.emit('getGameState', res.data.room)
-      socket.on('recievePlayers', players => {
-        this.props.replacePlayers(players)
-      })
-      return null
+      return socket.emit('getGameState', res.data.room)
     })
     .catch(err => console.log(err))
   }
   componentWillUnmount(){
-    socket.removeListener('replacedPlayers');
-    socket.removeListener('gameStarted');
-    socket.removeListener('gotAllAnswers');
-    socket.removeListener('roundFinishedJudge');
-    socket.removeListener('playerAnswered');
-    socket.removeListener('recievePlayers');
+    // socket.removeListener('replacedPlayers');
+    // socket.removeListener('gameStarted');
+    // socket.removeListener('gotAllAnswers');
+    // socket.removeListener('roundFinishedJudge');
+    // socket.removeListener('playerAnswered');
+    // socket.removeListener('recievePlayers');
   }
 
   componentDidMount() {

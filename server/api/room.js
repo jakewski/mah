@@ -26,7 +26,7 @@ router.post('/players', (req, res, next) => {
 router.delete('/', (req, res, next) => {
   req.session.room = null;
   req.session.activeRoom = false;
-  res.send('room removed')
+  res.sendStatus(204)
 })
 
 module.exports = router;

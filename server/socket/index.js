@@ -16,7 +16,7 @@ module.exports = (io) => {
       let game = gameState[room]
       if (!game) {
         console.log('error! no game to connect to')
-        return null
+        return {error: 'game room error'}
       }
       console.log('gameee', game)
       //let playerArray = game.gamePlayers.map(player => player.name)
@@ -100,10 +100,10 @@ module.exports = (io) => {
 
 
     socket.on('switchToMain', (room) => {
+      if (room !== 'main') socket.leave(room)
+      socket.join('main');
       axios.post('/api/room', {room: 'main'})
       .catch(err => console.log(err))
-      socket.leave(room)
-      socket.join('main');
     })
     socket.on('getGameState', (room) => {
       if (store.getState().game[room]) {
@@ -121,6 +121,7 @@ module.exports = (io) => {
     })
     socket.on('addPlayertoRoom', ({ code, playerName, sessionId, activePlayer }) => {
       const rooms = store.getState().game;
+      console.log('list of current rooms', rooms)
       //socket.room = code;
       if(!rooms[code]) socket.emit('wrongCode', 'Room does not exist!');
       else if(rooms[code].gamePlayers.includes(socket.id)){

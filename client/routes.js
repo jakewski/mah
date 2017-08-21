@@ -22,14 +22,13 @@ class Routes extends Component {
     axios.get('/api/player/')
     .then(res => {
       if (res.data.activePlayer) {
-        this.props.setPlayerThunk({
+        return this.props.setPlayerThunk({
           name: res.data.name,
           socketId: socket.id,
           activePlayer: res.data.activePlayer,
           sessionId: res.data.sessionId,
         })
       }
-      return null
     })
     .catch(err => console.log(err))
     // .then(room => {

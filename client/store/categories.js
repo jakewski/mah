@@ -24,8 +24,7 @@ const getCategories = categories => ({type: GET_CATEGORIES, categories});
 export const getCategoriesThunk = () => dispatch =>
   axios.get(`/api/categories`)
     .then(res => {
-      dispatch(getCategories(res.data))
-      return null
+      return dispatch(getCategories(res.data))
     })
     .catch(err => console.log(err));
 

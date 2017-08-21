@@ -28,6 +28,9 @@ class CreateGame extends Component {
       axios.post('/api/room', {
         room: code,
       })
+      .then(() => {
+        history.push('/room')
+      })
       .catch(err => console.log(err))
     })
   }
@@ -67,7 +70,6 @@ class CreateGame extends Component {
         socketId: player.socketId,
         gameStarted: false,
       })
-      history.push('/room')
     } else {
       this.markCategoriesDirty();
     }

@@ -37,8 +37,7 @@ export const removePlayer = () => ({type: REMOVE_PLAYER});
 export const setPlayerThunk = player => dispatch => {
   axios.post('/api/player/', player)
   .then(res =>  {
-    dispatch(setPlayer(res.data))
-    return null
+    return dispatch(setPlayer(res.data))
   })
   .catch(err => console.log(err))
 }

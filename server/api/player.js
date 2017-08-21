@@ -1,16 +1,17 @@
 const router = require('express').Router();
 
 router.post('/', (req, res, next) => {
-  req.session.name = req.body.name;
-  req.session.socketId = req.body.socketId;
+  console.log('do i get to api/player for post?')
+  req.session.name = req.body.name || null;
+  req.session.socketId = req.body.socketId || null;
   req.session.activePlayer = true;
-  req.session.sessionId = req.session.id;
-  return res.send( {
+  req.session.sessionId = req.session.id || null;
+  res.status(202).send( {
     name: req.body.name,
     socketId: req.body.socketId,
     activePlayer: true,
     sessionId: req.session.id,
-  });
+  })
 })
 
 router.get('/', (req, res, next) => {
@@ -24,6 +25,7 @@ router.get('/', (req, res, next) => {
 
 router.delete('/', (req, res, next) => {
   req.session.destroy()
+  res.sendStatus(204)
 })
 
 module.exports = router;

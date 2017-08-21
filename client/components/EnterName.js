@@ -28,17 +28,15 @@ class EnterName extends Component {
       socketId: socket.id,
     })
     .then(res => {
-      this.props.setPlayerThunk({
+      return this.props.setPlayerThunk({
         name: res.data.name,
         socketId: res.data.socketId,
         activePlayer: res.data.activePlayer,
         sessionId: res.data.sessionId,
       })
-      return null
     })
     .then(() => {
-      this.props.history.push('/')
-      return null
+      return this.props.history.push('/')
     })
     .catch(err => console.log(err))
   }
