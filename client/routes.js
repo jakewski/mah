@@ -29,7 +29,9 @@ class Routes extends Component {
           sessionId: res.data.sessionId,
         })
       }
+      return null
     })
+    .catch(err => console.log(err))
     // .then(room => {
     //   axios.post('/api/room/players', {room})
     //   .then( res => {

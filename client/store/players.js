@@ -38,7 +38,9 @@ export const setPlayerThunk = player => dispatch => {
   axios.post('/api/player/', player)
   .then(res =>  {
     dispatch(setPlayer(res.data))
+    return null
   })
+  .catch(err => console.log(err))
 }
 
 

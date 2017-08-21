@@ -11,7 +11,14 @@ module.exports = (io) => {
 
     //we need to emit back category and meme for when the host chooses to start the game
     socket.on('startGame', (room) => {
-      let game = store.getState().game[room]
+      let allState = store.getState()
+      let gameState = allState.game
+      let game = gameState[room]
+      if (!game) {
+        console.log('error! no game to connect to')
+        return null
+      }
+      console.log('gameee', game)
       //let playerArray = game.gamePlayers.map(player => player.name)
 
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
@@ -74,6 +81,7 @@ module.exports = (io) => {
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer, gameStarted }) => {
       const code = randStr.generate(7);
+      console.log('created game???', code)
 
       socket.emit('getCode', code);
       socket.leave('main', () => {
@@ -92,11 +100,9 @@ module.exports = (io) => {
 
 
     socket.on('switchToMain', (room) => {
-      console.log('error right here?')
       axios.post('/api/room', {room: 'main'})
-      console.log('or after?')
+      .catch(err => console.log(err))
       socket.leave(room)
-      console.log('or here?')
       socket.join('main');
     })
     socket.on('getGameState', (room) => {

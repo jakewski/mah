@@ -5,7 +5,7 @@ router.post('/', (req, res, next) => {
   req.session.socketId = req.body.socketId;
   req.session.activePlayer = true;
   req.session.sessionId = req.session.id;
-  res.send( {
+  return res.send( {
     name: req.body.name,
     socketId: req.body.socketId,
     activePlayer: true,
@@ -24,8 +24,6 @@ router.get('/', (req, res, next) => {
 
 router.delete('/', (req, res, next) => {
   req.session.destroy()
-  .then(() => res.send('player removed'))
-  .catch(next)
 })
 
 module.exports = router;

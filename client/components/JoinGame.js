@@ -40,6 +40,7 @@ class JoinGame extends Component {
       this.props.setRoom({id: event.target.code.value, host: host});
       history.push("/room");
       axios.post('/api/room', {room: event.target.code.value})
+      .catch(err => console.log(err))
     });
     this.setState({ animateError: false });
   }

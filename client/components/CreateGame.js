@@ -28,10 +28,8 @@ class CreateGame extends Component {
       axios.post('/api/room', {
         room: code,
       })
+      .catch(err => console.log(err))
     })
-  }
-  componentWillUnmount(){
-    socket.removeListener('getCode');
   }
 
   setCategories(categoryId){

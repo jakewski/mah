@@ -21,7 +21,9 @@ const Navbar = (props) => {
     .then(() => props.removePlayer())
     .then(() => {
       props.history.push('/')
+      return null
     })
+    .catch(err => console.log(err))
   }
 
   return (
