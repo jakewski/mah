@@ -1,3 +1,8 @@
+@import "chatbox";
+@import "canvas";
+@import "enterName";
+@import "gameRoom"
+
 body {
   font-family: 'Bree Serif', serif;
 
@@ -40,97 +45,8 @@ body {
   .marginLeft {
     margin-left: 10px;
   }
-
-  .whatsYourName {
-    font-size: 50px;
-    margin: 0;
-  }
-
-  .fadeIn-appear {
-    opacity: 0.01;
-  }
-
-  .fadeIn-appear.fadeIn-appear-active {
-    opacity: 1;
-    transition: opacity .5s ease-in;
-  }
-
-  .validationSpan {
-    border: 0;
-    padding: 0;
-    margin: 5px;
-    background-color: transparent
-  }
-  .quit {
-    margin-top: 2%;
-    float: left;
-  }
-
-  .blue {
-    color: blue;
-  }
-
-  .red {
-    color: red;
-  }
-
-  .green {
-    color: green;
-  }
-
-  .name {
-    display: inline;
-  }
-
-  .load {
-    margin: 5px 5px 0 5px;
-  }
 }
 
-.chatbox {
-  border: 1px solid #c4c5c6;
-  border-radius: 10px;
-  height: 400px;
-  padding: 0;
-  overflow: none;
-  display: flex;
-  flex-direction: column-reverse;
-  input:focus {outline: none};
-  font-size: 1.5em;
-}
-
-.chatinput {
-  border: transparent;
-  width: 100%;
-  background-color: transparent;
-  padding: 7px;
-  border-top: 1px solid #c4c5c6;
-}
-
-.messagesUl {
-  padding: 10px;
-  height: 100%;
-  width: 100%;
-  flex: 1;
-  overflow: auto;
-}
-
-.messageLi {
-  list-style: none;
-  text-align: left;
-}
-
-.messageFrom {
-  color: blue;
-}
-
-@media (max-width: 767px) {
-  .chatbox {
-    margin: 10px;
-    font-size: 2em;
-  }
-
-}
 .playerScoreFlexBox{
   display: flex;
   justify-content: space-around;
@@ -150,10 +66,6 @@ body {
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
-}
-
-.stageWrapper {
-  margin-bottom: 20px;
 }
 
 #inputAnswer {

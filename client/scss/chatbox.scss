@@ -1,0 +1,44 @@
+.chatbox {
+  border: 1px solid #c4c5c6;
+  border-radius: 10px;
+  height: 400px;
+  padding: 0;
+  overflow: none;
+  display: flex;
+  flex-direction: column-reverse;
+  input:focus {outline: none};
+  font-size: 1.5em;
+}
+
+.chatinput {
+  border: transparent;
+  width: 100%;
+  background-color: transparent;
+  padding: 7px;
+  border-top: 1px solid #c4c5c6;
+}
+
+.messagesUl {
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.messageLi {
+  list-style: none;
+  text-align: left;
+}
+
+.messageFrom {
+  color: blue;
+}
+
+@media (max-width: 767px) {
+  .chatbox {
+    margin: 10px;
+    font-size: 2em;
+  }
+
+}

@@ -1,0 +1,33 @@
+.fadeIn-appear {
+  opacity: 0.01;
+}
+
+.fadeIn-appear.fadeIn-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.quit {
+  margin-top: 2%;
+  float: left;
+}
+
+.blue {
+  color: blue;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.name {
+  display: inline;
+}
+
+.load {
+  margin: 5px 5px 0 5px;
+}
