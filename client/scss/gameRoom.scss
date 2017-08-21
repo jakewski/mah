@@ -31,3 +31,79 @@
 .load {
   margin: 5px 5px 0 5px;
 }
+
+.playerScoreFlexBox{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: space-around;
+  flex-direction: row;
+}
+.gameForm{
+  align-content: center;
+}
+
+.gameAnswerFlex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+}
+
+#inputAnswer {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+.memeForm {
+  margin: 0px;
+}
+
+.memeories {
+  color: #ff9966;
+}
+
+.catText {
+  color: #ff3385;
+}
+
+.catRow {
+  display: flex;
+  justify-content: center;
+}
+
+.winningMeme {
+  color: red;
+}
+
+.lineAndButtons {
+  display: flex;
+}
+
+.scoreText{
+  cursor:'pointer';
+  margin: 3px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.center {
+  justify-content: center;
+}
+
+@media (min-width: 800px) {
+  .endOfGameRoom {
+    margin-bottom: 25px;
+  }
+  .btn-block {
+    max-width: 50%;
+  }
+}
