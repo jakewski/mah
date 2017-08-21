@@ -4,7 +4,6 @@ const { postAnswer, addPlayerToGame, addGame, switchToNextTurn, incrementScore} 
 const randStr = require('randomstring');
 const axios = require('axios');
 
-
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
@@ -23,7 +22,6 @@ module.exports = (io) => {
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
       socket.broadcast.to(room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
     })
-
 
     //need to emit back the playerId to make a flag that the player answered on the front end
     //check if everybody answered, and if they did, emit something to the front that well let us know it's time for the judge to choose one
@@ -62,6 +60,9 @@ module.exports = (io) => {
         playerId: playerIdAndRoom.key,
         gameId: playerIdAndRoom.room,
       }))
+
+
+
       socket.emit('roundFinishedJudge', winningAnswer);
       socket.broadcast.to(playerIdAndRoom.room).emit('roundFinishedPlayer', winningAnswer);
     })

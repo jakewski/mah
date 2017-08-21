@@ -44,7 +44,7 @@ class Judgement extends React.Component {
           </div>
         </div>) :
             <div>
-                <h3>WINNING MEME:</h3>
+                <h3 className="winningMeme">WINNING MEME:</h3>
                 <div className="animated swing gameAnswerFlex">
                   <Canvas topText={this.state.winningMeme.topText} topXcoord={this.state.winningMeme.topXcoord} topYcoord={this.state.winningMeme.topYcoord} topFontSize={this.state.winningMeme.topFontSize} bottomText={this.state.winningMeme.bottomText} bottomXcoord={this.state.winningMeme.bottomXcoord} bottomYcoord={this.state.winningMeme.bottomYcoord} bottomFontSize={this.state.winningMeme.bottomFontSize} memeUrl={this.state.winningMeme.memeUrl} />
                 </div>

@@ -43,16 +43,7 @@ db.sync({ force: true })
       memeId: 2,
     });
 
-    const winningAnswer1 = WinningAnswer.create({
-      text: 'write the front-end in one go',
-      memeId: 1,
-    });
-
-    const winningAnswer2 = WinningAnswer.create({
-      text: 'this is just a joke, or if Charles really is leaving us for Bunker Labs',
-      memeId: 2,
-    });
-    return Promise.all([favorite1, favorite2, winningAnswer1, winningAnswer2]);
+    return Promise.all([favorite1, favorite2]);
   })
   .then(() => {
     console.log('finished seeding');
