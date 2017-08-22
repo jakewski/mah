@@ -14,9 +14,8 @@ class GameRoom extends Component {
       judge: {},
       turnNumber: 0,
       gameStarted: false,
-      submittedAnswers: [],
+      submittedAnswers: {},
       allAnswersSubmitted: false,
-      playerIsCurrentJudge: false,
       playerAnswerSubmitted: false,
       memeUrl: '',
       memeTopText: '',
@@ -31,8 +30,9 @@ class GameRoom extends Component {
   }
 
   componentWillMount() {
-    socket.on('recievePlayers', players => {
-      this.props.replacePlayers(players)
+    socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
+      this.props.replacePlayers(gamePlayers)
+      this.setState({ gameStarted, judge, turnNumber, submittedAnswers: answers, memeUrl: meme.image, memeTopText: meme.topText, memeBottomText: meme.bottomText, allAnswersSubmitted, playerAnswerSubmitted, category })
     })
     axios.get('/api/room')
     .then( res => {
@@ -41,22 +41,12 @@ class GameRoom extends Component {
     })
     .catch(err => console.log(err))
   }
-  componentWillUnmount(){
-    // socket.removeListener('replacedPlayers');
-    // socket.removeListener('gameStarted');
-    // socket.removeListener('gotAllAnswers');
-    // socket.removeListener('roundFinishedJudge');
-    // socket.removeListener('playerAnswered');
-    // socket.removeListener('recievePlayers');
-  }
 
   componentDidMount() {
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
     })
     socket.on('gameStarted', turn => {
-      let isJudge = turn.judge.id === this.props.player.socketId;
-      console.log('isJudge:', isJudge)
       let newState = {
         gameStarted: true,
         memeUrl: turn.meme.image,
@@ -64,7 +54,6 @@ class GameRoom extends Component {
         memeBottomText: turn.meme.bottomText,
         category: turn.category,
         judge: turn.judge,
-        playerIsCurrentJudge: isJudge,
         gamePlayers: turn.gamePlayers,
         allAnswersSubmitted: false,
         playerAnswerSubmitted: false,
@@ -72,7 +61,9 @@ class GameRoom extends Component {
         roundUnjudged: false,
         submittedAnswers: {},
       }
+      this.props.replacePlayers(turn.gamePlayers)
       this.setState(newState)
+      // socket.emit('updateRoom')
     })
     socket.on('gotAllAnswers', answers => {
       this.setState({
@@ -120,7 +111,7 @@ class GameRoom extends Component {
           (<div>
             <div className="row">
               <div className="col-xs-6">
-                <h5>Turn Number: {this.state.turnNumber}</h5>
+                <h5>Turn Number: {this.state.turnNumber + 1}</h5>
               </div>
               <div className="col-xs-6">
                 <h5>Current Judge: {this.state.judge.name}</h5>
@@ -129,11 +120,11 @@ class GameRoom extends Component {
             <hr />
             <div className="row">
               <div className="playerScoreFlexBox">
-                {this.state.gamePlayers.map((player, index) => {
+                {this.props.players.map((player, index) => {
                   return (
                     <div key={index}>
                       {
-                        this.state.judge.id === player.id ?
+                        this.state.judge.sessionId === player.sessionId ?
                           this.state.allAnswersSubmitted && !this.state.roundUnjudged ?
                             <div>
                               <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
@@ -163,11 +154,11 @@ class GameRoom extends Component {
             <hr />
             <div className="row">
               {/*judge logic  */}
-              {this.state.playerIsCurrentJudge ?
+              {this.state.judge.sessionId === this.props.player.sessionId ?
               <div>
                 {this.state.allAnswersSubmitted ?
                 <Judgement submittedAnswers={this.state.submittedAnswers} /> :
-                <JudgeWaiting/>}
+                <JudgeWaiting />}
               </div>
               :
               <div> {/*player logic  */}

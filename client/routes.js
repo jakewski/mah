@@ -31,14 +31,6 @@ class Routes extends Component {
       }
     })
     .catch(err => console.log(err))
-    // .then(room => {
-    //   axios.post('/api/room/players', {room})
-    //   .then( res => {
-    //     if (res.data.players !== null) {
-    //       this.props.replacePlayers(res.data.players)}
-    //   })
-    // })
-
   }
 
   render () {

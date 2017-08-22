@@ -15,11 +15,11 @@ class Judgement extends React.Component {
   selectAnswer(key){
     let tempThis = this;
     return function(){
-      socket.emit('winningMeme', {key, room: tempThis.props.players.room})
       socket.on('roundFinishedJudge', winningMeme => {
         tempThis.setState({ winningMeme: winningMeme });
         socket.emit('switchToNextTurn', tempThis.props.players.room)
       })
+      socket.emit('winningMeme', {key, room: tempThis.props.players.room})
     }
   }
 
