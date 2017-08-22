@@ -35,7 +35,7 @@ class Routes extends Component {
   render () {
     return (
       <Router history={history}>
-        <Navbar>
+
           { this.props.player.activePlayer ?
             <Switch>
               <Route path='/room' component={GameRoom} />
@@ -48,7 +48,7 @@ class Routes extends Component {
            //Routes below only available with no name
             <Route path='/' component={EnterName} />
           }
-        </Navbar>
+
       </Router>
     )
   }

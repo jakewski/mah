@@ -6,10 +6,17 @@
 @import "typingIndicator";
 @import "home";
 
-// {
-//   display: table-cell;
-//   vertical-align: middle;
-// }
+body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.container-fluid {
+  height: 100%;
+}
 
 .quit {
   margin-top: 2%;

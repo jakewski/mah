@@ -54,9 +54,11 @@ class EnterName extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row">
+      <div className="container-fluid form-container">
+        <div className="row nameRow">
           <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+            <div className="flexForm">
+
             <form key="transition" className="form-inline" onSubmit={this.formSubmit}>
               <h1 className="whatsYourName">Hello, what is your name?</h1>
               <br />
@@ -73,6 +75,7 @@ class EnterName extends Component {
                   null
                 }
             </form>
+            </div>
           </CSSTransitionGroup>
       </div>
       </div>

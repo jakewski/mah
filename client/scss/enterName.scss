@@ -9,3 +9,15 @@
   margin: 5px;
   background-color: transparent
 }
+
+.form-container {
+  display: flex;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
