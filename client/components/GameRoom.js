@@ -30,6 +30,10 @@ class GameRoom extends Component {
   }
 
   componentWillMount() {
+    socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
+      this.props.replacePlayers(gamePlayers)
+      this.setState({ gameStarted, judge, turnNumber, submittedAnswers: answers, memeUrl: meme.image, memeTopText: meme.topText, memeBottomText: meme.bottomText, allAnswersSubmitted, playerAnswerSubmitted, category })
+    })
     axios.get('/api/room')
     .then( res => {
       this.props.setRoom({id: res.data.room})
@@ -48,10 +52,6 @@ class GameRoom extends Component {
   }
 
   componentDidMount() {
-    socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
-      this.props.replacePlayers(gamePlayers)
-      this.setState({ gameStarted, judge, turnNumber, submittedAnswers: answers, memeUrl: meme.image, memeTopText: meme.topText, memeBottomText: meme.bottomText, allAnswersSubmitted, playerAnswerSubmitted, category })
-    })
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
     })
@@ -81,7 +81,6 @@ class GameRoom extends Component {
       })
     })
     socket.on('playerAnswered', (currentAnswers, isThisPlayer) => {
-      console.log('Current answers', currentAnswers)
       this.setState({
         submittedAnswers: currentAnswers,
       })
@@ -96,9 +95,6 @@ class GameRoom extends Component {
         roundUnjudged: true
       })
     })
-    // socket.on('incrementScore', (playerId) => {
-
-    // })
   }
   leaveGameButton(){
     console.log('clicked leave game')
