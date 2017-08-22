@@ -104,6 +104,16 @@ db.sync({ force: true })
     const category4 = Category.create({
       text: 'First date',
     })
+    const category5 = Category.create({
+      text: 'It\'s not a bug, it\'s a feature',
+    })
+    const category6 = Category.create({
+      text: 'Pet Peeves',
+    })
+    const category7 = Category.create({
+      text: 'Exam Week',
+    })
+
     return Promise.all([meme1, meme2, meme3, meme4, meme5, meme6, meme7, meme8, meme9, meme10, meme11, meme12, meme13, meme14, category1, category2, category3, category4]);
   })
   .then(() => {
