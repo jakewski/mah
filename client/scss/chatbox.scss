@@ -1,21 +1,22 @@
 .chatbox {
-  border: 1px solid #c4c5c6;
-  border-radius: 10px;
-  height: 400px;
+  height: 350px;
   padding: 0;
+  width: 80%;
   overflow: none;
   display: flex;
   flex-direction: column-reverse;
   input:focus {outline: none};
   font-size: 1.5em;
+  background-color: #36375D;
+  padding: 0px;
 }
 
 .chatinput {
   border: transparent;
   width: 100%;
-  background-color: transparent;
+  background-color: rgb(42, 42, 67);
   padding: 7px;
-  border-top: 1px solid #c4c5c6;
+  color:white;
 }
 
 .messagesUl {
@@ -24,6 +25,7 @@
   width: 100%;
   flex: 1;
   overflow: auto;
+  color: white;
 }
 
 .messageLi {
@@ -32,7 +34,7 @@
 }
 
 .messageFrom {
-  color: blue;
+  color: #43A4B0;
 }
 
 @media (max-width: 767px) {

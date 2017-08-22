@@ -1,7 +1,10 @@
 @import "chatbox";
 @import "canvas";
 @import "enterName";
+@import "gameRoom";
+@import "navbar";
 @import "typingIndicator";
+@import "home";
 
 // {
 //   display: table-cell;
@@ -11,10 +14,12 @@
 .quit {
   margin-top: 2%;
   float: left;
+  vertical-align: middle;
 }
 
 body {
-  font-family: 'Bree Serif', serif;
+  font-family: ‘Heebo’, sans-serif;
+  font-weight: 800;
   background-color: #09173E;
 
   a {

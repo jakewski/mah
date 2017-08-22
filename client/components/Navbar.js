@@ -25,19 +25,30 @@ const Navbar = (props) => {
   }
 
   return (
-      <div className="col-lg-12 text-center">
+      <div className="col-lg-12 text-center navDiv">
           { props.player.activePlayer ?
             <button type="button" onClick={handleQuit} className="btn btn-danger quit">X</button>
             : null
           }
-          <div className="row">
-            <NavLink className="mainTitleLink" to="/"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
+          <div className="row navbarBlue">
             { props.player.activePlayer ?
-              <h3>Welcome, {props.player.name}</h3>
+              <h3 className="welcomeTxt">Welcome, {props.player.name}</h3>
               : null
             }
+            <div className="chevronTabs">
+              <svg className="chevron" viewBox="0 0 640 640">
+                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
+              </svg>
+
+              <svg className="chevron" viewBox="0 0 640 640">
+                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
+              </svg>
+
+              <svg className="chevron" viewBox="0 0 640 640">
+                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
+              </svg>
+            </div>
           </div>
-          <hr />
           { children }
       </div>
   );
