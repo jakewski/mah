@@ -14,6 +14,7 @@ class Pregame extends Component {
   }
 
   componentDidMount() {
+    
   }
 
   handleClick() {

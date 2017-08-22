@@ -54,7 +54,7 @@ class GameRoom extends Component {
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
     })
-    socket.on('lateAdd', () => {
+    socket.on('lateAdd', some => {
       socket.emit('startGame')
       console.log('starting late')
     })

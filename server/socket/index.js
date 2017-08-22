@@ -131,12 +131,15 @@ module.exports = (io) => {
         socket.leave('main', () => {
           socket.join(code, () => {
             console.log('gameStarted var', rooms[code].gameStarted)
-            if(rooms[code].gameStarted) socket.emit('gameStarted', {});
             socket.room = code;
             socket.broadcast.to(code).emit('message', {body: playerName + ' has connected to this room', from: 'MemeBot'});
             socket.emit('correctRoom', rooms[code].host);
             socket.broadcast.to(code).emit('replacedPlayers', store.getState().game[code].gamePlayers);
             socket.emit('replacedPlayers', store.getState().game[code].gamePlayers);
+            if(rooms[code].gameStarted) {
+              console.log('emitting lateAdd')
+              setTimeout(() => socket.emit('lateAdd'), 2000);
+            };
           });
         });
 
