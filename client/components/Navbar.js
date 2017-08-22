@@ -26,6 +26,11 @@ const Navbar = (props) => {
 
   return (
       <div className="col-lg-12 text-center navDiv">
+        <div className="col-lg-12 logo">
+          MEMES <br />
+          AGAINST <br />
+          HUMANITY <br />
+        </div>
           { props.player.activePlayer ?
             <button type="button" onClick={handleQuit} className="btn btn-danger quit">X</button>
             : null
