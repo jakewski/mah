@@ -13,8 +13,8 @@ export default class PlayerJudgement extends React.Component {
 
   componentDidMount(){
     socket.on('roundFinishedPlayer', winningMeme => {
-        this.setState({ winningMeme: winningMeme });
-        axios.post('/api/winninganswers', this.state.winningMeme);
+      this.setState({ winningMeme: winningMeme });
+      axios.post('/api/winninganswers', this.state.winningMeme);
     })
   }
 

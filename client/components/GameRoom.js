@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayers, replacePlayers, setRoom } from '../store';
-import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
+import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, Scoreboard } from '../components'
 import axios from 'axios'
 
 class GameRoom extends Component {
@@ -23,10 +23,10 @@ class GameRoom extends Component {
       gameRoomName: 'Bad Boys and Girls of America',
       gamePlayers: [],
       isHost: true,
-
     }
     this.leaveGameButton = this.leaveGameButton.bind(this);
     this.endGameButton = this.endGameButton.bind(this);
+    //this.tick = this.tick.bind(this)
   }
 
   componentWillMount() {
@@ -48,10 +48,11 @@ class GameRoom extends Component {
     socket.removeListener('gameStarted');
     socket.removeListener('gotAllAnswers');
     socket.removeListener('playerAnswered');
-    socket.removeListener('roundFinishedJudge');
+    //clearInterval(this.state.timer)
   }
 
   componentDidMount() {
+
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
     })
@@ -67,20 +68,30 @@ class GameRoom extends Component {
         allAnswersSubmitted: false,
         playerAnswerSubmitted: false,
         turnNumber: turn.turnNumber,
-        roundUnjudged: false,
         submittedAnswers: {},
+        timeout: false,
+        timer: setInterval(this.tick, 1000),
+        timeAllowed: 20000,
+        currentTimer: 20000,
       }
       this.props.replacePlayers(turn.gamePlayers)
       this.setState(newState)
-      // socket.emit('updateRoom')
+
+      //timeout for players taking too long
+      setTimeout(() => {
+        socket.emit('timeout', this.props.room)
+      }, this.state.timeAllowed)
+
     })
+
     socket.on('gotAllAnswers', answers => {
       this.setState({
         submittedAnswers: answers,
         allAnswersSubmitted: true,
+        currentTimer: 0,
       })
     })
-    socket.on('playerAnswered', (currentAnswers, isThisPlayer) => {
+    socket.on('playerAnswered', (currentAnswers, isThisPlayer, timeout) => {
       this.setState({
         submittedAnswers: currentAnswers,
       })
@@ -89,14 +100,26 @@ class GameRoom extends Component {
           playerAnswerSubmitted: true,
         })
       }
-    })
-    socket.on('roundFinishedJudge', winningAnswer => {
-      this.setState({
-        roundUnjudged: true
-      })
+      if(timeout) {
+        this.setState({
+          timeout: true,
+        })
+      }
     })
   }
-  leaveGameButton(){
+
+  // tick(){
+  //   if(this.state.currentTimer > 0) {
+  //     this.setState({
+  //       currentTimer: this.state.currentTimer - 1000,
+  //     })
+  //   }
+  //   else {
+  //     clearInterval(this.state.timer);
+  //   }
+  // }
+
+  leaveGameButton() {
     console.log('clicked leave game')
     //need to remove player from the game, reset his room, and direct him to the home lobby
     //
@@ -117,45 +140,7 @@ class GameRoom extends Component {
           (this.props.players.length === 2) ? <h5>You need more than two people for there to be a winner!</h5> : null}
           {this.state.gameStarted ?
           (<div>
-            <div className="row">
-              <div className="col-xs-6">
-                <h5>Turn Number: {this.state.turnNumber + 1}</h5>
-              </div>
-              <div className="col-xs-6">
-                <h5>Current Judge: {this.state.judge.name}</h5>
-              </div>
-            </div>
-            <hr />
-            <div className="row">
-              <div className="playerScoreFlexBox">
-                {this.props.players.map((player, index) => {
-                  return (
-                    <div key={index}>
-                      {
-                        this.state.judge.sessionId === player.sessionId ?
-                          this.state.allAnswersSubmitted && !this.state.roundUnjudged ?
-                            <div>
-                              <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
-                              <div className="loadingBlue right load"></div>
-                            </div>
-                          :
-                            <div>
-                              <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
-                            </div>
-                        :
-                          Object.keys(this.state.submittedAnswers).includes(player.sessionId)
-                          ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
-                          : <div>
-                              <div className="scoreText red name" key={index}>{player.name}: {player.score} </div>
-                              <div className="loadingRed right load"></div>
-                            </div>
-                      }
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-            <hr />
+           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer}/>
             <div className="row catRow">
               <h4>Category: </h4>&nbsp;&nbsp;<h4 className="catText">{this.state.category}</h4>
             </div>
@@ -170,9 +155,9 @@ class GameRoom extends Component {
               </div>
               :
               <div> {/*player logic  */}
-                {this.state.playerAnswerSubmitted ?
+                {this.state.playerAnswerSubmitted || this.state.timeout ?
                 <div>
-                  {this.state.allAnswersSubmitted ?
+                  {this.state.allAnswersSubmitted || this.state.timeout ?
                   <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
                   <PlayerWaiting />}
                 </div>
