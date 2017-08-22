@@ -2,9 +2,8 @@
   font-weight: 900;
 }
 
-.instructions {
-  color: black;
-  font-weight: 100;
+.bannerRow {
+  justify-content: center;
 }
 
 .homeBtns {
@@ -33,10 +32,6 @@
 .logoBanner {
   width: 60%;
   height: 60%;
-}
-
-.btn-info {
-  background-color: #43A4B0;
 }
 
 @media (max-width: 767px) {

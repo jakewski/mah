@@ -97,7 +97,6 @@ module.exports = (io) => {
       socket.leave(socket.room, () => {
         socket.room = 'Main';
         socket.join('Main');
-
       });
     })
 
@@ -129,10 +128,6 @@ module.exports = (io) => {
         });
 
       }
-
-
-
-
     });
 
     // socket.on('createRoom ', function(room) {

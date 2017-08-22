@@ -1,6 +1,30 @@
 .whatsYourName {
-  font-size: 50px;
   margin: 0;
+}
+
+.insRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-info {
+  background-color: #43A4B0;
+}
+
+.instructions {
+  color: black;
+  font-weight: 100;
+}
+
+.bannerRow {
+  display: flex;
+  justify-content: center;
+}
+
+.entryBanner {
+  height: 60%;
+  width: 60%;
+  justify-content: center;
 }
 
 .validationSpan {
@@ -10,12 +34,9 @@
   background-color: transparent
 }
 
-.form-container {
+.nameRow, .explanation {
   display: flex;
-}
-
-.nameRow {
-  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   width: 100%;

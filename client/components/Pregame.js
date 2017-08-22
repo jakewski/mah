@@ -6,9 +6,10 @@ import socket from "../socket";
 import history from "../history";
 
 class Pregame extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      room: this.props.room
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -22,7 +23,11 @@ class Pregame extends Component {
 
   render() {
     return (
+    <div className="container">
       <div className="row">
+        <h1 className="roomCode">Room Code: {this.state.room}</h1>
+      </div>
+      <div className="row startBtn">
         {(this.props.players.players[0].sessionId === this.props.players.player.sessionId) ?
           <button onClick={this.handleClick} className="btn btn-success">
             Start Da Game Bro
@@ -32,9 +37,9 @@ class Pregame extends Component {
             <h1>Please wait until host chooses to start the game</h1>
           </div>
         }
-
-        <hr />
-
+        </div>
+        <div className="row playersRow">
+        <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <h3>Game Players: </h3>
         <h5>Host: {this.props.players.players[0].name}</h5>
         {
@@ -46,9 +51,9 @@ class Pregame extends Component {
             }
           })
         }
-
+        </div>
       </div>
-
+      </div>
     );
   }
 }

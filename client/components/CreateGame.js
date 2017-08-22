@@ -72,16 +72,16 @@ class CreateGame extends Component {
     }
   }
 
-  render() { 
+  render() {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
-        <div key="transition" className="container">
+        <div key="transition" className="container createGame">
           <h1>Create a New Game</h1>
             <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player)}>
 
               <br />
 
-              <div className="form-check noMargin">
+              <div className="row form-check noMargin">
               <h3>Select Categories:</h3>
                 {
                   this.props.categories && this.props.categories.map(category => {
@@ -102,7 +102,7 @@ class CreateGame extends Component {
             {
               this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty ?
                 <span className="alert alert-danger validationSpan">Must select at least one category</span> :
-                null 
+                null
             }
           </form>
         </div>

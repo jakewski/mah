@@ -105,7 +105,7 @@ class GameRoom extends Component {
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
         <div key="transition" className="container-fluid">
-          <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
+          {/* <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3> */}
           {this.state.gameStarted ?
           (<div>
             <div className="row">
@@ -171,10 +171,10 @@ class GameRoom extends Component {
                <PlayerAnswering memeUrl={this.state.memeUrl} memeTopText={this.state.memeTopText} memeBottomText={this.state.memeBottomText} />}
               </div>}
             </div>
-          </div>) : <Pregame />}
+          </div>) : <Pregame room={this.props.room} />}
             <div className="row">
               <div className="gameAnswerFlex endOfGameRoom">
-                <div className="col-sm-12 col-md-6 col-lg-6">
+                <div className="col-sm-12 col-md-6 col-lg-6 gameRoomChat">
                   <ChatBox />
                 </div>
               </div>
