@@ -131,7 +131,7 @@ class GameRoom extends Component {
           <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
           {this.state.gameStarted ?
           (<div>
-           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} gamePlayers={this.state.gamePlayers} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer}/>
+           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer}/>
             <div className="row">
               <h3>Category: {this.state.category}</h3>
             </div>

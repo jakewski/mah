@@ -1,7 +1,8 @@
 import React from 'react';
 import socket from '../socket';
+import { connect } from 'react-redux';
 
-export default class Scoreboard extends React.Component {
+class Scoreboard extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -10,11 +11,6 @@ export default class Scoreboard extends React.Component {
   }
 
   componentDidMount(){
-    this.setState({
-      roundUnjudged: false, 
-    })
-
-
     socket.on('roundFinishedJudge', winningAnswer => {
       this.setState({
         roundUnjudged: true
@@ -40,7 +36,7 @@ export default class Scoreboard extends React.Component {
         <hr />
         <div className="row">
           <div className="playerScoreFlexBox">
-            {this.props.gamePlayers.map((player, index) => {
+            {this.props.players.map((player, index) => {
               return (
                 <div key={index}>
                   {
@@ -79,3 +75,11 @@ export default class Scoreboard extends React.Component {
     )
   }
 }
+
+const mapStateToProps = function(state, ownProps) {
+  return {
+    players: state.players.players
+  }
+}
+
+export default connect(mapStateToProps, null)(Scoreboard)
