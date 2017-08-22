@@ -34,7 +34,6 @@ class Judgement extends React.Component {
   }
 
   render(){
-    console.log('submitted answers', Object.keys(this.props.submittedAnswers))
     return (
       <div> {/* judge view when all answers are submitted */}
         {

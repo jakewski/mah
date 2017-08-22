@@ -29,12 +29,16 @@ module.exports = (io) => {
       //Simulate gotAllAnswers with only current answers
       let currentState = store.getState().game[room];
       store.dispatch(updateGame({room: room, game: { allAnswersSubmitted: true }}))
+      if (!currentState) {
+        console.log('error, no game data (socket timeout)')
+        return
+      }
       socket.emit('gotAllAnswers', currentState.answers)
       socket.broadcast.to(room).emit('gotAllAnswers', currentState.answers);
       //Simulate player answered with final boolean (timeout = true) to indicate timeout
       socket.emit('playerAnswered', currentState.answers, false, true);
     })
-    
+
     //need to emit back the playerId to make a flag that the player answered on the front end
     //check if everybody answered, and if they did, emit something to the front that well let us know it's time for the judge to choose one
     socket.on('answerPosted', answerAndRoom => {
@@ -83,7 +87,7 @@ module.exports = (io) => {
     socket.on('switchToNextTurn', (room, skipWinner) => {
       store.dispatch(switchToNextTurn(room));
       //skipWinner boolean attached to manual no memes submitted button to switch to next round without pausing 5 seconds for winner screen
-      let timeout = 5000;
+      let timeout = 3000;
       if(skipWinner){
         timeout = 0;
       }

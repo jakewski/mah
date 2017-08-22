@@ -26,7 +26,7 @@ class GameRoom extends Component {
     }
     this.leaveGameButton = this.leaveGameButton.bind(this);
     this.endGameButton = this.endGameButton.bind(this);
-    this.tick = this.tick.bind(this)
+    //this.tick = this.tick.bind(this)
   }
 
   componentWillMount() {
@@ -48,9 +48,11 @@ class GameRoom extends Component {
     socket.removeListener('gameStarted');
     socket.removeListener('gotAllAnswers');
     socket.removeListener('playerAnswered');
+    //clearInterval(this.state.timer)
   }
 
   componentDidMount() {
+
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
     })
@@ -106,16 +108,16 @@ class GameRoom extends Component {
     })
   }
 
-  tick(){
-    if(this.state.currentTimer > 0) {
-      this.setState({
-        currentTimer: this.state.currentTimer - 1000,
-      })
-    }
-    else {
-      clearInterval(this.state.timer);
-    }
-  }
+  // tick(){
+  //   if(this.state.currentTimer > 0) {
+  //     this.setState({
+  //       currentTimer: this.state.currentTimer - 1000,
+  //     })
+  //   }
+  //   else {
+  //     clearInterval(this.state.timer);
+  //   }
+  // }
 
   leaveGameButton() {
     console.log('clicked leave game')
