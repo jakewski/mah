@@ -5,25 +5,12 @@ export default class Scoreboard extends React.Component {
   constructor() {
     super();
     this.state = {
-      // turnNumber: 0,
-      // gamePlayers: [],
-      // allAnswersSubmitted: false,
-      // timeout: false,
-      // judge: {},
-      //currentTimer: 0,
-      //timer: '',
       roundUnjudged: false, 
     }
   }
 
   componentDidMount(){
     this.setState({
-      //turnNumber: this.props.turnNumber,
-      //gamePlayers: this.props.gamePlayers,
-      //allAnswersSubmitted: this.props.allAnswersSubmitted,
-      //timeout: this.props.timeout,
-      //judge: this.props.judge,
-      //currentTimer: 7000,
       roundUnjudged: false, 
     })
 
@@ -47,7 +34,7 @@ export default class Scoreboard extends React.Component {
             <h5>Turn Number: {this.props.turnNumber}</h5>
           </div>
           <div className="col-xs-6">
-            <h5>Timer: {this.props.currentTimer}</h5>
+            <h5>Timer: {this.props.currentTimer/1000}</h5>
           </div>
         </div>
         <hr />

@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Layer, Stage, Image, Text } from 'react-konva';
 import socket from '../socket';
+import { connect } from 'react-redux';
 
-export default class PlayerAnswering extends React.Component {
+class PlayerAnswering extends React.Component {
     constructor(props) {
         super(props);
 
@@ -110,11 +111,11 @@ export default class PlayerAnswering extends React.Component {
       let answer = {};
       if(window.innerWidth < 800) {
         answer = {
-          topText: e.target.toptext.value,
+          topText: this.state.topText,
           topXcoord: this.state.topXcoord / .75,
           topYcoord: this.state.topYcoord / .75,
           topFontSize: this.state.topFontSize / .75,
-          bottomText: e.target.bottomtext.value,
+          bottomText: this.state.bottomText,
           bottomXcoord: this.state.bottomXcoord / .75,
           bottomYcoord: this.state.bottomYcoord / .75,
           bottomFontSize: this.state.bottomFontSize / .75,
@@ -122,11 +123,11 @@ export default class PlayerAnswering extends React.Component {
         }
       } else {
         answer = {
-          topText: e.target.toptext.value,
+          topText: this.state.topText,
           topXcoord: this.state.topXcoord,
           topYcoord: this.state.topYcoord,
           topFontSize: this.state.topFontSize,
-          bottomText: e.target.bottomtext.value,
+          bottomText: this.state.bottomText,
           bottomXcoord: this.state.bottomXcoord,
           bottomYcoord: this.state.bottomYcoord,
           bottomFontSize: this.state.bottomFontSize,
@@ -135,29 +136,32 @@ export default class PlayerAnswering extends React.Component {
       }
 
 
-      socket.emit('answerPosted', answer);
+      socket.emit('answerPosted', {answer, room: this.props.players.room, sessionId: this.props.players.player.sessionId });
     }
 
     render() {
-        return (
-            <div>
+      return (
+        <div>
+        {this.state.memeImg ?
               <div className="gameAnswerFlex">
-                <form onSubmit={this.onMemeSubmit}>
-                  <div className="form-group col-md-9 col-xs-12 col-lg-6" >
+                <form>
+                  <div className="form-group memeForm col-sm-12 col-md-12 col-xs-12 col-lg-12" >
 
+                    <div className="lineAndButtons">
                     <input name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" value={this.state.topText} placeholder="top text" onChange={this.topTxtChange}/>
                     <button className="memeButtons btn btn-success center" onClick={this.onTopPlusClick}>+</button>
                     <button className="memeButtons btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
+                    </div>
 
+                    <div className="lineAndButtons">
                     <input name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" value={this.state.bottomText} placeholder="bottom text" onChange={this.bottomTxtChange}/>
                     <button className="memeButtons btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
                     <button className="memeButtons btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
+                    </div>
                     <br />
                     <br />
-                    <button type="submit" className="btn btn-success center">Submit</button>
                   </div>
                 </form>
-                {this.state.memeImg ?
 
                 <div className="animated bounceInDown stageWrapper">
                   <Stage height={this.state.height} width={this.state.width}>
@@ -171,10 +175,21 @@ export default class PlayerAnswering extends React.Component {
                     </Layer>
                   </Stage>
                   </div>
-
-                : <div />}
+                  <button onClick={this.onMemeSubmit} type="submit" className="btn btn-success center">Submit</button>
                 </div>
+                : <div />}
                 <hr />
             </div>);
     }
 }
+const mapStateToProps = function(state, ownProps) {
+  return {
+    players: state.players
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerAnswering);

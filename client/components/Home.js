@@ -5,6 +5,8 @@ import socket from '../socket';
 import { CSSTransitionGroup } from 'react-transition-group';
 import ChatBox from './ChatBox'
 import Instructions from './Instructions'
+import { setRoom } from '../store'
+import axios from 'axios'
 
 /**
  * COMPONENT
@@ -20,7 +22,10 @@ class Home extends Component {
 
 
     componentDidMount() {
-        socket.emit('switchToMain');
+        socket.emit('switchToMain', this.props.players.room);
+        this.props.setRoom({id: 'main'})
+        axios.post('/api/room', {room: 'main'})
+        .catch(err => console.log(err))
     }
 
     toggleInstructions(){
@@ -60,7 +65,7 @@ class Home extends Component {
                     </button>
                     <hr />
                     <div className="col-sm-12 col-md-12 col-lg-12">
-                       <Instructions showInstructions={this.state.showInstructions} /> 
+                       <Instructions showInstructions={this.state.showInstructions} />
                     </div>
                 </CSSTransitionGroup>
             </div>
@@ -70,12 +75,13 @@ class Home extends Component {
 
 const mapStateToProps = function(state, ownProps) {
   return {
-    player: state.players.player
+    player: state.players.player,
+    players: state.players
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-
+    setRoom: code => dispatch(setRoom(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

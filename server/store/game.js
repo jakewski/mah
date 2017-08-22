@@ -6,6 +6,7 @@ const ADD_PLAYER_TO_GAME = "ADD_PLAYER_TO_GAME";
 const SWITCH_TO_NEXT_TURN = "SWITCH_TO_NEXT_TURN";
 const POST_ANSWER = 'POST_ANSWER';
 const INCREMENT_SCORE = 'INCREMENT_SCORE';
+const UPDATE_GAME = 'UPDATE_GAME';
 //on the backend we store all of our players, on the front end we will store the current player
 const initialState = {};
 let memes;
@@ -37,6 +38,7 @@ const addPlayerToGame = playerToGame => ({
   type: ADD_PLAYER_TO_GAME,
   playerToGame
 });
+const updateGame = gameAndRoom => ({ type: UPDATE_GAME, gameAndRoom})
 
 const incrementScore = game => ({ type: INCREMENT_SCORE, game});
 //switchToNextTurn action will assign a random category and meme
@@ -49,6 +51,7 @@ const grabRandomCategory = categories =>
   categories[Math.floor(Math.random() * categories.length)];
 
 const reducer = function(state = initialState, action) {
+
   switch (action.type) {
     case ADD_GAME:
       let newGame = {};
@@ -61,7 +64,8 @@ const reducer = function(state = initialState, action) {
         judge: action.game.host,
         turnNumber: 0,
         meme: {image: meme.image, topText: meme.topText, bottomText: meme.bottomText},
-        answers: {}
+        answers: {},
+        gameStarted: false,
       };
       return Object.assign({}, state, newGame);
 
@@ -69,6 +73,14 @@ const reducer = function(state = initialState, action) {
       let deletedGame = {};
       deletedGame[action.game.gameId] = undefined;
       return Object.assign({}, state, deletedGame);
+
+    case UPDATE_GAME:
+      let newState = R.clone(state);
+      newState[action.gameAndRoom.room] = Object.assign({}, newState[action.gameAndRoom.room], action.gameAndRoom.game)
+      return newState
+
+      // newState[action.room] = Object.assign({}, state[action.room], action.game)
+      // return Object.assign({}, state, newState)
 
     case ADD_PLAYER_TO_GAME:
       let addedPlayer = {
@@ -81,13 +93,14 @@ const reducer = function(state = initialState, action) {
     case SWITCH_TO_NEXT_TURN:
       let gameWithNewTurn = {};
       let meme2 = grabRandomMeme();
-      //console.log('switch state:', state);
       let nextTurn = {
         category: grabRandomCategory(state[action.gameId].categories),
         judge: state[action.gameId].gamePlayers[++state[action.gameId].turnNumber % state[action.gameId].gamePlayers.length],
         turnNumber: state[action.gameId].turnNumber,
         meme: {image: meme2.image, topText: meme2.topText, bottomText: meme2.bottomText},
         answers: {},
+        allAnswersSubmitted: false,
+        playerAnswerSubmitted: false,
       };
       let newTurnObject = Object.assign({}, state[action.gameId], nextTurn);
       gameWithNewTurn[action.gameId] = newTurnObject;
@@ -100,7 +113,8 @@ const reducer = function(state = initialState, action) {
       tempAnswer[action.answer.playerId] = action.answer;
       let newAnswers = Object.assign({}, state[action.answer.gameId].answers, tempAnswer);
       let updatedAnswers = {
-        answers: newAnswers
+        answers: newAnswers,
+        playerAnswerSubmitted: true,
       };
       let updatedGame = {};
       updatedGame[action.answer.gameId] = Object.assign({}, state[action.answer.gameId], updatedAnswers);
@@ -110,7 +124,7 @@ const reducer = function(state = initialState, action) {
     case INCREMENT_SCORE:
       let newGamePlayers = R.clone(state[action.game.gameId].gamePlayers);
       newGamePlayers = newGamePlayers.map(player => {
-        if(player.id === action.game.playerId) {
+        if(player.sessionId === action.game.playerId) {
           ++player.score;
         }
         return player;
@@ -118,11 +132,13 @@ const reducer = function(state = initialState, action) {
       let innerGamePlayers = {gamePlayers: newGamePlayers}
       let newThang = {};
       newThang[action.game.gameId] = Object.assign({}, state[action.game.gameId], innerGamePlayers);
-      //console.log('NEWTHANG', newThang);
       return Object.assign({}, state, newThang);
+
+
+
     default:
       return state;
   }
 };
 
-module.exports = { addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer, incrementScore };
+module.exports = { addPlayerToGame, addGame, reducer, switchToNextTurn, postAnswer, incrementScore, updateGame };

@@ -14,9 +14,8 @@ class GameRoom extends Component {
       judge: {},
       turnNumber: 0,
       gameStarted: false,
-      submittedAnswers: [],
+      submittedAnswers: {},
       allAnswersSubmitted: false,
-      playerIsCurrentJudge: false,
       playerAnswerSubmitted: false,
       memeUrl: '',
       memeTopText: '',
@@ -31,13 +30,16 @@ class GameRoom extends Component {
   }
 
   componentWillMount() {
-    // axios.get('/api/room')
-    // .then(res => {
-    //   if(res.data.activeRoom) {
-    //     console.log('is this api call to room happening?')
-    //     this.props.setRoom(res.data.room)
-    //   }
-    // })
+    socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
+      this.props.replacePlayers(gamePlayers)
+      this.setState({ gameStarted, judge, turnNumber, submittedAnswers: answers, memeUrl: meme.image, memeTopText: meme.topText, memeBottomText: meme.bottomText, allAnswersSubmitted, playerAnswerSubmitted, category })
+    })
+    axios.get('/api/room')
+    .then( res => {
+      this.props.setRoom({id: res.data.room})
+      return socket.emit('getGameState', res.data.room)
+    })
+    .catch(err => console.log(err))
   }
 
   componentDidMount() {
@@ -45,8 +47,6 @@ class GameRoom extends Component {
       this.props.replacePlayers(players);
     })
     socket.on('gameStarted', turn => {
-      let isJudge = turn.judge.id === this.props.player.socketId;
-      console.log('isJudge:', isJudge)
       let newState = {
         gameStarted: true,
         memeUrl: turn.meme.image,
@@ -54,7 +54,6 @@ class GameRoom extends Component {
         memeBottomText: turn.meme.bottomText,
         category: turn.category,
         judge: turn.judge,
-        playerIsCurrentJudge: isJudge,
         gamePlayers: turn.gamePlayers,
         allAnswersSubmitted: false,
         playerAnswerSubmitted: false,
@@ -62,21 +61,24 @@ class GameRoom extends Component {
         submittedAnswers: {},
         timeout: false,
         timer: setInterval(this.tick, 1000),
-        timeAllowed: 7000,
-        currentTimer: 7000,
+        timeAllowed: 20000,
+        currentTimer: 20000,
       }
+      this.props.replacePlayers(turn.gamePlayers)
       this.setState(newState)
 
       //timeout for players taking too long
       setTimeout(() => {
-        socket.emit('timeout')
+        socket.emit('timeout', this.props.room)
       }, this.state.timeAllowed)
+
     })
 
     socket.on('gotAllAnswers', answers => {
       this.setState({
         submittedAnswers: answers,
         allAnswersSubmitted: true,
+        currentTimer: 0,
       })
     })
     socket.on('playerAnswered', (currentAnswers, isThisPlayer, timeout) => {
@@ -110,7 +112,7 @@ class GameRoom extends Component {
     }
   }
 
-  leaveGameButton(){
+  leaveGameButton() {
     console.log('clicked leave game')
     //need to remove player from the game, reset his room, and direct him to the home lobby
     //
@@ -136,11 +138,11 @@ class GameRoom extends Component {
             <hr />
             <div className="row">
               {/*judge logic  */}
-              {this.state.playerIsCurrentJudge ?
+              {this.state.judge.sessionId === this.props.player.sessionId ?
               <div>
                 {this.state.allAnswersSubmitted ?
                 <Judgement submittedAnswers={this.state.submittedAnswers} /> :
-                <JudgeWaiting/>}
+                <JudgeWaiting />}
               </div>
               :
               <div> {/*player logic  */}
@@ -157,7 +159,7 @@ class GameRoom extends Component {
           </div>) : <Pregame />}
             <div className="row">
               <div className="gameAnswerFlex endOfGameRoom">
-                <div className="col-sm-12 col-md-10 col-lg-10">
+                <div className="col-sm-12 col-md-6 col-lg-6">
                   <ChatBox />
                 </div>
               </div>

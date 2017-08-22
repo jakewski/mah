@@ -1,6 +1,7 @@
 import React from 'react';
 import socket from '../socket';
 import Canvas from './Canvas';
+import axios from 'axios';
 
 export default class PlayerJudgement extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class PlayerJudgement extends React.Component {
   componentDidMount(){
     socket.on('roundFinishedPlayer', winningMeme => {
       this.setState({ winningMeme: winningMeme });
+      axios.post('/api/winninganswers', this.state.winningMeme);
     })
   }
 
@@ -24,7 +26,7 @@ export default class PlayerJudgement extends React.Component {
     return (
       <div> {/*player view when all answers are submitted  */}
         { !this.state.winningMeme ? <div>
-        <h5>Submitted Meme-ories:</h5>
+        <h3 className="memeories">Submitted Meme-ories:</h3>
         <div className="playerScoreFlexBox">
           {Object.keys(this.props.submittedAnswers).map((key, index) => {
             return <div className="scoreText animated bounceInDown" key={index}>
@@ -36,7 +38,7 @@ export default class PlayerJudgement extends React.Component {
           })}
         </div>
       </div> : <div>
-                <h3>WINNING MEME:</h3>
+                <h2 className="winningMeme">WINNING MEME:</h2>
                 <div className="animated swing gameAnswerFlex">
                   <Canvas topText={this.state.winningMeme.topText} topXcoord={this.state.winningMeme.topXcoord} topYcoord={this.state.winningMeme.topYcoord} topFontSize={this.state.winningMeme.topFontSize} bottomText={this.state.winningMeme.bottomText} bottomXcoord={this.state.winningMeme.bottomXcoord} bottomYcoord={this.state.winningMeme.bottomYcoord} bottomFontSize={this.state.winningMeme.bottomFontSize} memeUrl={this.state.winningMeme.memeUrl} />
                 </div>

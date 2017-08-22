@@ -167,10 +167,32 @@ body {
 }
 
 .memeForm {
-  width: 400px;
+  margin: 0px;
+}
+
+.memeories {
+  color: #ff9966;
+}
+
+.catText {
+  color: #ff3385;
+}
+
+.catRow {
+  display: flex;
+  justify-content: center;
+}
+
+.winningMeme {
+  color: red;
+}
+
+.lineAndButtons {
+  display: flex;
 }
 
 .scoreText{
+  cursor:'pointer';
   margin: 3px;
 }
 
