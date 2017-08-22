@@ -58,7 +58,7 @@ class ChatBox extends Component {
         });
 
         return (
-            <div className="chatbox col-sm-12 col-md-12 col-lg-12">
+            <div className="chatbox">
                 <input className="chatinput" type="text" placeholder="Enter a message..." onKeyUp={this.handleSubmit} />
                 <div className="messagesUl">
                   {messages}
