@@ -24,11 +24,9 @@ class Home extends Component {
 
 
     componentDidMount() {
-        console.log('props room', this.props.room)
         axios.get('/api/room')
         .then(res => {
-            console.log(res.data.room);
-            if(res.data.room && res.data.room !== 'main'){
+            if (res.data.room && res.data.room !== 'main'){
                 this.setState({ inGame: res.data.room })
             }
             socket.emit('switchToMain', this.props.players.room);
@@ -72,7 +70,7 @@ class Home extends Component {
                             <br />
                             <br />
                             <br />
-                            {this.state.inGame ? 
+                            {this.state.inGame ?
                                 <button type="button" onClick={this.resumeGame} className="btn btn-success larger">
                                     Resume Game {this.state.inGame}
                                 </button> : null
