@@ -30,10 +30,6 @@ class GameRoom extends Component {
   }
 
   componentWillMount() {
-    socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
-      this.props.replacePlayers(gamePlayers)
-      this.setState({ gameStarted, judge, turnNumber, submittedAnswers: answers, memeUrl: meme.image, memeTopText: meme.topText, memeBottomText: meme.bottomText, allAnswersSubmitted, playerAnswerSubmitted, category })
-    })
     axios.get('/api/room')
     .then( res => {
       this.props.setRoom({id: res.data.room})
@@ -43,6 +39,10 @@ class GameRoom extends Component {
   }
 
   componentDidMount() {
+    socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
+      this.props.replacePlayers(gamePlayers)
+      this.setState({ gameStarted, judge, turnNumber, submittedAnswers: answers, memeUrl: meme.image, memeTopText: meme.topText, memeBottomText: meme.bottomText, allAnswersSubmitted, playerAnswerSubmitted, category })
+    })
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
     })
@@ -72,6 +72,7 @@ class GameRoom extends Component {
       })
     })
     socket.on('playerAnswered', (currentAnswers, isThisPlayer) => {
+      console.log('Current answers', currentAnswers)
       this.setState({
         submittedAnswers: currentAnswers,
       })
@@ -107,6 +108,8 @@ class GameRoom extends Component {
 
         <div key="transition" className="container-fluid">
           <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
+          {(this.props.players.length === 1) ? <h5>Invite Friends! You can't play this game by yourself. </h5> :
+          (this.props.players.length === 2) ? <h5>You need more than two people for there to be a winner!</h5> : null}
           {this.state.gameStarted ?
           (<div>
             <div className="row">
@@ -135,7 +138,7 @@ class GameRoom extends Component {
                               <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
                             </div>
                         :
-                          Object.keys(this.state.submittedAnswers).includes(player.id)
+                          Object.keys(this.state.submittedAnswers).includes(player.sessionId)
                           ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
                           : <div>
                               <div className="scoreText red name" key={index}>{player.name}: {player.score} </div>
