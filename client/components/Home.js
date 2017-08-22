@@ -7,6 +7,7 @@ import ChatBox from './ChatBox'
 import Instructions from './Instructions'
 import { setRoom } from '../store'
 import axios from 'axios'
+import history from "../history";
 
 /**
  * COMPONENT
@@ -18,10 +19,13 @@ class Home extends Component {
             showInstructions: true,
         }
         this.toggleInstructions = this.toggleInstructions.bind(this);
+        this.resumeGame = this.resumeGame.bind(this);
     }
 
 
     componentDidMount() {
+        console.log('props room', this.props.room)
+        if(this.props.room !== 'main') this.setState({ inGame: this.props.room })
         socket.emit('switchToMain', this.props.players.room);
         this.props.setRoom({id: 'main'})
         axios.post('/api/room', {room: 'main'})
@@ -30,6 +34,14 @@ class Home extends Component {
 
     toggleInstructions(){
         this.setState(prev => ({ showInstructions: !prev.showInstructions }));
+    }
+
+    resumeGame() {
+        socket.emit('switchToRoom', this.state.inGame);
+        this.props.setRoom({id: this.state.inGame})
+        axios.post('/api/room', {room: this.state.inGame})
+        .then(() => history.push('/room'))
+        .catch(err => console.log(err))
     }
 
     render() {
@@ -51,6 +63,14 @@ class Home extends Component {
                                     Join Game
                                 </button>
                             </NavLink>
+                            <br />
+                            <br />
+                            <br />
+                            {this.state.inGame ? 
+                                <button type="button" onClick={this.resumeGame} className="btn btn-success larger">
+                                    Resume Game {this.state.inGame}
+                                </button> : null
+                            }
                             <br />
                             <br />
                             <br />
@@ -76,7 +96,8 @@ class Home extends Component {
 const mapStateToProps = function(state, ownProps) {
   return {
     player: state.players.player,
-    players: state.players
+    players: state.players,
+    room: state.players.room,
   }
 }
 

@@ -38,6 +38,15 @@ class GameRoom extends Component {
     .catch(err => console.log(err))
   }
 
+  componentWillUnmount() {
+    socket.removeListener('recieveGameState');
+    socket.removeListener('replacedPlayers');
+    socket.removeListener('gameStarted');
+    socket.removeListener('gotAllAnswers');
+    socket.removeListener('playerAnswered');
+    socket.removeListener('roundFinishedJudge');
+  }
+
   componentDidMount() {
     socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
       this.props.replacePlayers(gamePlayers)
