@@ -79,7 +79,7 @@ module.exports = (io) => {
     })
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer, gameStarted }) => {
-      const code = randStr.generate(7);
+      const code = randStr.generate(4);
 
       socket.emit('getCode', code);
       socket.leave('main', () => {
@@ -100,9 +100,12 @@ module.exports = (io) => {
     socket.on('switchToMain', (room) => {
       if (room !== 'main') socket.leave(room, () => socket.join('main'))
       else socket.join('main');
-      // axios.post('/api/room', {room: 'main'})
-      // .catch(err => console.log(err))
     })
+
+    socket.on('switchToRoom', (room) => {
+      socket.leave(socket.room, () => socket.join(room))
+    })
+
     socket.on('getGameState', (room) => {
       if (store.getState().game[room]) {
       socket.leave('main', () => socket.join(room))
