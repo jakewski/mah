@@ -15,9 +15,8 @@ module.exports = (io) => {
       let game = store.getState().game[socket.room]
       //let playerArray = game.gamePlayers.map(player => player.name)
 
-      socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
-      socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
-      
+      socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber, timeAllowed: 7000});
+      socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber, timeAllowed: 7000});
     })
 
     //on timeout for players taking too long;
@@ -27,9 +26,8 @@ module.exports = (io) => {
       socket.emit('gotAllAnswers', currentState.answers)
       socket.broadcast.to(socket.room).emit('gotAllAnswers', currentState.answers);
 
-      //Simulate player answered with final boolean (timeout) to indicate timeout
+      //Simulate player answered with final boolean (timeout = true) to indicate timeout
       socket.emit('playerAnswered', currentState.answers, false, true);
-      console.log('end timeout state', store.getState().game[socket.room]);
     })
     
 
