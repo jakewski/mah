@@ -42,6 +42,14 @@ class GameRoom extends Component {
     .catch(err => console.log(err))
   }
 
+  componentWillUnmount() {
+    socket.removeListener('recieveGameState');
+    socket.removeListener('replacedPlayers');
+    socket.removeListener('gameStarted');
+    socket.removeListener('gotAllAnswers');
+    socket.removeListener('playerAnswered');
+  }
+
   componentDidMount() {
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
@@ -96,16 +104,13 @@ class GameRoom extends Component {
         })
       }
     })
-    // socket.on('incrementScore', (playerId) => {
-
-    // })
   }
 
   tick(){
     if(this.state.currentTimer > 0) {
       this.setState({
         currentTimer: this.state.currentTimer - 1000,
-      }) 
+      })
     }
     else {
       clearInterval(this.state.timer);
@@ -129,11 +134,13 @@ class GameRoom extends Component {
 
         <div key="transition" className="container-fluid">
           <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
+          {(this.props.players.length === 1) ? <h5>Invite Friends! You can't play this game by yourself. </h5> :
+          (this.props.players.length === 2) ? <h5>You need more than two people for there to be a winner!</h5> : null}
           {this.state.gameStarted ?
           (<div>
            <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer}/>
-            <div className="row">
-              <h3>Category: {this.state.category}</h3>
+            <div className="row catRow">
+              <h4>Category: </h4>&nbsp;&nbsp;<h4 className="catText">{this.state.category}</h4>
             </div>
             <hr />
             <div className="row">
