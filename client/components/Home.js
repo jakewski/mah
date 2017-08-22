@@ -25,11 +25,17 @@ class Home extends Component {
 
     componentDidMount() {
         console.log('props room', this.props.room)
-        if(this.props.room !== 'main') this.setState({ inGame: this.props.room })
-        socket.emit('switchToMain', this.props.players.room);
-        this.props.setRoom({id: 'main'})
-        axios.post('/api/room', {room: 'main'})
-        .catch(err => console.log(err))
+        axios.get('/api/room')
+        .then(res => {
+            console.log(res.data.room);
+            if(res.data.room && res.data.room !== 'main'){
+                this.setState({ inGame: res.data.room })
+            }
+            socket.emit('switchToMain', this.props.players.room);
+            this.props.setRoom({id: 'main'})
+            // axios.post('/api/room', {room: 'main'})
+            // .catch(err => console.log(err))
+        })
     }
 
     toggleInstructions(){
