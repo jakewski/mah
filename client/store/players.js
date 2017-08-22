@@ -34,15 +34,6 @@ export const removePlayer = () => ({type: REMOVE_PLAYER});
  *
  * THUNK CREATORS
  */
-// export const setPlayerThunk = player => dispatch => {
-//   axios.post('/api/player/', player)
-//   .then(res =>  {
-//     return dispatch(setPlayer(res.data))
-//   })
-//   .catch(err => console.log(err))
-// }
-
-
 
 /**
  * REDUCER

@@ -1,6 +1,6 @@
 const store = require('../store');
 const { addPlayer } = require('../store/player');
-const { postAnswer, addPlayerToGame, addGame, switchToNextTurn, incrementScore} = require('../store/game');
+const { postAnswer, addPlayerToGame, addGame, switchToNextTurn, incrementScore, updateGame } = require('../store/game');
 const randStr = require('randomstring');
 const axios = require('axios');
 
@@ -19,6 +19,7 @@ module.exports = (io) => {
         return {error: 'game room error'}
       }
       //let playerArray = game.gamePlayers.map(player => player.name)
+      store.dispatch(updateGame({room: room, game: { gameStarted: true }}))
 
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
       socket.broadcast.to(room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
@@ -31,7 +32,7 @@ module.exports = (io) => {
       let answer = answerAndRoom.answer
       store.dispatch(postAnswer({
         gameId: answerAndRoom.room,
-        playerId: socket.id,
+        playerId: answerAndRoom.sessionId,
         topText: answer.topText,
         topXcoord: answer.topXcoord,
         topYcoord: answer.topYcoord,
@@ -48,6 +49,7 @@ module.exports = (io) => {
       socket.broadcast.to(answerAndRoom.room).emit('playerAnswered', currentState.answers, false);
 
       if(currentState.gamePlayers.length - 1 === Object.keys(currentState.answers).length){
+        store.dispatch(updateGame({room: answerAndRoom, game: { allAnswersSubmitted: true }}))
         socket.emit('gotAllAnswers', currentState.answers)
         socket.broadcast.to(answerAndRoom.room).emit('gotAllAnswers', currentState.answers)
       }
@@ -71,11 +73,8 @@ module.exports = (io) => {
       store.dispatch(switchToNextTurn(room));
       setTimeout(() => {
         let game = store.getState().game[room];
-        //console.log('SWITCHGAME: ', game);
         io.sockets.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
-        //socket.broadcast.to(socket.room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
       }, 5000)
-      //socket.emit('nextTurn' {})
     })
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer, gameStarted }) => {
@@ -106,7 +105,7 @@ module.exports = (io) => {
     socket.on('getGameState', (room) => {
       if (store.getState().game[room]) {
       socket.leave('main', () => socket.join(room))
-      socket.emit('recievePlayers', store.getState().game[room].gamePlayers)
+      socket.emit('recieveGameState', store.getState().game[room])
       }
     })
 
@@ -139,19 +138,7 @@ module.exports = (io) => {
 
       }
 
-
-
-
     });
-
-    // socket.on('createRoom ', function(room) {
-    //     //call addRoom  here
-    //     //rooms.push(room);
-    //     const code = randStr.generate(7);
-    //     store.dispatch()
-    //     //socket.emit('updateRooms', rooms, socket.room);
-    // });
-
 
     socket.on('message', ({body, room, from}) => {
       console.log(`emmiting message from ${socket.id} to ${room}`);
@@ -161,36 +148,7 @@ module.exports = (io) => {
       })
     })
 
-    // socket.on('sendChat', function(data) {
-    //     io.sockets["in"](socket.room).emit('message', {
-    //     body,
-    //     from: socket.playerName
-    //   })
-    // });
-
-    // socket.on('switchRoom', function(newRoom) {
-    //     var oldRoom;
-    //     oldRoom = socket.room;
-    //     socket.leave(socket.room);
-    //     socket.join(newRoom);
-    //     socket.emit('message', 'SERVER', 'you have connected to ' + newRoom);
-    //     socket.broadcast.to(oldRoom).emit('message', 'SERVER', socket.playerName + ' has left this room');
-    //     socket.room = newRoom;
-    //     socket.broadcast.to(newRoom).emit('message', 'SERVER', socket.playerName + ' has joined this room');
-    //     socket.emit('updateRooms', rooms, newRoom);
-    // });
-
-    // socket.on('submitAnswer', payload => {
-    //   console.log(payload.answer);
-    // })
-
     socket.on('disconnect', () => {
-      //delete players[socket.playerName]
-      //call deletePlayer  here
-      console.dir('socketyo',socket)
-
-      //io.sockets.emit('updatePlayers', players);
-      // socket.broadcast.emit('message', {body: socket.playerName + ' has disconnected', from:'server'});
       socket.leave(socket.room);
     })
   })

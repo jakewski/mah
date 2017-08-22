@@ -136,7 +136,7 @@ class PlayerAnswering extends React.Component {
       }
 
 
-      socket.emit('answerPosted', {answer, room: this.props.players.room });
+      socket.emit('answerPosted', {answer, room: this.props.players.room, sessionId: this.props.players.player.sessionId });
     }
 
     render() {

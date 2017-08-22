@@ -35,14 +35,12 @@ class JoinGame extends Component {
     });
     event.persist();
     event.preventDefault();
-    //console.log("player name submit: ", this.props.player.player);
     socket.emit("addPlayertoRoom", {
       code: event.target.code.value,
       playerName: this.props.players.player.name,
       sessionId: this.props.players.player.sessionId,
       activePlayer: this.props.players.player.activePlayer,
     });
-    //what is animateError?
     this.setState({ animateError: false });
   }
 
