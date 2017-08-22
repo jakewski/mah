@@ -41,7 +41,7 @@ class Home extends Component {
                 <rect height="281.575" width="1115.393" fill="none" x="271.491" y="79.753"/>
                 <text fill="#319999" fontFamily="'Lobster'" fontSize="400" transform="matrix(1 0 0 1 271.4912 359.8311)">memes</text>
                 <rect height="96.126" width="1012.075" fill="none" x="286.491" y="375.825"/>
-                <text fill="#CC3232" fontFamily="'Heebo-Black'" fontSize="100" transform="matrix(1 0 0 1 286.4912 450.8252)">AGAINST HUMANITY</text>
+                <text className="heeboFont" fill="#CC3232" fontFamily="'Heebo'" fontSize="100" transform="matrix(1 0 0 1 286.4912 450.8252)">AGAINST HUMANITY</text>
               </svg>
                 <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
                     <div className="row">
