@@ -60,6 +60,20 @@
   margin: 5px 5px 0 5px;
 }
 
+.playerScoreFlexBox{
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: space-around;
+  flex-direction: row;
+  margin-left: 2rem;
+}
+
+.playersDiv {
+/*  width: 30px;
+  float: left;*/
+  background-color: #333333;
+}
+
 /*Loading Icon Animation*/
 $spin-duration: 1s;
 

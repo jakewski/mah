@@ -32,7 +32,7 @@ const Navbar = (props) => {
           <h1 className="logo white-on-black">AGAINST</h1>
           <h1 className="logo white-on-black">HUMANITY</h1>
         </div>
-          { true ?
+          { props.player.activePlayer ?
             <div className="col-lg-12 navBarDiv">
               <button type="button" onClick={handleQuit} className="navBtn">HOW TO</button>
               <p className="navBarDivider">|</p>
