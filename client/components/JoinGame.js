@@ -65,7 +65,7 @@ class JoinGame extends Component {
               <input
                 type="text"
                 name="code"
-                className="form-control mb-2 mr-sm-2 mb-sm-0 joinInput"
+                className="input form-control mb-2 mr-sm-2 mb-sm-0 joinInput"
                 id="inlineFormInput"
                 placeholder="Enter Room Code"
               />
