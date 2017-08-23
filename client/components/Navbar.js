@@ -39,7 +39,7 @@ const Navbar = (props) => {
               <p className="navBarDivider">|</p>
               <button type="button" onClick={handleQuit} className="navBtn">STREAM</button>
               <p className="navBarDivider">|</p>
-              <button type="button" onClick={handleQuit} className="navBtn">QUIT</button>
+              <button type="button" onClick={handleQuit} className="navBtn">LOG OUT</button>
             </div>
             : null
           }

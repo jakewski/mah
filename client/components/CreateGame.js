@@ -14,10 +14,16 @@ class CreateGame extends Component {
       categories: {},
       categoriesDirty: false,
       playerNum: 3,
+      userCategories: [],
+      customCategory: '',
     }
     this.setCategories = this.setCategories.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.markCategoriesDirty = this.markCategoriesDirty.bind(this);
+    this.selectAll = this.selectAll.bind(this);
+    this.submitPersonalCategories = this.submitPersonalCategories.bind(this)
+    this.setCustomCat = this.setCustomCat.bind(this)
+    this.removeCategory = this.removeCategory.bind(this)
   }
 
   componentDidMount() {
@@ -41,7 +47,6 @@ class CreateGame extends Component {
     })
   }
 
-
   noCategoriesSelected(categories) {
     for (var keys in categories){
       if (categories[keys] === true) {
@@ -60,7 +65,8 @@ class CreateGame extends Component {
   handleSubmit(event, categories, player) {
     event.preventDefault();
     let checkedCategories = Object.keys(categories).filter(key => categories[key])
-    if(checkedCategories.length > 0) {
+    checkedCategories = checkedCategories.concat(this.state.userCategories)
+    if (checkedCategories.length > 0) {
       socket.emit('createGame', {
         categories: checkedCategories,
         playerName: player.name,
@@ -71,6 +77,34 @@ class CreateGame extends Component {
     } else {
       this.markCategoriesDirty();
     }
+  }
+  submitPersonalCategories(event){
+    event.preventDefault()
+    let newCategory = this.state.customCategory
+    let newArray = [ ...this.state.userCategories, newCategory]
+    this.setState({userCategories: newArray, customCategory: ''})
+  }
+
+  selectAll(event){
+    event.preventDefault()
+    let catArray = Object.keys(this.props.categories).map(key => this.props.categories[key].text)
+    catArray = catArray.concat(this.state.userCategories)
+    let player = this.props.player
+    socket.emit('createGame', {
+      categories: catArray,
+      playerName: player.name,
+      sessionId: player.sessionId,
+      socketId: player.socketId,
+      gameStarted: false,
+    })
+  }
+  setCustomCat(event){
+    this.setState({customCategory: event.target.value})
+  }
+  removeCategory(event){
+    event.preventDefault()
+    let newArray = this.state.userCategories.filter(category => category !== event.target.value)
+    this.setState({userCategories: newArray})
   }
 
   render() {
@@ -94,13 +128,30 @@ class CreateGame extends Component {
                   })
                 }
               </div>
-
               <br />
+              <div className="row" style={{marginTop: '0px', paddingTop: '0px'}}>
+                <div className="gameAnswerFlex" style={{marginTop: '0px', paddingTop: '0px'}}>
+                  <ul className="list-unstyled" >
+                  {this.state.userCategories.map((category, index) => {
+                    return <li style={{textAlign: 'left'}} key={index}>
+                          <button value={category} key={index} className="btn" style={{marginRight: '10px', marginBottom: '10px', fontSize: '8px'}} onClick={this.removeCategory} type="button" >x</button>{category}
+                        </li>
+                  })}
+                  </ul>
+                  <div>
+                    <div className="enter-custom-categories">
+                      <input value={this.state.customCategory} onChange={this.setCustomCat} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="Enter Custom Category" />
+                      <button type="submit" className="btn" onClick={this.submitPersonalCategories}><i className="material-icons">subdirectory_arrow_left</i></button>
+                    </div>
+                  </div>
 
-            <button type="submit" className="btn">Create</button>
+                  <button type="submit" className="btn">Create Game with Selected Categories</button>
+                  <button style={{marginTop: '10px', width: '100%'}} type="button" onClick={this.selectAll} className="btn">Create Game with All Categories</button>
+                </div>
+              </div>
             <br />
             {
-              this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty ?
+              (this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty && (this.state.userCategories.length === 0)) ?
                 <span className="alert alert-danger validationSpan">Must select at least one category</span> :
                 null
             }
