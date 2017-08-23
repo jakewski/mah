@@ -46,50 +46,58 @@ class Home extends Component {
         .then(() => history.push('/room'))
         .catch(err => console.log(err))
     }
-    
+
     render() {
         return (
-            <div className="container">
+            <div className="container homeContain">
                 <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
                     <div className="row">
                         <div className="col-sm-12 col-md-12 col-lg-12 text-center buttonBox">
-                            <NavLink to="/create">
+                          {this.state.inGame ?
+                            <div>
+                              <NavLink to="/create">
                                 <button type="button" className="btn homeBtns">
                                     CREATE GAME
                                 </button>
-                            </NavLink>
-                            <br />
-                            <br />
-                            <br />
-                            <NavLink to="/join">
+                              </NavLink>
+                              <NavLink to="/join">
                                 <button type="button" className="btn homeBtns">
                                     JOIN GAME
                                 </button>
-                            </NavLink>
-                            <br />
-                            <br />
-                            <br />
-                            {this.state.inGame ?
-                                <button type="button" onClick={this.resumeGame} className="btn btn-success larger">
-                                    Resume Game {this.state.inGame}
-                                </button> : null
-                            }
-                            <br />
-                            <br />
-                            <br />
+                              </NavLink>
+                                <button type="button" onClick={this.resumeGame} className="btn homeBtns">
+                                    RESUME GAME: {this.state.inGame}
+                                </button>
+                            </div>
+                            :
+                            <div>
+                              <NavLink to="/create">
+                                <button type="button" className="btn defaultHomeBtns">
+                                    CREATE GAME
+                                </button>
+                              </NavLink>
+                              <NavLink to="/join">
+                                <button type="button" className="btn defaultHomeBtns">
+                                    JOIN GAME
+                                </button>
+                              </NavLink>
+                            </div>
+                          }
+                    </div>
                         </div>
+                        <div className="row chatboxRow">
                         <div className="col-xs-12 col-sm-7 col-md-7 col-lg-7 marginBottom chatWrapper">
                             <ChatBox />
                         </div>
-                    </div>
-                    <hr />
-                    <button type="button" onClick={this.toggleInstructions} className="btn btn-info">
+                        </div>
+
+                    {/* <button type="button" onClick={this.toggleInstructions} className="btn btn-info">
                             {this.state.showInstructions ? 'Hide Instructions' : 'How to Play'}
                     </button>
-                    <hr />
+
                     <div className="col-sm-12 col-md-12 col-lg-12">
                        <Instructions showInstructions={this.state.showInstructions} />
-                    </div>
+                    </div> */}
                 </CSSTransitionGroup>
             </div>
         );

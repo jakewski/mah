@@ -77,13 +77,13 @@ class CreateGame extends Component {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container createGame">
-          <h1>CREATE NEW GAME</h1>
+          <h1 className="createText">CREATE NEW GAME</h1>
             <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player)}>
 
               <br />
 
               <div className="row form-check noMargin">
-              <h3>Select Categories:</h3>
+              <h3 className="selectCatText">Select Categories:</h3>
                 {
                   this.props.categories && this.props.categories.map(category => {
                     return (
@@ -95,7 +95,6 @@ class CreateGame extends Component {
                 }
               </div>
 
-              <br />
               <br />
 
             <button type="submit" className="btn">Create</button>

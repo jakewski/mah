@@ -26,13 +26,14 @@ const Navbar = (props) => {
   }
 
   return (
-      <div className="col-lg-12 text-center">
+      <div className="col-lg-12 text-center navbarCol">
+        <div>
         <div className="col-lg-12 navDiv">
           <h1 className="logo white-on-black">MEMES</h1>
           <h1 className="logo white-on-black">AGAINST</h1>
           <h1 className="logo white-on-black">HUMANITY</h1>
         </div>
-          { true ?
+          { props.player.activePlayer ?
             <div className="col-lg-12 navBarDiv">
               <button type="button" onClick={handleQuit} className="navBtn">HOW TO</button>
               <p className="navBarDivider">|</p>
@@ -42,6 +43,7 @@ const Navbar = (props) => {
             </div>
             : null
           }
+          </div>
           <div className="row">
             {/* { props.player.activePlayer ?
               <h3 className="welcomeTxt">Welcome, {props.player.name}</h3>

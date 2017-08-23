@@ -68,11 +68,11 @@ class EnterName extends Component {
           <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
             <div className="vertical-center-container">
               <div className="flex-container flex-column flex-center">
-                <form key="transition" className="form-inline" onSubmit={this.formSubmit}>
+                <form autoComplete="off" key="transition" className="form-inline" onSubmit={this.formSubmit}>
                   <h1 className="header hello black-on-white">H E L L O !</h1>
                   <br />
                   <label className="sr-only" htmlFor="inlineFormInput">Name</label>
-                  <input onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="What's your name?" />
+                  <input  onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="What's your name?" />
                   <button type="submit" className="btn" disabled={!this.inputIsValid()}><i className="material-icons">subdirectory_arrow_left</i></button>
                   <br />
                     {

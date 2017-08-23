@@ -23,7 +23,7 @@ class Pregame extends Component {
 
   render() {
     return (
-    <div className="container">
+    <div className="container pregameCont">
       <div className="row">
       </div>
       <div className="row startBtn">
