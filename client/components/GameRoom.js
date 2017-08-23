@@ -142,7 +142,7 @@ class GameRoom extends Component {
            <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
             <div className="row">
              <ScoreboardPlayers players={this.props.players} judge={this.state.judge} allAnswersSubmitted={this.props.allAnswersSubmitted} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
-              <div className="col-lg-10">
+              <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                 {/*judge logic  */}
                 {this.state.judge.sessionId === this.props.player.sessionId ?
                 <div>
