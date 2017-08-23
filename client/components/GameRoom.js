@@ -135,7 +135,6 @@ class GameRoom extends Component {
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
         <div key="transition" className="container-fluid">
-          {this.state.gameStarted ? null : <div className="room-code-div"><h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3></div>}
           {(this.props.players.length === 1) ? <div className="flex-center"><h5 className="get-friends">Invite Friends! You can't play this game by yourself. </h5></div> :
           (this.props.players.length === 2) ? <div className="flex-center"><h5 className="get-friends">You need more than two people for there to be a winner!</h5></div> : null}
           {this.state.gameStarted ?

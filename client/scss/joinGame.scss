@@ -1,6 +1,20 @@
 .joinRoom {
+  height: 40vh;
   display: flex;
+  justify-content: center;
   align-items: center;
+}
+
+.joinRow {
+  display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.joinFont {
+  font-size: 80px;
+}
+
+.joinInput {
+  width: 20vw;
 }

@@ -1,14 +1,15 @@
 .chatbox {
+  border: 3px solid white;
   height: 350px;
   padding: 0;
-  width: 80%;
+  width: 100%;
   justify-content: center;
   overflow: none;
   display: flex;
   flex-direction: column-reverse;
   input:focus {outline: none};
   font-size: 1.5em;
-  background-color: #36375D;
+  background: transparent;
   padding: 0px;
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: white;
@@ -27,8 +28,7 @@
 .chatinput {
   border: transparent;
   width: 100%;
-  background-color: rgb(42, 42, 67);
-  padding: 7px;
+  background: transparent;
   color:white;
 }
 
@@ -39,6 +39,7 @@
   flex: 1;
   overflow: auto;
   color: white;
+  border-bottom: 3px solid white;
 }
 
 .messageLi {
@@ -61,5 +62,4 @@
     margin: 10px;
     font-size: 2em;
   }
-
 }

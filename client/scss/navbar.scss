@@ -49,3 +49,15 @@
   margin: 0.7rem;
   color: #337ab7;
 }
+
+.navbarCol {
+  margin-top: 3vh;
+  margin-left: 3vh;
+}
+
+@media (max-width: 767px) {
+  .navbarCol {
+    display: flex;
+    justify-content: center;
+  }
+}

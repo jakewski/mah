@@ -54,8 +54,8 @@ class JoinGame extends Component {
         transitionLeaveTimeout={0}
       >
         <div className="container joinRoom" key="transition">
-          <div className="row">
-          <h1>Join Game</h1>
+          <div className="row joinRow">
+          <h1 className="joinFont">Join Game</h1>
 
           <form className="form-group" onSubmit={this.handleSubmit}>
             <div className="col">
@@ -65,7 +65,7 @@ class JoinGame extends Component {
               <input
                 type="text"
                 name="code"
-                className="form-control mb-2 mr-sm-2 mb-sm-0"
+                className="form-control mb-2 mr-sm-2 mb-sm-0 joinInput"
                 id="inlineFormInput"
                 placeholder="Enter Room Code"
               />
