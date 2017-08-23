@@ -28,6 +28,7 @@ class Scoreboard extends React.Component {
   componentWillUnmount(){
     //clearInterval(this.state.timer)
     socket.removeListener('roundFinishedJudge');
+    socket.removeListener('setTimer');
   }
 
   render(){
@@ -58,7 +59,7 @@ class Scoreboard extends React.Component {
                         <div>
                           <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
                         </div>
-                    : Object.keys(this.props.submittedAnswers).includes(player.id) || this.state.timeout ?
+                    : (this.props.submittedAnswers && Object.keys(this.props.submittedAnswers).includes(player.id)) || this.state.timeout ?
                         //if answer submitted OR timeout
                         //if submitted
                         Object.keys(this.props.submittedAnswers).includes(player.id) ?

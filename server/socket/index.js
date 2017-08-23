@@ -22,6 +22,16 @@ module.exports = (io) => {
 
       socket.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber});
       socket.broadcast.to(room).emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
+      socket.currentTimer = 20000;
+      socket.tick = setInterval(() =>  {
+        if(socket.currentTimer > 0) io.sockets.in(room).emit('setTimer', (socket.currentTimer -= 1000) / 1000) 
+        else {
+          io.sockets.in(room).emit('timeout');
+          io.sockets.in(room).emit('gotAllAnswers');
+          socket.emit('playerAnswered', currentState.answers, false, true);
+          clearInterval(socket.tick);
+        }
+      }, 1000)
     })
 
     //on timeout for players taking too long;
@@ -85,6 +95,7 @@ module.exports = (io) => {
 
     //gotta send back all the new turn info (category and meme)
     socket.on('switchToNextTurn', (room, skipWinner) => {
+      //if(socket.tick) clearInterval(socket.tick)
       store.dispatch(switchToNextTurn(room));
       //skipWinner boolean attached to manual no memes submitted button to switch to next round without pausing 5 seconds for winner screen
       let timeout = 3000;
@@ -95,16 +106,11 @@ module.exports = (io) => {
       setTimeout(() => {
         let game = store.getState().game[room];
         io.sockets.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
+        setInterval(socket.tick)
       }, timeout)
 
-      let currentTimer = 20000;
-      const tick = setInterval(() =>  {
-        if(currentTimer > 0) io.sockets.in(room).emit('setTimer', (currentTimer -= 1000) / 1000) 
-        else {
-          io.sockets.in(room).emit('timout');
-          clearInterval(tick);
-        }
-      }, 1000)
+  
+     
 
     })
 

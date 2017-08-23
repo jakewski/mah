@@ -94,7 +94,7 @@ class GameRoom extends Component {
       })
     })
 
-    socket.on('timout', () => {
+    socket.on('timeout', () => {
       this.setState({ timeout: true });
     })
     
