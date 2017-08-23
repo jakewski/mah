@@ -48,11 +48,14 @@ module.exports = io => {
         turnNumber: game.turnNumber
       });
 
-      gameTimer(20000);
     });
 
     socket.on("clearTick", () => {
       clearInterval(socket.tick);
+    })
+
+    socket.on("startTick", () => {
+      gameTimer(20000);
     })
 
     //need to emit back the playerId to make a flag that the player answered on the front end
@@ -107,7 +110,6 @@ module.exports = io => {
 
     //gotta send back all the new turn info (category and meme)
     socket.on("switchToNextTurn", (room, skipWinner) => {
-      clearInterval(socket.tick);
 
       store.dispatch(switchToNextTurn(room));
       //skipWinner boolean attached to manual no memes submitted button to switch to next round without pausing 5 seconds for winner screen
@@ -125,7 +127,6 @@ module.exports = io => {
           gamePlayers: game.gamePlayers,
           turnNumber: game.turnNumber
         });
-        gameTimer(20000);
       }, timeout);
     });
 

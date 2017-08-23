@@ -73,14 +73,14 @@ class GameRoom extends Component {
         submittedAnswers: {},
         timeout: false,
       }
-      this.props.replacePlayers(turn.gamePlayers)
-      this.setState(newState)
+      this.props.replacePlayers(turn.gamePlayers);
+      this.setState(newState);
+      socket.emit('startTick');
 
 
     })
 
     socket.on('gotAllAnswers', answers => {
-      console.log('hitallasnwers')
       socket.emit('clearTick');
       this.setState({
         submittedAnswers: answers,

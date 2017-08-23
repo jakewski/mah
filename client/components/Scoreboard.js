@@ -20,7 +20,6 @@ class Scoreboard extends React.Component {
     })
 
     socket.on('setTimer', timer => {
-      console.log('tick')
       this.setState({ currentTimer: timer }) 
     })
   }
