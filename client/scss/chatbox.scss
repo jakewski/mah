@@ -1,8 +1,9 @@
 .chatbox {
   border: 3px solid white;
-  height: 350px;
   padding: 0;
+  margin: 0;
   width: 100%;
+  height: 100%;
   justify-content: center;
   overflow: none;
   display: flex;
@@ -23,6 +24,26 @@
   :-moz-placeholder { /* Firefox 18- */
     color: white;
   }
+}
+
+//this is for the height of home chatbox
+.chatboxRow {
+  height: 400px;
+}
+
+//this is to center the gameRoom chatbox;
+.chatBoxCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+//this is for the height of the gameRoom chatbox
+.gameRoomChat {
+  height: 200px;
+  width: 100%;
+  justify-content: center;
+  margin: 0;
 }
 
 .chatinput {
