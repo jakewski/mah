@@ -14,10 +14,15 @@ class CreateGame extends Component {
       categories: {},
       categoriesDirty: false,
       playerNum: 3,
+      userCategories: [],
+      customCategory: '',
     }
     this.setCategories = this.setCategories.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.markCategoriesDirty = this.markCategoriesDirty.bind(this);
+    this.selectAll = this.selectAll.bind(this);
+    this.submitPersonalCategories = this.submitPersonalCategories.bind(this)
+    this.setCustomCat = this.setCustomCat.bind(this)
   }
 
   componentDidMount() {
@@ -41,7 +46,6 @@ class CreateGame extends Component {
     })
   }
 
-
   noCategoriesSelected(categories) {
     for (var keys in categories){
       if (categories[keys] === true) {
@@ -60,7 +64,8 @@ class CreateGame extends Component {
   handleSubmit(event, categories, player) {
     event.preventDefault();
     let checkedCategories = Object.keys(categories).filter(key => categories[key])
-    if(checkedCategories.length > 0) {
+    checkedCategories = checkedCategories.concat(this.state.userCategories)
+    if (checkedCategories.length > 0) {
       socket.emit('createGame', {
         categories: checkedCategories,
         playerName: player.name,
@@ -71,6 +76,30 @@ class CreateGame extends Component {
     } else {
       this.markCategoriesDirty();
     }
+  }
+  submitPersonalCategories(event){
+    event.preventDefault()
+    let newCategory = this.state.customCategory
+    let newArray = [ ...this.state.userCategories, newCategory]
+    this.setState({userCategories: newArray})
+    this.setState({customCategory: ''})
+  }
+
+  selectAll(event){
+    event.preventDefault()
+    let catArray = Object.keys(this.props.categories).map(key => this.props.categories[key].text)
+    catArray = catArray.concat(this.state.userCategories)
+    let player = this.props.player
+    socket.emit('createGame', {
+      categories: catArray,
+      playerName: player.name,
+      sessionId: player.sessionId,
+      socketId: player.socketId,
+      gameStarted: false,
+    })
+  }
+  setCustomCat(event){
+    this.setState({customCategory: event.target.value})
   }
 
   render() {
@@ -94,11 +123,21 @@ class CreateGame extends Component {
                   })
                 }
               </div>
-
               <br />
-              <br />
+              <div className="row" style={{marginTop: '0px', paddingTop: '0px'}}>
+                <div className="gameAnswerFlex" style={{marginTop: '0px', paddingTop: '0px'}}>
+                  <ul>
+                  {this.state.userCategories.map((category, index) => {
+                    return <li style={{textAlign: 'center'}} key={index}>{category}</li>
+                  })}
+                  </ul>
+                  <input style={{textAlign: 'center'}} className="form-control" placeholder="write in a category here" type="text" value={this.state.customCategory} onChange= {this.setCustomCat} />
+                  <button style={{margin: '10px 0' }} className="btn btn-warning" type="submit" onClick={this.submitPersonalCategories}>Enter Custom Category</button>
 
-            <button type="submit" className="btn btn-success">Create</button>
+                  <button type="submit" className="btn btn-success">Create Game with Selected Categories</button>
+                  <button style={{marginTop: '10px', width: '100%'}} type="button" onClick={this.selectAll} className="btn btn-info">Create Game with All Categories</button>
+                </div>
+              </div>
             <br />
             {
               this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty ?
