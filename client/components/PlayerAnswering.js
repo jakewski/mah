@@ -178,7 +178,7 @@ class PlayerAnswering extends React.Component {
                 </form>
                 </div>
                 </div>
-                  <button onClick={this.onMemeSubmit} type="submit" className="btn btn-success center">Submit</button>
+                  <button onClick={this.onMemeSubmit} type="submit" className="btn center">Submit</button>
                 </div>
                 : <div />}
             </div>);

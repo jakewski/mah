@@ -71,16 +71,16 @@ class GameRoom extends Component {
         submittedAnswers: {},
         timeout: false,
         timer: setInterval(this.tick, 1000),
-        timeAllowed: 20000,
-        currentTimer: 20000,
+        timeAllowed: 60000,
+        currentTimer: 60000,
       }
       this.props.replacePlayers(turn.gamePlayers)
       this.setState(newState)
 
       //timeout for players taking too long
-      // setTimeout(() => {
-      //   socket.emit('timeout', this.props.room)
-      // }, this.state.timeAllowed)
+      setTimeout(() => {
+        socket.emit('timeout', this.props.room)
+      }, this.state.timeAllowed)
 
     })
 
