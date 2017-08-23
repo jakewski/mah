@@ -2,6 +2,15 @@
   align-content: center;
 }
 
+.sbAndAnswerRow {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.answeringFlex {
+  justify-content: flex-start;
+}
+
 .gameAnswerFlex{
   display: flex;
   flex-direction: column;
@@ -28,13 +37,19 @@
   color: red;
 }
 
+.minus {
+  margin-left: 0;
+}
+
 .lineAndButtons {
   display: flex;
+  align-items: center;
 }
 
 .scoreText{
   cursor:'pointer';
   margin: 3px;
+  font-size: 25px;
 }
 
 .left {

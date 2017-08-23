@@ -78,9 +78,9 @@ class GameRoom extends Component {
       this.setState(newState)
 
       //timeout for players taking too long
-      setTimeout(() => {
-        socket.emit('timeout', this.props.room)
-      }, this.state.timeAllowed)
+      // setTimeout(() => {
+      //   socket.emit('timeout', this.props.room)
+      // }, this.state.timeAllowed)
 
     })
 
@@ -134,15 +134,16 @@ class GameRoom extends Component {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
-        <div key="transition" className="container-fluid">
+        <div key="transition" className="container">
           {(this.props.players.length === 1) ? <div className="flex-center"><h5 className="get-friends">Invite Friends! You can't play this game by yourself. </h5></div> :
           (this.props.players.length === 2) ? <div className="flex-center"><h5 className="get-friends">You need more than two people for there to be a winner!</h5></div> : null}
           {this.state.gameStarted ?
           (<div>
            <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
+          <div className="row sbAndAnswerRow">
             <div className="row">
              <ScoreboardPlayers players={this.props.players} judge={this.state.judge} allAnswersSubmitted={this.props.allAnswersSubmitted} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
-              <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+              <div className="col-lg-9 col-md-9 col-sm-9 col-xs-9 col10">
                 {/*judge logic  */}
                 {this.state.judge.sessionId === this.props.player.sessionId ?
                 <div>
@@ -163,6 +164,7 @@ class GameRoom extends Component {
                 </div>}
               </div>
             </div>
+            </div>
           </div>) : <Pregame room={this.props.room} />}
               <div className="gameAnswerFlex endOfGameRoom">
                 <div className="gameRoomChat">
@@ -172,7 +174,7 @@ class GameRoom extends Component {
                 </div>
             </div>
             {this.state.gameStarted ?
-            <div className="row">
+            <div className="row ">
               <div className="gameAnswerFlex">
                 {(this.props.players[0].sessionId === this.props.player.sessionId) ?
                 <button type="button" onClick={this.endGameButton} className="btn">End Game</button> :
