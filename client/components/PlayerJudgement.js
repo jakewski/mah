@@ -28,7 +28,7 @@ export default class PlayerJudgement extends React.Component {
         { !this.state.winningMeme ? <div>
         <h3 className="memeories">Submitted Meme-ories:</h3>
         <div className="playerScoreFlexBox">
-          {this.props.submittedAnswers ? Object.keys(this.props.submittedAnswers).map((key, index) => {
+          {(this.props.submittedAnswers && Object.keys(this.props.submittedAnswers).length) ? Object.keys(this.props.submittedAnswers).map((key, index) => {
             return <div className="scoreText animated bounceInDown" key={index}>
 
                 {/* instead here we will render each canvas */}
