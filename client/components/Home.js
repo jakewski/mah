@@ -86,7 +86,7 @@ class Home extends Component {
                     </div>
                         </div>
                         <div className="row chatboxRow">
-                        <div className="col-xs-12 col-sm-7 col-md-7 col-lg-7 marginBottom chatWrapper">
+                        <div className="col-xs-12 col-sm-7 col-md-7 col-lg-7 marginBottom chatWrapper homeChat">
                             <ChatBox />
                         </div>
                         </div>

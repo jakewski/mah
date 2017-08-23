@@ -164,12 +164,12 @@ class GameRoom extends Component {
               </div>
             </div>
           </div>) : <Pregame room={this.props.room} />}
-            <div className="row">
               <div className="gameAnswerFlex endOfGameRoom">
-                <div className="col-sm-12 col-md-6 col-lg-6 gameRoomChat">
-                  <ChatBox />
+                <div className="gameRoomChat">
+                  <div className="col-sm-9 col-md-9 col-lg-9 chatBoxCol">
+                    <ChatBox />
+                  </div>
                 </div>
-              </div>
             </div>
             {this.state.gameStarted ?
             <div className="row">
