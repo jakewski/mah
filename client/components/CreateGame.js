@@ -23,7 +23,6 @@ class CreateGame extends Component {
     this.selectAll = this.selectAll.bind(this);
     this.submitPersonalCategories = this.submitPersonalCategories.bind(this)
     this.setCustomCat = this.setCustomCat.bind(this)
-    this.removeCategory = this.removeCategory.bind(this)
   }
 
   componentDidMount() {
@@ -81,8 +80,8 @@ class CreateGame extends Component {
   submitPersonalCategories(event){
     event.preventDefault()
     let newCategory = this.state.customCategory
-    let newArray = [ ...this.state.userCategories, newCategory]
-    this.setState({userCategories: newArray, customCategory: ''})
+    let newCategories = [ ...this.state.userCategories, newCategory]
+    this.setState({userCategories: newCategories, customCategory: ''})
   }
 
   selectAll(event){
@@ -101,23 +100,27 @@ class CreateGame extends Component {
   setCustomCat(event){
     this.setState({customCategory: event.target.value})
   }
-  removeCategory(event){
-    event.preventDefault()
-    let newArray = this.state.userCategories.filter(category => category !== event.target.value)
-    this.setState({userCategories: newArray})
-  }
+  // removeCategory(event){
+  //   event.preventDefault()
+  //   let newArray = this.state.userCategories.filter(category => category !== event.target.value)
+  //   this.setState({userCategories: newArray})
+  // }
 
   render() {
+    console.log('state categories', this.state.categories, this.state.userCategories)
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container createGame">
-          <h1 className="createText">CREATE NEW GAME</h1>
+          <h3 className="createText">CREATE NEW GAME</h3>
             <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player)}>
 
               <br />
 
               <div className="row form-check noMargin">
               <h3 className="selectCatText">Select Categories:</h3>
+{/*                <div className="checkbox">
+                  <label className="blue" onClick={this.selectAll}><input type="checkbox" />Select All</label>
+                </div>*/}
                 {
                   this.props.categories && this.props.categories.map(category => {
                     return (
@@ -127,17 +130,22 @@ class CreateGame extends Component {
                       )
                   })
                 }
+
+                {this.state.userCategories.map((category, index) => {
+                  return (
+                      <div key={index} className="checkbox">
+                        <label><input type="checkbox" name={`category${category.id}`} value={category.text} defaultChecked={true} />{category}</label>
+                      </div>
+                      // <li style={{textAlign: 'left'}} key={index}>
+                      //   <button value={category} key={index} className="btn" style={{marginRight: '10px', marginBottom: '10px', fontSize: '8px'}} onClick={this.removeCategory} type="button" >x</button>{category}
+                      // </li>
+                    )
+                })}
               </div>
               <br />
               <div className="row" style={{marginTop: '0px', paddingTop: '0px'}}>
                 <div className="gameAnswerFlex" style={{marginTop: '0px', paddingTop: '0px'}}>
-                  <ul className="list-unstyled" >
-                  {this.state.userCategories.map((category, index) => {
-                    return <li style={{textAlign: 'left'}} key={index}>
-                          <button value={category} key={index} className="btn" style={{marginRight: '10px', marginBottom: '10px', fontSize: '8px'}} onClick={this.removeCategory} type="button" >x</button>{category}
-                        </li>
-                  })}
-                  </ul>
+
                   <div>
                     <div className="enter-custom-categories">
                       <input value={this.state.customCategory} onChange={this.setCustomCat} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="Enter Custom Category" />
@@ -145,8 +153,8 @@ class CreateGame extends Component {
                     </div>
                   </div>
 
-                  <button type="submit" className="btn">Create Game with Selected Categories</button>
-                  <button style={{marginTop: '10px', width: '100%'}} type="button" onClick={this.selectAll} className="btn">Create Game with All Categories</button>
+                  <button type="submit" className="btn">Create Game</button>
+                  {/*<button style={{marginTop: '10px', width: '100%'}} type="button" onClick={this.selectAll} className="btn">Create Game with All Categories</button>*/}
                 </div>
               </div>
             <br />
