@@ -8,13 +8,10 @@
 
 .homeBtns {
   border-radius: 0px;
-  background-color: #36375D;
-  color: #f7941d;
-  font-weight: 900;
   width: 200px;
   height: 50px;
-  font-size: 20px;
-  float: center;
+  font-family: 'Jura';
+  font-size: 2.3rem;
 }
 
 .buttonBox {
@@ -34,9 +31,9 @@
   height: 60%;
 }
 
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
   .chatWrapper {
     display: flex;
     justify-content: center;
   }
-}
+}*/

@@ -15,7 +15,7 @@ const REMOVE_PLAYER = 'REMOVE_PLAYER';
  */
 //player: {name: '', id: ''}
 const initialState = {
-  room: 'Main',
+  room: 'main',
   player: {},
   players: [],
   host: {},
@@ -24,7 +24,7 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-const setPlayer = player => ({type: SET_PLAYER, player});
+export const setPlayer = player => ({type: SET_PLAYER, player});
 export const setRoom = room => ({type: SET_ROOM, room});
 export const addToPlayers = player => ({type: ADD_TO_PLAYERS, player})
 export const replacePlayers = players => ({type: REPLACE_PLAYERS, players})
@@ -34,14 +34,6 @@ export const removePlayer = () => ({type: REMOVE_PLAYER});
  *
  * THUNK CREATORS
  */
-export const setPlayerThunk = player => dispatch => {
-  axios.post('/api/player/', player)
-  .then(res =>  { 
-    dispatch(setPlayer(res.data))
-  })
-}
-
-
 
 /**
  * REDUCER
@@ -51,7 +43,7 @@ export default function (state = initialState, action) {
     case SET_PLAYER:
       return Object.assign({}, state, { player: action.player, players: [action.player] });
     case SET_ROOM:
-      return Object.assign({}, state, {room: action.room.id, host: action.room.host });
+      return Object.assign({}, state, {room: action.room.id, host: action.room.host || state.host });
     case ADD_TO_PLAYERS:
       return Object.assign({}, state, {players: [...state.players, action.player]})
     case REPLACE_PLAYERS:

@@ -1,17 +1,7 @@
-@import "chatbox";
-@import "canvas";
-@import "enterName";
-@import "gameRoom";
-@import "navbar";
-@import "typingIndicator";
-@import "home";
-@import "createGame";
-@import "joinGame";
-@import "pregame";
-
-body {
-  height: 100%;
-}
+@import url('https://fonts.googleapis.com/css?family=Bungee+Hairline');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
+@import url('https://fonts.googleapis.com/css?family=Jura:light');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 #app {
   height: 100%;
@@ -28,10 +18,14 @@ body {
 }
 
 body {
-  font-family: ‘Heebo’, sans-serif;
-  font-weight: 800;
+  height: 100%;
+  font-family: 'Raleway', sans-serif;
   color: white;
-  background-color: #09173E;
+  background-color: #000000;
+
+  h1 {
+    font-family: 'Orbitron'
+  }
 
   a {
     text-decoration: none;
@@ -68,42 +62,165 @@ body {
   .noMargin {
     margin: 0;
   }
-
-  .marginLeft {
-    margin-left: 10px;
-  }
 }
 
-/*Loading Icon Animation*/
-$spin-duration: 1s;
+/*CONNIE STUFF*/
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+* {
+  box-sizing: border-box;
+  font-family: 'Raleway';
+  background: black;
+  color: white;
 }
 
-html {
-  height: 100%;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Jura';
+  padding: 0 0.5rem;
+  color: white;
+  background: black;
 }
 
-.loadingRed {
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    border: .15rem solid #ff0000;
-    border-top-color: #ffffff;
-    animation: spin $spin-duration infinite linear;
+.flex-container {
+  display: flex;
 }
 
-.loadingBlue {
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    border: .15rem solid #0000ff;
-    border-top-color: #ffffff;
-    animation: spin $spin-duration infinite linear;
+.flex-column {
+  flex-direction: column;
 }
+
+.flex-center {
+  align-items: center;
+  text-align: center;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.nav {
+  top: 1.3rem;
+  right: 1rem;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-center-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 60vh;
+  margin: 0;
+}
+
+.white-on-black {
+  color: white;
+  background: black;
+}
+
+.black-on-white {
+  color: black;
+  background: white;
+}
+
+.material-icons:hover {
+  /*color: blue;*/
+  cursor: pointer;
+}
+
+.input {
+  background-color: transparent;
+  border: 3px solid white;
+  border-radius: 0;
+  height: 47px;
+  color: white;
+}
+
+.input:focus {
+  border-color: white;
+}
+
+.btn {
+  font-size: 1.8rem;
+  margin: 0.9rem;
+  border: 3px solid white;
+  border-radius: 0;
+}
+
+.btn:hover {
+  cursor: pointer;
+  margin: 0.9rem;
+  border: 3px solid #337ab7;
+}
+
+.btn:disabled {
+  border: 3px solid #666666;
+  color: #666666;
+  cursor: not-allowed;
+  margin: 0.9rem;
+}
+
+
+.header {
+  font-size: 3rem;
+  margin-top: 0;
+}
+
+input {
+  font-size: 1.5rem;
+  width: 50vw;
+  max-width: 28rem;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 0.5rem 0.8rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+.chatbox {
+  justify-content: space-between;
+  border: 1px solid;
+  width: 65vw;
+  max-width: 45rem;
+  height: 55vh;
+  margin-bottom: 2rem;
+}
+
+.messages {
+  margin: 0 1.5rem;
+  font-size: 1.5rem;
+}
+
+.chat-input-group {
+  justify-content: space-around;
+  border-top: 1px solid;
+}
+
+.chat-input-group>input {
+  border: none;
+}
+
+.fadeIn-appear {
+  opacity: 0.01;
+}
+
+.fadeIn-appear.fadeIn-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+@import "chatbox";
+@import "canvas";
+@import "enterName";
+@import "gameRoom";
+@import "navbar";
+@import "typingIndicator";
+@import "home";
+@import "createGame";
+@import "joinGame";
+@import "pregame";
+@import "instructions";
+@import "scoreboard";

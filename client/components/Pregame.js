@@ -18,19 +18,18 @@ class Pregame extends Component {
   }
 
   handleClick() {
-    socket.emit('startGame');
+    socket.emit('startGame', this.props.players.room);
   }
 
   render() {
     return (
     <div className="container">
       <div className="row">
-        <h1 className="roomCode">Room Code: {this.state.room}</h1>
       </div>
       <div className="row startBtn">
         {(this.props.players.players[0].sessionId === this.props.players.player.sessionId) ?
-          <button onClick={this.handleClick} className="btn btn-success">
-            Start Da Game Bro
+          <button onClick={this.handleClick} className="btn">
+            START
           </button>
           :
           <div>

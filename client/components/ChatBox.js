@@ -36,7 +36,7 @@ class ChatBox extends Component {
                 from: 'Me'
             };
             this.setState({ messages: [...this.state.messages, message] });
-            socket.emit('message', body);
+            socket.emit('message', {body, room: this.props.players.room, from: this.props.players.player.name});
             event.target.value = '';
         }
     };
@@ -49,7 +49,9 @@ class ChatBox extends Component {
                     <b className="messageFrom">
                       {message.from}: {' '}
                     </b>
-                    {message.body}
+                    <b className="message">
+                      {message.body}
+                    </b>
                   </li>
                 );
             } else {
@@ -67,5 +69,14 @@ class ChatBox extends Component {
         );
     }
 }
+const mapStateToProps = function(state, ownProps) {
+    return {
+      players: state.players
+    };
+  };
 
-export default ChatBox;
+  const mapDispatchToProps = dispatch => ({
+
+  });
+
+  export default connect(mapStateToProps, mapDispatchToProps)(ChatBox);

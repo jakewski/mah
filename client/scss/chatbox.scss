@@ -46,9 +46,15 @@
   text-align: left;
 }
 
-.messageFrom {
-  color: #43A4B0;
+.message {
+  font-weight: 300;
 }
+
+.messageFrom {
+  color: #337ab7;
+  font-weight: 700;
+}
+
 
 @media (max-width: 767px) {
   .chatbox {

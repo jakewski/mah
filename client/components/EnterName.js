@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { setPlayerThunk } from '../store';
 import socket from '../socket';
 import axios from 'axios';
 import Instructions from './Instructions';
+import { setPlayer } from '../store'
 
 class EnterName extends Component {
   constructor(){
@@ -35,7 +35,7 @@ class EnterName extends Component {
       socketId: socket.id,
     })
     .then(res => {
-      this.props.setPlayerThunk({
+      return this.props.setPlayer({
         name: res.data.name,
         socketId: res.data.socketId,
         activePlayer: res.data.activePlayer,
@@ -43,8 +43,9 @@ class EnterName extends Component {
       })
     })
     .then(() => {
-      this.props.history.push('/')
+      return this.props.history.push('/')
     })
+    .catch(err => console.log(err))
   }
 
   inputIsEmpty(){
@@ -65,25 +66,25 @@ class EnterName extends Component {
 
         <div className="row nameRow">
           <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
-            <div className="flexForm">
-
-            <form key="transition" className="form-inline" onSubmit={this.formSubmit}>
-              <h1>Get Started!</h1>
-              <h4 className="whatsYourName">What is your name?</h4>
-              <br />
-              <label className="sr-only" htmlFor="inlineFormInput">Name</label>
-              <input onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Jane Doe" />
-              <button type="submit" className="btn btn-success marginLeft" disabled={!this.inputIsValid()}>Enter</button>
-              <br />
-                {
-                  this.inputIsEmpty() && this.state.player.dirty ?
-                  <span className="alert alert-danger validationSpan">You must enter a name</span> :
-                  null }
-                {!this.inputWithinLimit() && this.state.player.dirty ?
-                  <span className="alert alert-danger validationSpan">Name too long</span> :
-                  null
-                }
-            </form>
+            <div className="vertical-center-container">
+              <div className="flex-container flex-column flex-center">
+                <form key="transition" className="form-inline" onSubmit={this.formSubmit}>
+                  <h1 className="header hello black-on-white">H E L L O !</h1>
+                  <br />
+                  <label className="sr-only" htmlFor="inlineFormInput">Name</label>
+                  <input onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="What's your name?" />
+                  <button type="submit" className="btn" disabled={!this.inputIsValid()}><i className="material-icons">subdirectory_arrow_left</i></button>
+                  <br />
+                    {
+                      this.inputIsEmpty() && this.state.player.dirty ?
+                      <span className="alert alert-danger validationSpan">You must enter a name</span> :
+                      <span className="validationSpan"></span> }
+                    {!this.inputWithinLimit() && this.state.player.dirty ?
+                      <span className="validationSpan">Name too long</span> :
+                      <span className="validationSpan"></span>
+                    }
+                </form>
+              </div>
             </div>
 
             {/* <div className="row insRow">
@@ -93,7 +94,7 @@ class EnterName extends Component {
         </button>
       </div> */}
       <div className="col-sm-12 col-md-12 col-lg-12 marginTop">
-        <Instructions showInstructions={this.state.showInstructions} />
+        {/*<Instructions showInstructions={this.state.showInstructions} />*/}
       </div>
           </CSSTransitionGroup>
       </div>
@@ -107,7 +108,7 @@ const mapStateToProps = function(state, ownProps) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setPlayerThunk: player => dispatch(setPlayerThunk(player)),
+  setPlayer: code => dispatch(setPlayer(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterName)

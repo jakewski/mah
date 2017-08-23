@@ -25,16 +25,17 @@ class CreateGame extends Component {
     socket.on('getCode', code => {
       console.log('GAME CODE: ', code);
       this.props.setRoom({id: code, host: this.props.player});
-      axios.post('/api/room', {
-        room: code,
+      axios.post('/api/room', { room: code })
+      .then(() => {
+        history.push('/room')
       })
+      .catch(err => console.log(err))
     })
   }
 
   setCategories(categoryId){
     return () => this.setState(prev => {
-      if(prev.categories[categoryId])
-        prev.categories[categoryId] = false;
+      if (prev.categories[categoryId]) prev.categories[categoryId] = false;
       else prev.categories[categoryId] = true;
       return prev;
     })
@@ -42,8 +43,8 @@ class CreateGame extends Component {
 
 
   noCategoriesSelected(categories) {
-    for(var keys in categories){
-      if(categories[keys] === true) {
+    for (var keys in categories){
+      if (categories[keys] === true) {
         return false;
       }
     }
@@ -65,8 +66,8 @@ class CreateGame extends Component {
         playerName: player.name,
         sessionId: player.sessionId,
         socketId: player.socketId,
+        gameStarted: false,
       })
-      history.push('/room')
     } else {
       this.markCategoriesDirty();
     }
@@ -76,7 +77,7 @@ class CreateGame extends Component {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div key="transition" className="container createGame">
-          <h1>Create a New Game</h1>
+          <h1>CREATE NEW GAME</h1>
             <form className="form-group" onSubmit={(event) => this.handleSubmit(event, this.state.categories, this.props.player)}>
 
               <br />
@@ -97,7 +98,7 @@ class CreateGame extends Component {
               <br />
               <br />
 
-            <button type="submit" className="btn btn-success">Create</button>
+            <button type="submit" className="btn">Create</button>
             <br />
             {
               this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty ?

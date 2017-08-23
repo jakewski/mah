@@ -20,19 +20,26 @@ const Navbar = (props) => {
     axios.delete('/api/player/')
     .then(() => props.removePlayer())
     .then(() => {
-      props.history.push('/')
+      return props.history.push('/')
     })
+    .catch(err => console.log(err))
   }
 
   return (
-      <div className="col-lg-12 text-center navDiv">
-        <div className="col-lg-12 logo">
-          MEMES <br />
-          AGAINST <br />
-          HUMANITY <br />
+      <div className="col-lg-12 text-center">
+        <div className="col-lg-12 navDiv">
+          <h1 className="logo white-on-black">MEMES</h1>
+          <h1 className="logo white-on-black">AGAINST</h1>
+          <h1 className="logo white-on-black">HUMANITY</h1>
         </div>
-          { props.player.activePlayer ?
-            <button type="button" onClick={handleQuit} className="btn btn-danger quit">X</button>
+          { true ?
+            <div className="col-lg-12 navBarDiv">
+              <button type="button" onClick={handleQuit} className="navBtn">HOW TO</button>
+              <p className="navBarDivider">|</p>
+              <button type="button" onClick={handleQuit} className="navBtn">STREAM</button>
+              <p className="navBarDivider">|</p>
+              <button type="button" onClick={handleQuit} className="navBtn">QUIT</button>
+            </div>
             : null
           }
           <div className="row">

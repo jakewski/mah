@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayers, replacePlayers, setRoom } from '../store';
-import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering } from '../components'
+import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, Scoreboard, ScoreboardPlayers } from '../components'
 import axios from 'axios'
 
 class GameRoom extends Component {
@@ -14,9 +14,8 @@ class GameRoom extends Component {
       judge: {},
       turnNumber: 0,
       gameStarted: false,
-      submittedAnswers: [],
+      submittedAnswers: {},
       allAnswersSubmitted: false,
-      playerIsCurrentJudge: false,
       playerAnswerSubmitted: false,
       memeUrl: '',
       memeTopText: '',
@@ -24,29 +23,40 @@ class GameRoom extends Component {
       gameRoomName: 'Bad Boys and Girls of America',
       gamePlayers: [],
       isHost: true,
-
     }
     this.leaveGameButton = this.leaveGameButton.bind(this);
     this.endGameButton = this.endGameButton.bind(this);
+    //this.tick = this.tick.bind(this)
   }
 
   componentWillMount() {
-    // axios.get('/api/room')
-    // .then(res => {
-    //   if(res.data.activeRoom) {
-    //     console.log('is this api call to room happening?')
-    //     this.props.setRoom(res.data.room)
-    //   }
-    // })
+    socket.on('recieveGameState', ({ gamePlayers, gameStarted, judge, turnNumber, answers, meme, allAnswersSubmitted, playerAnswerSubmitted, category }) => {
+      this.props.replacePlayers(gamePlayers)
+      this.setState({ gameStarted, judge, turnNumber, submittedAnswers: answers, memeUrl: meme.image, memeTopText: meme.topText, memeBottomText: meme.bottomText, allAnswersSubmitted, playerAnswerSubmitted, category })
+    })
+    axios.get('/api/room')
+    .then( res => {
+      this.props.setRoom({id: res.data.room})
+      return socket.emit('getGameState', res.data.room)
+    })
+    .catch(err => console.log(err))
+  }
+
+  componentWillUnmount() {
+    socket.removeListener('recieveGameState');
+    socket.removeListener('replacedPlayers');
+    socket.removeListener('gameStarted');
+    socket.removeListener('gotAllAnswers');
+    socket.removeListener('playerAnswered');
+    //clearInterval(this.state.timer)
   }
 
   componentDidMount() {
+
     socket.on('replacedPlayers', players => {
       this.props.replacePlayers(players);
     })
     socket.on('gameStarted', turn => {
-      let isJudge = turn.judge.id === this.props.player.socketId;
-      console.log('isJudge:', isJudge)
       let newState = {
         gameStarted: true,
         memeUrl: turn.meme.image,
@@ -54,23 +64,34 @@ class GameRoom extends Component {
         memeBottomText: turn.meme.bottomText,
         category: turn.category,
         judge: turn.judge,
-        playerIsCurrentJudge: isJudge,
         gamePlayers: turn.gamePlayers,
         allAnswersSubmitted: false,
         playerAnswerSubmitted: false,
         turnNumber: turn.turnNumber,
-        roundUnjudged: false,
         submittedAnswers: {},
+        timeout: false,
+        timer: setInterval(this.tick, 1000),
+        timeAllowed: 20000,
+        currentTimer: 20000,
       }
+      this.props.replacePlayers(turn.gamePlayers)
       this.setState(newState)
+
+      //timeout for players taking too long
+      setTimeout(() => {
+        socket.emit('timeout', this.props.room)
+      }, this.state.timeAllowed)
+
     })
+
     socket.on('gotAllAnswers', answers => {
       this.setState({
         submittedAnswers: answers,
         allAnswersSubmitted: true,
+        currentTimer: 0,
       })
     })
-    socket.on('playerAnswered', (currentAnswers, isThisPlayer) => {
+    socket.on('playerAnswered', (currentAnswers, isThisPlayer, timeout) => {
       this.setState({
         submittedAnswers: currentAnswers,
       })
@@ -79,17 +100,26 @@ class GameRoom extends Component {
           playerAnswerSubmitted: true,
         })
       }
+      if(timeout) {
+        this.setState({
+          timeout: true,
+        })
+      }
     })
-    socket.on('roundFinishedJudge', winningAnswer => {
-      this.setState({
-        roundUnjudged: true
-      })
-    })
-    // socket.on('incrementScore', (playerId) => {
-
-    // })
   }
-  leaveGameButton(){
+
+  // tick(){
+  //   if(this.state.currentTimer > 0) {
+  //     this.setState({
+  //       currentTimer: this.state.currentTimer - 1000,
+  //     })
+  //   }
+  //   else {
+  //     clearInterval(this.state.timer);
+  //   }
+  // }
+
+  leaveGameButton() {
     console.log('clicked leave game')
     //need to remove player from the game, reset his room, and direct him to the home lobby
     //
@@ -105,65 +135,26 @@ class GameRoom extends Component {
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
         <div key="transition" className="container-fluid">
-          {/* <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3> */}
+          {this.state.gameStarted ? null : <div className="room-code-div"><h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3></div>}
+          {(this.props.players.length === 1) ? <div className="flex-center"><h5 className="get-friends">Invite Friends! You can't play this game by yourself. </h5></div> :
+          (this.props.players.length === 2) ? <div className="flex-center"><h5 className="get-friends">You need more than two people for there to be a winner!</h5></div> : null}
           {this.state.gameStarted ?
           (<div>
-            <div className="row">
-              <div className="col-xs-6">
-                <h5>Turn Number: {this.state.turnNumber}</h5>
-              </div>
-              <div className="col-xs-6">
-                <h5>Current Judge: {this.state.judge.name}</h5>
-              </div>
-            </div>
-            <hr />
-            <div className="row">
-              <div className="playerScoreFlexBox">
-                {this.state.gamePlayers.map((player, index) => {
-                  return (
-                    <div>
-                      {
-                        this.state.judge.id === player.id ?
-                          this.state.allAnswersSubmitted && !this.state.roundUnjudged ?
-                            <div>
-                              <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
-                              <div className="loadingBlue right load"></div>
-                            </div>
-                          :
-                            <div>
-                              <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
-                            </div>
-                        :
-                          Object.keys(this.state.submittedAnswers).includes(player.id)
-                          ? <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
-                          : <div>
-                              <div className="scoreText red name" key={index}>{player.name}: {player.score} </div>
-                              <div className="loadingRed right load"></div>
-                            </div>
-                      }
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-            <hr />
-            <div className="row catRow">
-              <h4>Category: </h4>&nbsp;&nbsp;<h4 className="catText">{this.state.category}</h4>
-            </div>
-            <hr />
+           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
+           <ScoreboardPlayers players={this.props.players} judge={this.state.judge} allAnswersSubmitted={this.props.allAnswersSubmitted} timeout={this.state.timeout}/>
             <div className="row">
               {/*judge logic  */}
-              {this.state.playerIsCurrentJudge ?
+              {this.state.judge.sessionId === this.props.player.sessionId ?
               <div>
                 {this.state.allAnswersSubmitted ?
                 <Judgement submittedAnswers={this.state.submittedAnswers} /> :
-                <JudgeWaiting/>}
+                <JudgeWaiting />}
               </div>
               :
               <div> {/*player logic  */}
-                {this.state.playerAnswerSubmitted ?
+                {this.state.playerAnswerSubmitted || this.state.timeout ?
                 <div>
-                  {this.state.allAnswersSubmitted ?
+                  {this.state.allAnswersSubmitted || this.state.timeout ?
                   <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
                   <PlayerWaiting />}
                 </div>
@@ -188,7 +179,7 @@ class GameRoom extends Component {
               </div>
               <br />
             </div> : <div />}
-
+            {this.state.gameStarted ? <div className="room-code-div"><h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3></div> : null}
         </div>
 
       </CSSTransitionGroup>

@@ -1,13 +1,51 @@
-.welcomeTxt {
-  float: left;
+.logo {
+  font-family: 'Bungee Hairline';
+  top: 0;
+  left: 0.7rem;
+  margin: 0;
+  padding-left: 0;
+  font-size: 43px;
+  line-height: 40px;
 }
 
-.chevronTabs {
-  justify-content: center;
+.logo:hover {
+  color: #337ab7;
 }
 
-.chevron {
-  height: 5%;
-  width: 5%;
-  transform: translateX(-50%) rotate(-90deg);
+.logoDiv {
+  text-align: left;
+  padding-left: 0;
+}
+
+.navBtn {
+  font-size: 1.5rem;
+  padding-bottom: 0.3rem;
+  margin: 0.5rem;
+  border-radius: 0;
+  border: 0;
+  font-family: 'Jura';
+  margin: 0.3rem;
+  padding: 0;
+}
+
+.navBtn:hover {
+  cursor: pointer;
+  color: #337ab7;
+}
+
+.navDiv {
+  text-align: left;
+  margin-top: 1rem;
+  padding-left: 0;
+}
+
+.navBarDiv {
+  text-align: left;
+  padding-left: 0;
+}
+
+.navBarDivider {
+  display: inline;
+  margin: 0.7rem;
+  color: #337ab7;
 }
