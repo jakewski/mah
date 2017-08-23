@@ -78,9 +78,9 @@ class GameRoom extends Component {
       this.setState(newState)
 
       //timeout for players taking too long
-      setTimeout(() => {
-        socket.emit('timeout', this.props.room)
-      }, this.state.timeAllowed)
+      // setTimeout(() => {
+      //   socket.emit('timeout', this.props.room)
+      // }, this.state.timeAllowed)
 
     })
 
