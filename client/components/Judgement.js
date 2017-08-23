@@ -40,7 +40,7 @@ class Judgement extends React.Component {
           (!Object.keys(this.props.submittedAnswers).length) ?
             <div className="row">
               <div className="gameAnswerFlex">
-                <button className="btn btn-primary btn-lg btn-block" onClick={this.moveToNextRound}>No Memes Submitted - Move to next round</button>
+                <button className="btn" onClick={this.moveToNextRound}>No Memes Submitted - Move to next round</button>
               </div>
             </div>
           :
