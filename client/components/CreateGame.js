@@ -23,6 +23,7 @@ class CreateGame extends Component {
     this.selectAll = this.selectAll.bind(this);
     this.submitPersonalCategories = this.submitPersonalCategories.bind(this)
     this.setCustomCat = this.setCustomCat.bind(this)
+    this.removeCategory = this.removeCategory.bind(this)
   }
 
   componentDidMount() {
@@ -81,8 +82,7 @@ class CreateGame extends Component {
     event.preventDefault()
     let newCategory = this.state.customCategory
     let newArray = [ ...this.state.userCategories, newCategory]
-    this.setState({userCategories: newArray})
-    this.setState({customCategory: ''})
+    this.setState({userCategories: newArray, customCategory: ''})
   }
 
   selectAll(event){
@@ -100,6 +100,11 @@ class CreateGame extends Component {
   }
   setCustomCat(event){
     this.setState({customCategory: event.target.value})
+  }
+  removeCategory(event){
+    event.preventDefault()
+    let newArray = this.state.userCategories.filter(category => category !== event.target.value)
+    this.setState({userCategories: newArray})
   }
 
   render() {
@@ -126,9 +131,11 @@ class CreateGame extends Component {
               <br />
               <div className="row" style={{marginTop: '0px', paddingTop: '0px'}}>
                 <div className="gameAnswerFlex" style={{marginTop: '0px', paddingTop: '0px'}}>
-                  <ul>
+                  <ul className="list-unstyled" >
                   {this.state.userCategories.map((category, index) => {
-                    return <li style={{textAlign: 'center'}} key={index}>{category}</li>
+                    return <li style={{textAlign: 'left'}} key={index}>
+                          <button value={category} key={index} className="btn btn-danger" style={{marginRight: '10px', marginBottom: '10px', fontSize: '8px'}} onClick={this.removeCategory} type="button" >x</button>{category}
+                        </li>
                   })}
                   </ul>
                   <input style={{textAlign: 'center'}} className="form-control" placeholder="write in a category here" type="text" value={this.state.customCategory} onChange= {this.setCustomCat} />
@@ -140,7 +147,7 @@ class CreateGame extends Component {
               </div>
             <br />
             {
-              this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty ?
+              (this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty && (this.state.userCategories.length === 0)) ?
                 <span className="alert alert-danger validationSpan">Must select at least one category</span> :
                 null
             }
