@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayers, replacePlayers, setRoom } from '../store';
-import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, Scoreboard } from '../components'
+import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, Scoreboard, ScoreboardPlayers } from '../components'
 import axios from 'axios'
 
 class GameRoom extends Component {
@@ -71,16 +71,16 @@ class GameRoom extends Component {
         submittedAnswers: {},
         timeout: false,
         timer: setInterval(this.tick, 1000),
-        timeAllowed: 20000,
-        currentTimer: 20000,
+        timeAllowed: 60000,
+        currentTimer: 60000,
       }
       this.props.replacePlayers(turn.gamePlayers)
       this.setState(newState)
 
       //timeout for players taking too long
-      setTimeout(() => {
-        socket.emit('timeout', this.props.room)
-      }, this.state.timeAllowed)
+      // setTimeout(() => {
+      //   socket.emit('timeout', this.props.room)
+      // }, this.state.timeAllowed)
 
     })
 
@@ -134,55 +134,55 @@ class GameRoom extends Component {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
-        <div key="transition" className="container-fluid">
-          <h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3>
-          {(this.props.players.length === 1) ? <h5>Invite Friends! You can't play this game by yourself. </h5> :
-          (this.props.players.length === 2) ? <h5>You need more than two people for there to be a winner!</h5> : null}
+        <div key="transition" className="container">
+          {(this.props.players.length === 1) ? <div className="flex-center"><h5 className="get-friends">Invite Friends! You can't play this game by yourself. </h5></div> :
+          (this.props.players.length === 2) ? <div className="flex-center"><h5 className="get-friends">You need more than two people for there to be a winner!</h5></div> : null}
           {this.state.gameStarted ?
           (<div>
-           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer}/>
-            <div className="row catRow">
-              <h4>Category: </h4>&nbsp;&nbsp;<h4 className="catText">{this.state.category}</h4>
-            </div>
-            <hr />
+           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
+          <div className="row sbAndAnswerRow">
             <div className="row">
-              {/*judge logic  */}
-              {this.state.judge.sessionId === this.props.player.sessionId ?
-              <div>
-                {this.state.allAnswersSubmitted ?
-                <Judgement submittedAnswers={this.state.submittedAnswers} /> :
-                <JudgeWaiting />}
-              </div>
-              :
-              <div> {/*player logic  */}
-                {this.state.playerAnswerSubmitted || this.state.timeout ?
+             <ScoreboardPlayers players={this.props.players} judge={this.state.judge} allAnswersSubmitted={this.props.allAnswersSubmitted} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
+              <div className="col-lg-9 col-md-9 col-sm-9 col-xs-9 col10">
+                {/*judge logic  */}
+                {this.state.judge.sessionId === this.props.player.sessionId ?
                 <div>
-                  {this.state.allAnswersSubmitted || this.state.timeout ?
-                  <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
-                  <PlayerWaiting />}
+                  {this.state.allAnswersSubmitted ?
+                  <Judgement submittedAnswers={this.state.submittedAnswers} /> :
+                  <JudgeWaiting />}
                 </div>
                 :
-               <PlayerAnswering memeUrl={this.state.memeUrl} memeTopText={this.state.memeTopText} memeBottomText={this.state.memeBottomText} />}
-              </div>}
-            </div>
-          </div>) : <Pregame />}
-            <div className="row">
-              <div className="gameAnswerFlex endOfGameRoom">
-                <div className="col-sm-12 col-md-6 col-lg-6">
-                  <ChatBox />
-                </div>
+                <div> {/*player logic  */}
+                  {this.state.playerAnswerSubmitted || this.state.timeout ?
+                  <div>
+                    {this.state.allAnswersSubmitted || this.state.timeout ?
+                    <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
+                    <PlayerWaiting />}
+                  </div>
+                  :
+                 <PlayerAnswering memeUrl={this.state.memeUrl} memeTopText={this.state.memeTopText} memeBottomText={this.state.memeBottomText} />}
+                </div>}
               </div>
             </div>
+            </div>
+          </div>) : <Pregame room={this.props.room} />}
+              <div className="gameAnswerFlex endOfGameRoom">
+                <div className="gameRoomChat">
+                  <div className="col-sm-9 col-md-9 col-lg-9 chatBoxCol">
+                    <ChatBox />
+                  </div>
+                </div>
+            </div>
             {this.state.gameStarted ?
-            <div className="row">
+            <div className="row ">
               <div className="gameAnswerFlex">
                 {(this.props.players[0].sessionId === this.props.player.sessionId) ?
-                <button type="button" onClick={this.endGameButton} className="btn btn-primary btn-lg btn-block btn-danger">End Game</button> :
-                <button type="button" onClick={this.leaveGameButton} className="btn btn-primary btn-lg btn-block btn-danger">Leave Game</button>}
+                <button type="button" onClick={this.endGameButton} className="btn">End Game</button> :
+                <button type="button" onClick={this.leaveGameButton} className="btn">Leave Game</button>}
               </div>
               <br />
             </div> : <div />}
-
+            {this.state.gameStarted ? <div className="room-code-div"><h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3></div> : null}
         </div>
 
       </CSSTransitionGroup>

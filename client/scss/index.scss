@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee+Hairline');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
+@import url('https://fonts.googleapis.com/css?family=Jura:light');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+#app {
+  height: 100%;
+}
+
+.container-fluid {
+  height: 100%;
+}
+
+.quit {
+  margin-top: 2%;
+  float: left;
+  vertical-align: middle;
+}
+
+body {
+  height: 100%;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  background-color: #000000;
+
+  h1 {
+    font-family: 'Orbitron'
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  label {
+    display: block;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 1em;
+  }
+
+  form div {
+    margin: 1em;
+    display: inline-block;
+  }
+
+  .larger {
+    height: 100px;
+    width: 300px;
+    font-size: 30px;
+  }
+
+  .mainTitle {
+    font-size: 40px;
+  }
+
+  .mainTitleLink {
+    text-decoration: none;
+  }
+
+  .noMargin {
+    margin: 0;
+  }
+}
+
+/*CONNIE STUFF*/
+
+* {
+  box-sizing: border-box;
+  font-family: 'Raleway';
+  background: black;
+  color: white;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Jura';
+  padding: 0 0.5rem;
+  color: white;
+  background: black;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-center {
+  align-items: center;
+  text-align: center;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.nav {
+  top: 1.3rem;
+  right: 1rem;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-center-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 60vh;
+  margin: 0;
+}
+
+.white-on-black {
+  color: white;
+  background: black;
+}
+
+.black-on-white {
+  color: black;
+  background: white;
+}
+
+.material-icons:hover {
+  /*color: blue;*/
+  cursor: pointer;
+}
+
+.input {
+  background-color: transparent;
+  border: 3px solid white;
+  border-radius: 0;
+  height: 47px;
+  color: white;
+  text-align: left;
+}
+
+.input:focus {
+  border-color: white;
+}
+
+.btn {
+  font-size: 1.8rem;
+  margin: 0.9rem;
+  border: 3px solid white;
+  border-radius: 0;
+}
+
+.btn:hover {
+  cursor: pointer;
+  margin: 0.9rem;
+  border: 3px solid #337ab7;
+}
+
+.btn:disabled {
+  border: 3px solid #666666;
+  color: #666666;
+  cursor: not-allowed;
+  margin: 0.9rem;
+}
+
+
+.header {
+  font-size: 3rem;
+  margin-top: 0;
+}
+
+input {
+  font-size: 1.5rem;
+  width: 50vw;
+  max-width: 28rem;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 0.5rem 0.8rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+.inline {
+  display: inline;
+}
+
+.messages {
+  margin: 0 1.5rem;
+  font-size: 1.5rem;
+}
+
+.chat-input-group {
+  justify-content: space-around;
+  border-top: 1px solid;
+}
+
+.chat-input-group>input {
+  border: none;
+}
+
+.fadeIn-appear {
+  opacity: 0.01;
+}
+
+.fadeIn-appear.fadeIn-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+@import "chatbox";
+@import "canvas";
+@import "enterName";
+@import "gameRoom";
+@import "navbar";
+@import "typingIndicator";
+@import "home";
+@import "createGame";
+@import "joinGame";
+@import "pregame";
+@import "instructions";
+@import "scoreboard";
+@import "judgement";

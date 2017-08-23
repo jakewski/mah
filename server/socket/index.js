@@ -116,7 +116,6 @@ module.exports = (io) => {
       socket.playerName = name;
     })
 
-
     socket.on('switchToMain', (room) => {
       if (room !== 'main') socket.leave(room, () => socket.join('main'))
       else socket.join('main');
@@ -161,7 +160,6 @@ module.exports = (io) => {
         });
 
       }
-
     });
 
     socket.on('message', ({body, room, from}) => {

@@ -1,0 +1,83 @@
+.gameForm{
+  align-content: center;
+}
+
+.sbAndAnswerRow {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.answeringFlex {
+  justify-content: flex-start;
+}
+
+.gameAnswerFlex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+}
+
+#inputAnswer {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+.memeForm {
+  margin: 0px;
+}
+
+.memeories {
+  color: #ff9966;
+}
+
+.winningMeme {
+  color: red;
+}
+
+.minus {
+  margin-left: 0;
+}
+
+.lineAndButtons {
+  display: flex;
+  align-items: center;
+}
+
+.scoreText{
+  cursor:'pointer';
+  margin: 3px;
+  font-size: 25px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.center {
+  justify-content: center;
+}
+
+.room-code-div {
+  text-align: center;
+}
+
+.get-friends {
+  color: #ff3385;
+  font-style: italic;
+}
+
+@media (min-width: 800px) {
+  .endOfGameRoom {
+    margin-bottom: 25px;
+  }
+  .btn-block {
+    max-width: 50%;
+  }
+}

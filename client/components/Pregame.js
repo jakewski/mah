@@ -4,11 +4,13 @@ import { NavLink } from "react-router-dom";
 import { CSSTransitionGroup } from "react-transition-group";
 import socket from "../socket";
 import history from "../history";
+import ChatBox from './ChatBox';
 
 class Pregame extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      room: this.props.room
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -22,20 +24,24 @@ class Pregame extends Component {
 
   render() {
     return (
+    <div className="container pregameCont">
       <div className="row">
+        <h3 className="pgRoomCode">Room Code: {this.state.room} </h3>
+      <div className="row startBtn">
         {(this.props.players.players[0].sessionId === this.props.players.player.sessionId) ?
-          <button onClick={this.handleClick} className="btn btn-success">
-            Start Da Game Bro
+          <button onClick={this.handleClick} className="btn">
+            START
           </button>
           :
           <div>
             <h1>Please wait until host chooses to start the game</h1>
           </div>
         }
-
-        <hr />
-
-        <h3>Game Players: </h3>
+        </div>
+        </div>
+        <div className="row playersRow">
+        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 marginBottom">
+        <h3 className="gamePlayers">Game Players: </h3>
         <h5>Host: {this.props.players.players[0].name}</h5>
         {
           this.props.players.players.map((player, index) => {
@@ -46,9 +52,9 @@ class Pregame extends Component {
             }
           })
         }
-
+        </div>
       </div>
-
+      </div>
     );
   }
 }

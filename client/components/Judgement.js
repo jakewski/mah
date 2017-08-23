@@ -38,9 +38,9 @@ class Judgement extends React.Component {
       <div> {/* judge view when all answers are submitted */}
         {
           (!Object.keys(this.props.submittedAnswers).length) ?
-            <div className="row">
+            <div className="row noMemesRow">
               <div className="gameAnswerFlex">
-                <button className="btn btn-primary btn-lg btn-block btn-danger" onClick={this.moveToNextRound}>No Memes Submitted - Move to next round</button>
+                <button className="btn noMemesBtn" onClick={this.moveToNextRound}>No Memes Submitted - Move to next round</button>
               </div>
             </div>
           :

@@ -6,7 +6,7 @@ class ChatBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages: []
+            messages: [{body: "You've connected to the room!", from: 'MemeBot'}]
         };
     }
 
@@ -45,12 +45,14 @@ class ChatBox extends Component {
         const messages = this.state.messages.map((message, index) => {
             if (message) {
                 return (
-                    <li className="messageLi animated bounceIn" key={index}>
-                        <b className="messageFrom">
-                            {message.from}: {' '}
-                        </b>
-                        {message.body}
-                    </li>
+                  <li className="messageLi animated bounceIn" key={index}>
+                    <b className="messageFrom">
+                      {message.from}: {' '}
+                    </b>
+                    <b className="message">
+                      {message.body}
+                    </b>
+                  </li>
                 );
             } else {
                 return <div />;
@@ -58,7 +60,7 @@ class ChatBox extends Component {
         });
 
         return (
-            <div className="chatbox col-sm-12 col-md-12 col-lg-12">
+            <div className="chatbox">
                 <input className="chatinput" type="text" placeholder="Enter a message..." onKeyUp={this.handleSubmit} />
                 <div className="messagesUl">
                   {messages}
