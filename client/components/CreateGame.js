@@ -148,12 +148,12 @@ class CreateGame extends Component {
 
                   <div>
                     <div className="enter-custom-categories">
-                      <input value={this.state.customCategory} onChange={this.setCustomCat} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="Enter Custom Category" />
-                      <button type="submit" className="btn" onClick={this.submitPersonalCategories}><i className="material-icons">subdirectory_arrow_left</i></button>
+                      <input value={this.state.customCategory} onChange={this.setCustomCat} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input enter-category" id="inlineFormInput" placeholder="Enter New Category" />
+                      <button type="submit" className="btn create-category-btn" onClick={this.submitPersonalCategories}><i className="material-icons">subdirectory_arrow_left</i></button>
                     </div>
                   </div>
 
-                  <button type="submit" className="btn">Create Game</button>
+                  <button type="submit" className="btn createGameBtn">Create Game</button>
                   {/*<button style={{marginTop: '10px', width: '100%'}} type="button" onClick={this.selectAll} className="btn">Create Game with All Categories</button>*/}
                 </div>
               </div>

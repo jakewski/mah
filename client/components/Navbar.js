@@ -29,9 +29,9 @@ const Navbar = (props) => {
       <div className="col-lg-12 text-center navbarCol">
         <div>
         <div className="col-lg-12 navDiv">
-          <h1 className="logo white-on-black">MEMES</h1>
-          <h1 className="logo white-on-black">AGAINST</h1>
-          <h1 className="logo white-on-black">HUMANITY</h1>
+          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">MEMES</h1></NavLink>
+          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">AGAINST</h1></NavLink>
+          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">HUMANITY</h1></NavLink>
         </div>
           { props.player.activePlayer ?
             <div className="col-lg-12 navBarDiv">
