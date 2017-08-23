@@ -13,8 +13,15 @@ class Scoreboard extends React.Component {
   componentDidMount(){
     socket.on('roundFinishedJudge', winningAnswer => {
       this.setState({
-        roundUnjudged: true
+        roundUnjudged: true,
+        timeout: false,
+        currentTimer: 0,
       })
+    })
+
+    socket.on('setTimer', timer => {
+      console.log('tick')
+      this.setState({ currentTimer: timer }) 
     })
   }
 
@@ -31,7 +38,7 @@ class Scoreboard extends React.Component {
             <h5>Turn Number: {this.props.turnNumber + 1}</h5>
           </div>
           <div className="col-xs-6">
-            <h5>Timer: {this.props.currentTimer / 1000 || '?'}</h5>
+            <h5>Timer: {this.state.currentTimer || '?'}</h5>
           </div>
         </div>
         <hr />
@@ -51,7 +58,7 @@ class Scoreboard extends React.Component {
                         <div>
                           <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
                         </div>
-                    : Object.keys(this.props.submittedAnswers).includes(player.id) || this.props.timeout ?
+                    : Object.keys(this.props.submittedAnswers).includes(player.id) || this.state.timeout ?
                         //if answer submitted OR timeout
                         //if submitted
                         Object.keys(this.props.submittedAnswers).includes(player.id) ?

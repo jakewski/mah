@@ -23,10 +23,12 @@ class GameRoom extends Component {
       gameRoomName: 'Bad Boys and Girls of America',
       gamePlayers: [],
       isHost: true,
+      timeout: false,
+      currentTimer: 0,
     }
     this.leaveGameButton = this.leaveGameButton.bind(this);
     this.endGameButton = this.endGameButton.bind(this);
-    //this.tick = this.tick.bind(this)
+    // this.tick = this.tick.bind(this)
   }
 
   componentWillMount() {
@@ -70,17 +72,17 @@ class GameRoom extends Component {
         turnNumber: turn.turnNumber,
         submittedAnswers: {},
         timeout: false,
-        timer: setInterval(this.tick, 1000),
-        timeAllowed: 20000,
-        currentTimer: 20000,
+        // timer: setInterval(this.tick, 1000),
+        // timeAllowed: 20000,
+        // currentTimer: 20000,
       }
       this.props.replacePlayers(turn.gamePlayers)
       this.setState(newState)
 
       //timeout for players taking too long
-      setTimeout(() => {
-        socket.emit('timeout', this.props.room)
-      }, this.state.timeAllowed)
+      // setTimeout(() => {
+      //   socket.emit('timeout', this.props.room)
+      // }, this.state.timeAllowed)
 
     })
 
@@ -91,6 +93,11 @@ class GameRoom extends Component {
         currentTimer: 0,
       })
     })
+
+    socket.on('timout', () => {
+      this.setState({ timeout: true });
+    })
+    
     socket.on('playerAnswered', (currentAnswers, isThisPlayer, timeout) => {
       this.setState({
         submittedAnswers: currentAnswers,
@@ -140,7 +147,7 @@ class GameRoom extends Component {
           (this.props.players.length === 2) ? <h5>You need more than two people for there to be a winner!</h5> : null}
           {this.state.gameStarted ?
           (<div>
-           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer}/>
+           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} />
             <div className="row catRow">
               <h4>Category: </h4>&nbsp;&nbsp;<h4 className="catText">{this.state.category}</h4>
             </div>

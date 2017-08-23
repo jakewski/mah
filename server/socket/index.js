@@ -96,7 +96,18 @@ module.exports = (io) => {
         let game = store.getState().game[room];
         io.sockets.emit('gameStarted', { meme: game.meme, category: game.category, judge: game.judge, gamePlayers: game.gamePlayers, turnNumber: game.turnNumber });
       }, timeout)
+
+      let currentTimer = 20000;
+      const tick = setInterval(() =>  {
+        if(currentTimer > 0) io.sockets.in(room).emit('setTimer', (currentTimer -= 1000) / 1000) 
+        else {
+          io.sockets.in(room).emit('timout');
+          clearInterval(tick);
+        }
+      }, 1000)
+
     })
+
 
     socket.on('createGame', ({ playerName, playerNum, categories, sessionId, activePlayer, gameStarted }) => {
       const code = randStr.generate(4);
