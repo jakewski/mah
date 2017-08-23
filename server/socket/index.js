@@ -14,6 +14,7 @@ module.exports = io => {
           if (currentTimer > 0) io.sockets.in(socket.room).emit("setTimer", (currentTimer -= 1000) / 1000);
           else {
             let currentState = store.getState().game[socket.room];
+            console.log(socket.room);
             io.sockets.in(socket.room).emit("gotAllAnswers", currentState.answers)
             io.sockets.in(socket.room).emit("timeout");
             clearInterval(socket.tick);
