@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import Home from './Home';
 import axios from 'axios';
-import { removePlayer } from '../store'
-
+import { removePlayer } from '../store';
+import history from '../history';
 
 /**
  * COMPONENT
@@ -25,14 +25,18 @@ const Navbar = (props) => {
     .catch(err => console.log(err))
   }
 
+  const handleClickLogo = function(e) {
+    history.push('/');
+  }
+
   return (
       <div className="col-lg-12 text-center navbarCol">
         <div>
-        <div className="col-lg-12 navDiv">
-          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">MEMES</h1></NavLink>
-          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">AGAINST</h1></NavLink>
-          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">HUMANITY</h1></NavLink>
-        </div>
+          <div className="col-lg-12 navDiv" onClick={handleClickLogo}>
+            <h1 className="logo">MEMES</h1>
+            <h1 className="logo">AGAINST</h1>
+            <h1 className="logo">HUMANITY</h1>
+          </div>
           { props.player.activePlayer ?
             <div className="col-lg-12 navBarDiv">
               <button type="button" onClick={handleQuit} className="navBtn">HOW TO</button>
