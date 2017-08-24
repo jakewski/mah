@@ -16,6 +16,7 @@ export default class PlayerJudgement extends React.Component {
       this.setState({ winningMeme: winningMeme });
       axios.post('/api/winninganswers', this.state.winningMeme);
     })
+    
   }
 
   componentWillUnmount(){
@@ -28,14 +29,14 @@ export default class PlayerJudgement extends React.Component {
         { !this.state.winningMeme ? <div>
         <h3 className="memeories">Submitted Meme-ories:</h3>
         <div className="playerScoreFlexBox">
-          {Object.keys(this.props.submittedAnswers).map((key, index) => {
+          {(this.props.submittedAnswers && Object.keys(this.props.submittedAnswers).length) ? Object.keys(this.props.submittedAnswers).map((key, index) => {
             return <div className="scoreText animated bounceInDown" key={index}>
 
                 {/* instead here we will render each canvas */}
                 <Canvas topText={this.props.submittedAnswers[key].topText} topXcoord={this.props.submittedAnswers[key].topXcoord} topYcoord={this.props.submittedAnswers[key].topYcoord} topFontSize={this.props.submittedAnswers[key].topFontSize} bottomText={this.props.submittedAnswers[key].bottomText} bottomXcoord={this.props.submittedAnswers[key].bottomXcoord} bottomYcoord={this.props.submittedAnswers[key].bottomYcoord} bottomFontSize={this.props.submittedAnswers[key].bottomFontSize} memeUrl={this.props.submittedAnswers[key].memeUrl} />
 
                 </div>
-          })}
+          }) : <h3>...seriously? no one submitted anything?</h3>}
         </div>
       </div> : <div>
                 <h2 className="winningMeme">WINNING MEME:</h2>
