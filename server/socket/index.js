@@ -8,15 +8,14 @@ module.exports = io => {
   io.on("connection", socket => {
     console.log(`A socket connection to the server has been made: ${socket.id}`);
 
-    const gameTimer = currentTimer => {
+    const gameTimer = (currentTimer, room) => {
       clearInterval(socket.tick);
         socket.tick = setInterval(() => {
-          if (currentTimer > 0) io.sockets.in(socket.room).emit("setTimer", (currentTimer -= 1000) / 1000);
+          if (currentTimer > 0) io.sockets.in(room).emit("setTimer", (currentTimer -= 1000) / 1000);
           else {
-            let currentState = store.getState().game[socket.room];
-            console.log(socket.room);
-            io.sockets.in(socket.room).emit("gotAllAnswers", currentState.answers)
-            io.sockets.in(socket.room).emit("timeout");
+            let currentState = store.getState().game[room];
+            io.sockets.in(room).emit("gotAllAnswers", currentState.answers)
+            io.sockets.in(room).emit("timeout");
             clearInterval(socket.tick);
           }
         }, 1000);
@@ -55,8 +54,8 @@ module.exports = io => {
       clearInterval(socket.tick);
     })
 
-    socket.on("startTick", () => {
-      gameTimer(60000);
+    socket.on("startTick", (room) => {
+      gameTimer(60000, room);
     })
 
     //need to emit back the playerId to make a flag that the player answered on the front end
