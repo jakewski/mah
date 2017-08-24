@@ -38,11 +38,12 @@ export default class ScoreboardPlayers extends React.Component {
               <div key={index}>
                 {
                   this.props.judge.id === player.id ?
-                    this.state.roundUnjudged ?
-                      <div>
-                        <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
-                        <div className="loadingBlue right load"></div>
-                      </div>
+                    //this.state.roundUnjudged ?
+                    true ?
+                    <div>
+                      <div className="scoreText blue name" key={index}>{player.name}: {player.score}</div>
+                      <div className="loadingBlue right load"></div>
+                    </div>
                     :
                       <div>
                         <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
