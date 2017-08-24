@@ -37,7 +37,7 @@ class Judgement extends React.Component {
     return (
       <div> {/* judge view when all answers are submitted */}
         {
-          (!Object.keys(this.props.submittedAnswers).length) ?
+          (!this.props.submittedAnswers || !Object.keys(this.props.submittedAnswers).length) ?
             <div className="row noMemesRow">
               <div className="gameAnswerFlex">
                 <button className="btn noMemesBtn" onClick={this.moveToNextRound}>No Memes Submitted - Move to next round</button>
@@ -50,14 +50,14 @@ class Judgement extends React.Component {
                   <h5>Wield your immense power and deem the proper candidate worthy with an almighty click</h5>
                   <div className="playerScoreFlexBox">
                     {
-                      Object.keys(this.props.submittedAnswers).map((key, index) => {
+                      this.props.submittedAnswers ? Object.keys(this.props.submittedAnswers).map((key, index) => {
                         return (
                           <div onClick={this.selectAnswer(key)} onTouchStart={this.selectAnswer(key)} className="scoreText animated bounceInDown" key={index}>
                             {/* instead here we will render each canvas */}
                             <Canvas topText={this.props.submittedAnswers[key].topText} topXcoord={this.props.submittedAnswers[key].topXcoord} topYcoord={this.props.submittedAnswers[key].topYcoord} topFontSize={this.props.submittedAnswers[key].topFontSize} bottomText={this.props.submittedAnswers[key].bottomText} bottomXcoord={this.props.submittedAnswers[key].bottomXcoord} bottomYcoord={this.props.submittedAnswers[key].bottomYcoord} bottomFontSize={this.props.submittedAnswers[key].bottomFontSize} memeUrl={this.props.submittedAnswers[key].memeUrl} />
                           </div>
                         )
-                      })
+                      }) : null
                     }
                   </div>
                 </div>

@@ -6,6 +6,30 @@ import { ScoreboardHeader} from '../components'
 class Scoreboard extends React.Component {
   constructor() {
     super();
+    this.state = {
+      roundUnjudged: false,
+    }
+  }
+
+  componentDidMount(){
+    socket.on('roundFinishedJudge', winningAnswer => {
+      this.setState({
+        roundUnjudged: true,
+        timeout: false,
+        currentTimer: 0,
+      })
+    })
+
+    socket.on('setTimer', timer => {
+      this.setState({ currentTimer: timer }) 
+    })
+  }
+
+  componentWillUnmount(){
+    //clearInterval(this.state.timer)
+    socket.removeListener('roundFinishedJudge');
+    socket.removeListener('setTimer');
+
   }
 
   render(){

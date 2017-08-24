@@ -10,7 +10,7 @@ const ScoreboardHeader = (props) => {
             <h2 className="category">{props.category}</h2>
           </div>
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 timer-div">
-            <h1 className="timer">:{props.currentTimer / 1000 || '?'}</h1>
+            <h1 className="timer">:{props.currentTimer || '?'}</h1>
           </div>
         </div>
       </div>

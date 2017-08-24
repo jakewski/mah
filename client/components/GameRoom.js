@@ -23,10 +23,12 @@ class GameRoom extends Component {
       gameRoomName: 'Bad Boys and Girls of America',
       gamePlayers: [],
       isHost: true,
+      timeout: false,
+      currentTimer: 0,
     }
     this.leaveGameButton = this.leaveGameButton.bind(this);
     this.endGameButton = this.endGameButton.bind(this);
-    //this.tick = this.tick.bind(this)
+    // this.tick = this.tick.bind(this)
   }
 
   componentWillMount() {
@@ -48,6 +50,7 @@ class GameRoom extends Component {
     socket.removeListener('gameStarted');
     socket.removeListener('gotAllAnswers');
     socket.removeListener('playerAnswered');
+    socket.removeListener('setTimer');
     //clearInterval(this.state.timer)
   }
 
@@ -70,12 +73,11 @@ class GameRoom extends Component {
         turnNumber: turn.turnNumber,
         submittedAnswers: {},
         timeout: false,
-        timer: setInterval(this.tick, 1000),
-        timeAllowed: 60000,
-        currentTimer: 60000,
+        currentTimer: 60,
       }
-      this.props.replacePlayers(turn.gamePlayers)
-      this.setState(newState)
+      this.props.replacePlayers(turn.gamePlayers);
+      this.setState(newState);
+      socket.emit('startTick', this.props.room);
 
       //timeout for players taking too long
       // setTimeout(() => {
@@ -84,13 +86,23 @@ class GameRoom extends Component {
 
     })
 
+    socket.on('setTimer', time => {
+      this.setState({ currentTimer: time });
+    })
+
     socket.on('gotAllAnswers', answers => {
+      socket.emit('clearTick');
       this.setState({
         submittedAnswers: answers,
         allAnswersSubmitted: true,
         currentTimer: 0,
       })
     })
+
+    socket.on('timeout', () => {
+      this.setState({ timeout: true });
+    })
+
     socket.on('playerAnswered', (currentAnswers, isThisPlayer, timeout) => {
       this.setState({
         submittedAnswers: currentAnswers,
