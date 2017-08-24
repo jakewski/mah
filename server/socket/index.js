@@ -56,7 +56,7 @@ module.exports = io => {
     })
 
     socket.on("startTick", () => {
-      gameTimer(20000);
+      gameTimer(60000);
     })
 
     //need to emit back the playerId to make a flag that the player answered on the front end

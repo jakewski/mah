@@ -36,15 +36,6 @@ class Scoreboard extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col-xs-6">
-            <h5>Turn Number: {this.props.turnNumber + 1}</h5>
-          </div>
-          <div className="col-xs-6">
-            <h5>Timer: {this.state.currentTimer || '?'}</h5>
-          </div>
-        </div>
-        <hr />
-        <div className="row">
           <div className="playerScoreFlexBox">
             {this.props.players.map((player, index) => {
               return (

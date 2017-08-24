@@ -50,6 +50,7 @@ class GameRoom extends Component {
     socket.removeListener('gameStarted');
     socket.removeListener('gotAllAnswers');
     socket.removeListener('playerAnswered');
+    socket.removeListener('setTimer');
     //clearInterval(this.state.timer)
   }
 
@@ -72,6 +73,7 @@ class GameRoom extends Component {
         turnNumber: turn.turnNumber,
         submittedAnswers: {},
         timeout: false,
+        currentTimer: 60,
       }
       this.props.replacePlayers(turn.gamePlayers);
       this.setState(newState);
@@ -82,6 +84,10 @@ class GameRoom extends Component {
       //   socket.emit('timeout', this.props.room)
       // }, this.state.timeAllowed)
 
+    })
+
+    socket.on('setTimer', time => {
+      this.setState({ currentTimer: time });
     })
 
     socket.on('gotAllAnswers', answers => {
