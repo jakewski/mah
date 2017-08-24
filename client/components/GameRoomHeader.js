@@ -1,9 +1,8 @@
 import React from 'react';
 import socket from '../socket';
 import { connect } from 'react-redux';
-import { ScoreboardHeader} from '../components'
 
-class Scoreboard extends React.Component {
+class GameRoomHeader extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -21,7 +20,7 @@ class Scoreboard extends React.Component {
     })
 
     socket.on('setTimer', timer => {
-      this.setState({ currentTimer: timer }) 
+      this.setState({ currentTimer: timer })
     })
   }
 
@@ -36,7 +35,17 @@ class Scoreboard extends React.Component {
     return (
       <div>
         <div className="row">
-          <ScoreboardHeader turnNumber={this.props.turnNumber} category={this.props.category} currentTimer={this.props.currentTimer}/>
+          <div className="row">
+            <div className="round-timer-container">
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 round-category-div">
+                <h2 className="round">ROUND {this.props.turnNumber + 1}:</h2>
+                <h2 className="category">{this.props.category}</h2>
+              </div>
+              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 timer-div">
+                <h1 className="timer">:{this.props.currentTimer || '0'}</h1>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -49,4 +58,4 @@ const mapStateToProps = function(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, null)(Scoreboard)
+export default connect(mapStateToProps, null)(GameRoomHeader)

@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayers, replacePlayers, setRoom } from '../store';
-import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, Scoreboard, ScoreboardPlayers } from '../components'
+import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, GameRoomHeader, ScoreboardPlayers } from '../components'
 import axios from 'axios'
 
 class GameRoom extends Component {
@@ -151,10 +151,10 @@ class GameRoom extends Component {
           (this.props.players.length === 2) ? <div className="flex-center"><h5 className="get-friends">You need more than two people for there to be a winner!</h5></div> : null}
           {this.state.gameStarted ?
           (<div>
-           <Scoreboard judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
+           <GameRoomHeader judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
           <div className="row sbAndAnswerRow">
             <div className="row">
-             <ScoreboardPlayers players={this.props.players} judge={this.state.judge} allAnswersSubmitted={this.props.allAnswersSubmitted} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
+             <ScoreboardPlayers players={this.props.players} judge={this.state.judge} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
               <div className="col-lg-9 col-md-9 col-sm-9 col-xs-9 col10">
                 {/*judge logic  */}
                 {this.state.judge.sessionId === this.props.player.sessionId ?

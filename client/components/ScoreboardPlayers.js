@@ -11,16 +11,22 @@ export default class ScoreboardPlayers extends React.Component {
   }
 
   componentDidMount(){
-    socket.on('roundFinishedJudge', winningAnswer => {
+    socket.on('gotAllAnswers', () => {
       this.setState({
         roundUnjudged: true
       })
     })
+    socket.on('roundJudged', () => {
+      this.setState({
+        roundUnjudged: false,
+      })
+    })
+
   }
 
   componentWillUnmount(){
-    //clearInterval(this.state.timer)
-    socket.removeListener('roundFinishedJudge');
+    socket.removeListener('roundJudged');
+    socket.removeListener('gotAllAnswers');
   }
 
   render() {
@@ -32,19 +38,20 @@ export default class ScoreboardPlayers extends React.Component {
               <div key={index}>
                 {
                   this.props.judge.id === player.id ?
-                    this.props.allAnswersSubmitted && !this.state.roundUnjudged ?
-                      <div>
-                        <div className="scoreText blue name" key={index}>{player.name}: {player.score} </div>
-                        <div className="loadingBlue right load"></div>
-                      </div>
+                    //this.state.roundUnjudged ?
+                    true ?
+                    <div>
+                      <div className="scoreText blue name" key={index}>{player.name}: {player.score}</div>
+                      <div className="loadingBlue right load"></div>
+                    </div>
                     :
                       <div>
                         <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
                       </div>
-                  : Object.keys(this.props.submittedAnswers).includes(player.id) || this.props.timeout ?
+                  : Object.keys(this.props.submittedAnswers).includes(player.sessionId) || this.props.timeout ?
                       //if answer submitted OR timeout
                       //if submitted
-                      Object.keys(this.props.submittedAnswers).includes(player.id) ?
+                      Object.keys(this.props.submittedAnswers).includes(player.sessionId) ?
                           <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
                         : //if timeout
                           <div>
