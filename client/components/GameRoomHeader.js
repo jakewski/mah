@@ -20,7 +20,7 @@ class GameRoomHeader extends React.Component {
     })
 
     socket.on('setTimer', timer => {
-      this.setState({ currentTimer: timer }) 
+      this.setState({ currentTimer: timer })
     })
   }
 
@@ -42,7 +42,7 @@ class GameRoomHeader extends React.Component {
                 <h2 className="category">{this.props.category}</h2>
               </div>
               <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 timer-div">
-                <h1 className="timer">:{this.props.currentTimer || '?'}</h1>
+                <h1 className="timer">:{this.props.currentTimer || '0'}</h1>
               </div>
             </div>
           </div>
