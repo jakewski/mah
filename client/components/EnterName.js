@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
+import socket from '../socket';
+import axios from 'axios';
+import Instructions from './Instructions';
 import { setPlayer } from '../store'
-import socket from '../socket'
-import axios from 'axios'
 
 class EnterName extends Component {
   constructor(){
     super();
     this.state = {
-      player: {name: '', dirty: false}
+      player: {name: '', dirty: false},
+      showInstructions: true
     }
     this.formSubmit = this.formSubmit.bind(this);
+    this.toggleInstructions = this.toggleInstructions.bind(this);
   }
 
   updateField(e) {
     this.setState({
       player: {name: e.target.value, dirty: true}
     })
+  }
+
+  toggleInstructions(){
+    this.setState(prev => ({ showInstructions: !prev.showInstructions }));
   }
 
   formSubmit(e) {
@@ -55,28 +62,43 @@ class EnterName extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row">
+      <div className="container form-container">
+
+        <div className="row nameRow">
           <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={2000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
-            <form key="transition" className="form-inline" onSubmit={this.formSubmit}>
-              <h1 className="whatsYourName">Hello, what is your name?</h1>
-              <br />
-              <label className="sr-only" htmlFor="inlineFormInput">Name</label>
-              <input onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Jane Doe" />
-              <button type="submit" className="btn btn-success marginLeft" disabled={!this.inputIsValid()}>Enter</button>
-              <br />
-                {
-                  this.inputIsEmpty() && this.state.player.dirty ?
-                  <span className="alert alert-danger validationSpan">You must enter a name</span> :
-                  null }
-                {!this.inputWithinLimit() && this.state.player.dirty ?
-                  <span className="alert alert-danger validationSpan">Name too long</span> :
-                  null
-                }
-            </form>
+            <div className="vertical-center-container">
+              <div className="flex-container flex-column flex-center">
+                <form autoComplete="off" key="transition" className="form-inline" onSubmit={this.formSubmit}>
+                  <h1 className="header hello black-on-white">H E L L O !</h1>
+                  <br />
+                  <label className="sr-only" htmlFor="inlineFormInput">Name</label>
+                  <input  onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="What's your name?" />
+                  <button type="submit" className="btn" disabled={!this.inputIsValid()}><i className="material-icons">subdirectory_arrow_left</i></button>
+                  <br />
+                    {
+                      this.inputIsEmpty() && this.state.player.dirty ?
+                      <span className="alert alert-danger validationSpan">You must enter a name</span> :
+                      <span className="validationSpan"></span> }
+                    {!this.inputWithinLimit() && this.state.player.dirty ?
+                      <span className="validationSpan">Name too long</span> :
+                      <span className="validationSpan"></span>
+                    }
+                </form>
+              </div>
+            </div>
+
+            {/* <div className="row insRow">
+        <button type="button" onClick={this.toggleInstructions}
+          className="btn btn-info">
+          {this.state.showInstructions ? 'Hide Instructions' : 'How to Play'}
+        </button>
+      </div> */}
+      <div className="col-sm-12 col-md-12 col-lg-12 marginTop">
+        {/*<Instructions showInstructions={this.state.showInstructions} />*/}
+      </div>
           </CSSTransitionGroup>
       </div>
-      </div>
+    </div>
     )
   }
 }

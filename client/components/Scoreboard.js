@@ -1,6 +1,7 @@
 import React from 'react';
 import socket from '../socket';
 import { connect } from 'react-redux';
+import { ScoreboardHeader} from '../components'
 
 class Scoreboard extends React.Component {
   constructor() {
@@ -28,6 +29,7 @@ class Scoreboard extends React.Component {
     //clearInterval(this.state.timer)
     socket.removeListener('roundFinishedJudge');
     socket.removeListener('setTimer');
+
   }
 
   render(){
@@ -77,8 +79,8 @@ class Scoreboard extends React.Component {
               )
             })}
           </div>
+          <ScoreboardHeader turnNumber={this.props.turnNumber} category={this.props.category} currentTimer={this.props.currentTimer}/>
         </div>
-        <hr />
       </div>
     )
   }

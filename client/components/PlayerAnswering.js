@@ -143,27 +143,9 @@ class PlayerAnswering extends React.Component {
       return (
         <div>
         {this.state.memeImg ?
-              <div className="gameAnswerFlex">
-                <form>
-                  <div className="form-group memeForm col-sm-12 col-md-12 col-xs-12 col-lg-12" >
-
-                    <div className="lineAndButtons">
-                    <input name="toptext" className="form-control formPlaceholder memeInput" id="formInputTop" value={this.state.topText} placeholder="top text" onChange={this.topTxtChange}/>
-                    <button className="memeButtons btn btn-success center" onClick={this.onTopPlusClick}>+</button>
-                    <button className="memeButtons btn btn-danger center" onClick={this.onTopMinusClick}>-</button>
-                    </div>
-
-                    <div className="lineAndButtons">
-                    <input name="bottomtext" className="form-control formPlaceholder memeInput" id="formInputBottom" value={this.state.bottomText} placeholder="bottom text" onChange={this.bottomTxtChange}/>
-                    <button className="memeButtons btn btn-success center" onClick={this.onBottomPlusClick}>+</button>
-                    <button className="memeButtons btn btn-danger center" onClick={this.onBottomMinusClick}>-</button>
-                    </div>
-                    <br />
-                    <br />
-                  </div>
-                </form>
-
-                <div className="animated bounceInDown stageWrapper">
+              <div className="answeringFlex">
+                <div className="row">
+                <div className="animated bounceInDown stageWrapper col-lg-7 col-md-7 col-sm-7 col-xs-7">
                   <Stage height={this.state.height} width={this.state.width}>
                     <Layer>
                       <Image width={this.state.width} height={this.state.height} image={this.state.memeImg} />
@@ -175,10 +157,30 @@ class PlayerAnswering extends React.Component {
                     </Layer>
                   </Stage>
                   </div>
-                  <button onClick={this.onMemeSubmit} type="submit" className="btn btn-success center">Submit</button>
+                  </div>
+                  <div className="row">
+                  <div className="col-sm-7 col-md-7 col-lg-7">
+                  <form>
+                  <div className="form-group memeForm" >
+
+                    <div className="lineAndButtons">
+                    <input name="toptext" className="input form-control formPlaceholder memeInput" id="formInputTop" value={this.state.topText} placeholder="top text" onChange={this.topTxtChange}/>
+                    <button className="memeButtons btn center" onClick={this.onTopPlusClick}>+</button>
+                    <button className="memeButtons btn center minus" onClick={this.onTopMinusClick}>-</button>
+                    </div>
+
+                    <div className="lineAndButtons">
+                    <input name="bottomtext" className="input form-control formPlaceholder memeInput" id="formInputBottom" value={this.state.bottomText} placeholder="bottom text" onChange={this.bottomTxtChange}/>
+                    <button className="memeButtons btn center" onClick={this.onBottomPlusClick}>+</button>
+                    <button className="memeButtons btn center minus" onClick={this.onBottomMinusClick}>-</button>
+                    </div>
+                  </div>
+                </form>
+                </div>
+                </div>
+                  <button onClick={this.onMemeSubmit} type="submit" className="btn center">Submit</button>
                 </div>
                 : <div />}
-                <hr />
             </div>);
     }
 }

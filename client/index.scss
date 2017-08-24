@@ -1,4 +1,4 @@
-body {
+/*body {
   font-family: 'Bree Serif', serif;
 
   a {
@@ -198,7 +198,7 @@ body {
 
 .left {
   float: left;
-}
+}*/
 
 .right {
   float: right;
@@ -251,4 +251,9 @@ html {
     border: .15rem solid #0000ff;
     border-top-color: #ffffff;
     animation: spin $spin-duration infinite linear;
+}
+
+.notEnoughPeople {
+  font-style: italic;
+  color: #ff0000;
 }

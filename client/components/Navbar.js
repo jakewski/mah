@@ -26,19 +26,43 @@ const Navbar = (props) => {
   }
 
   return (
-      <div className="col-lg-12 text-center">
+      <div className="col-lg-12 text-center navbarCol">
+        <div>
+        <div className="col-lg-12 navDiv">
+          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">MEMES</h1></NavLink>
+          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">AGAINST</h1></NavLink>
+          <NavLink to="/" className="logoLink"><h1 className="logo white-on-black">HUMANITY</h1></NavLink>
+        </div>
           { props.player.activePlayer ?
-            <button type="button" onClick={handleQuit} className="btn btn-danger quit">X</button>
+            <div className="col-lg-12 navBarDiv">
+              <button type="button" onClick={handleQuit} className="navBtn">HOW TO</button>
+              <p className="navBarDivider">|</p>
+              <button type="button" onClick={handleQuit} className="navBtn">STREAM</button>
+              <p className="navBarDivider">|</p>
+              <button type="button" onClick={handleQuit} className="navBtn">LOG OUT</button>
+            </div>
             : null
           }
-          <div className="row">
-            <NavLink className="mainTitleLink" to="/"><h1 className="mainTitle">Memes Against Humanity</h1></NavLink>
-            { props.player.activePlayer ?
-              <h3>Welcome, {props.player.name}</h3>
-              : null
-            }
           </div>
-          <hr />
+          <div className="row">
+            {/* { props.player.activePlayer ?
+              <h3 className="welcomeTxt">Welcome, {props.player.name}</h3>
+              : null
+            } */}
+            {/* <div className="chevronTabs">
+              <svg className="chevron" viewBox="0 0 640 640">
+                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
+              </svg>
+
+              <svg className="chevron" viewBox="0 0 640 640">
+                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
+              </svg>
+
+              <svg className="chevron" viewBox="0 0 640 640">
+                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
+              </svg>
+            </div> */}
+          </div>
           { children }
       </div>
   );

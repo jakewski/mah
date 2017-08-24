@@ -53,11 +53,11 @@ class JoinGame extends Component {
         transitionEnterTimeout={0}
         transitionLeaveTimeout={0}
       >
-        <div className="container" key="transition">
-          <h1>Join Game</h1>
+        <div className="container joinRoom" key="transition">
+          <div className="row joinRow">
+          <h3 className="joinFont">JOIN GAME</h3>
 
           <form className="form-group" onSubmit={this.handleSubmit}>
-            <div className="col" />
             <div className="col">
               <label className="sr-only" htmlFor="inlineFormInput">
                 Enter Room Code
@@ -65,20 +65,16 @@ class JoinGame extends Component {
               <input
                 type="text"
                 name="code"
-                className="form-control mb-2 mr-sm-2 mb-sm-0"
+                className="input form-control mb-2 mr-sm-2 mb-sm-0 joinInput"
                 id="inlineFormInput"
                 placeholder="Enter Room Code"
               />
             </div>
-            <div className="col" />
-
-            <br />
-            <br />
-
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn">
               Join
             </button>
           </form>
+        </div>
         </div>
         <h3 className={this.state.animateError ? "animated shake" : ""}>
           {this.state.error}

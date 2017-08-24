@@ -1,0 +1,109 @@
+/*Scoreboard Header*/
+
+.timer {
+  font-size: 10rem;
+  margin: 0;
+  background-color: transparent;
+}
+
+.round-timer-container {
+  height: 10rem;
+  background-color: #333333;
+  margin: 0 4rem;
+}
+
+.timer-div {
+  text-align: right;
+  padding-right: 4rem;
+  background-color: transparent;
+}
+
+.round-category-div {
+  padding-left: 4rem;
+  background-color: transparent;
+}
+
+.round {
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0;
+  background-color: transparent;
+}
+
+.category {
+  color: #337ab7; 
+  margin-top: 0;
+  margin-bottom: 0;
+  font-style: italic;
+  background-color: transparent;
+}
+
+
+/*Players & Scores*/
+.blue {
+  color: #337ab7;
+}
+
+.red {
+  color: #ff3385;
+}
+
+.green {
+  color: green;
+}
+
+.name {
+  display: inline;
+}
+
+.load {
+  margin: 5px 5px 0 5px;
+}
+
+.playerScoreFlexBox{
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: space-around;
+  flex-direction: row;
+  margin-left: 2rem;
+}
+
+.playersDiv {
+/*  width: 30px;
+  float: left;*/
+  background-color: #333333;
+}
+
+/*Loading Icon Animation*/
+$spin-duration: 1s;
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+html {
+  height: 100%;
+}
+
+.loadingRed {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    border: .15rem solid #ff3385;
+    border-top-color: #000000;
+    animation: spin $spin-duration infinite linear;
+}
+
+.loadingBlue {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    border: .15rem solid #337ab7;
+    border-top-color: #000000;
+    animation: spin $spin-duration infinite linear;
+}

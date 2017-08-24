@@ -1,0 +1,86 @@
+.chatbox {
+  border: 3px solid white;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  overflow: none;
+  display: flex;
+  flex-direction: column-reverse;
+  input:focus {outline: none};
+  font-size: 1.5em;
+  background: transparent;
+  padding: 0px;
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: white;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: white;
+  }
+}
+
+//this is for the height of home chatbox
+.chatboxRow {
+  height: 400px;
+}
+
+//this is to center the gameRoom chatbox;
+.chatBoxCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+//this is for the height of the gameRoom chatbox
+.gameRoomChat {
+  height: 200px;
+  width: 100%;
+  justify-content: center;
+  margin: 0;
+}
+
+.chatinput {
+  border: transparent;
+  width: 100%;
+  background: transparent;
+  color:white;
+}
+
+.messagesUl {
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  color: white;
+  border-bottom: 3px solid white;
+}
+
+.messageLi {
+  list-style: none;
+  text-align: left;
+}
+
+.message {
+  font-weight: 300;
+}
+
+.messageFrom {
+  color: #337ab7;
+  font-weight: 700;
+}
+
+
+@media (max-width: 767px) {
+  .chatbox {
+    margin: 10px;
+    font-size: 2em;
+  }
+}
