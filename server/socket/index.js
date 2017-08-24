@@ -55,7 +55,7 @@ module.exports = io => {
     })
 
     socket.on("startTick", (room) => {
-      gameTimer(60000, room);
+      gameTimer(15000, room);
     })
 
     //need to emit back the playerId to make a flag that the player answered on the front end
@@ -110,6 +110,9 @@ module.exports = io => {
 
     //gotta send back all the new turn info (category and meme)
     socket.on("switchToNextTurn", (room, skipWinner) => {
+
+      socket.emit("roundJudged")
+      socket.broadcast.to(room).emit("roundJudged");
 
       store.dispatch(switchToNextTurn(room));
       //skipWinner boolean attached to manual no memes submitted button to switch to next round without pausing 5 seconds for winner screen

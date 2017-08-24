@@ -16,6 +16,7 @@ export default class PlayerJudgement extends React.Component {
       this.setState({ winningMeme: winningMeme });
       axios.post('/api/winninganswers', this.state.winningMeme);
     })
+    
   }
 
   componentWillUnmount(){
