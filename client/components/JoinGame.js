@@ -71,7 +71,7 @@ class JoinGame extends Component {
               />
             </div>
             <button type="submit" className="btn">
-              Join
+              JOIN
             </button>
           </form>
         </div>
