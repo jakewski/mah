@@ -29,6 +29,10 @@ const Navbar = (props) => {
     history.push('/');
   }
 
+  const handleMemeStream = function(e) {
+    history.push('/stream');
+  }
+
   return (
       <div className="col-lg-12 text-center navbarCol">
         <div>
