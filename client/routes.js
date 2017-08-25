@@ -44,17 +44,18 @@ class Routes extends Component {
               <Route path='/create' component={CreateGame} />
               <Route path='/join' component={JoinGame} />
               <Route path='/temp' component={PlayerAnswering} />
-              <Route path='/contact' component={Contact} />
               <Route path='/' component={Home} />
             </Switch>
            :
            //Routes below only available with no name
-          <Switch>
-            <Route path='/contact' component={Contact} />
-            <Route path='/' component={EnterName} />
-          </Switch>
+           <div>     
+            <Switch>
+              <Route path='/contact' component={Contact} />
+              <Route path='/' component={EnterName} />
+            </Switch>
+            <Footer history={history} />
+          </div>
           }
-          <Footer history={history}/>
         </div>
       </Router>
     )
