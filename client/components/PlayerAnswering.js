@@ -144,8 +144,7 @@ class PlayerAnswering extends React.Component {
         <div>
         {this.state.memeImg ?
               <div className="answeringFlex">
-                <div className="row">
-                <div className="animated bounceInDown stageWrapper col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <div className="animated bounceInDown stageWrapper">
                   <Stage height={this.state.height} width={this.state.width}>
                     <Layer>
                       <Image width={this.state.width} height={this.state.height} image={this.state.memeImg} />
@@ -157,26 +156,23 @@ class PlayerAnswering extends React.Component {
                     </Layer>
                   </Stage>
                   </div>
-                  </div>
                   <div className="row">
-                  <div className="col-sm-7 col-md-7 col-lg-7">
                   <form>
                   <div className="form-group memeForm" >
 
                     <div className="lineAndButtons">
-                    <input name="toptext" className="input form-control formPlaceholder memeInput" id="formInputTop" value={this.state.topText} placeholder="top text" onChange={this.topTxtChange}/>
-                    <button className="memeButtons btn center" onClick={this.onTopPlusClick}>+</button>
+                    <input name="toptext" className="input form-control memeInput" id="formInputTop" value={this.state.topText} placeholder="top text" onChange={this.topTxtChange}/>
+                    <button className="memeButtons btn center plus" onClick={this.onTopPlusClick}>+</button>
                     <button className="memeButtons btn center minus" onClick={this.onTopMinusClick}>-</button>
                     </div>
 
                     <div className="lineAndButtons">
-                    <input name="bottomtext" className="input form-control formPlaceholder memeInput" id="formInputBottom" value={this.state.bottomText} placeholder="bottom text" onChange={this.bottomTxtChange}/>
-                    <button className="memeButtons btn center" onClick={this.onBottomPlusClick}>+</button>
+                    <input name="bottomtext" className="input form-control memeInput" id="formInputBottom" value={this.state.bottomText} placeholder="bottom text" onChange={this.bottomTxtChange}/>
+                    <button className="memeButtons btn center plus" onClick={this.onBottomPlusClick}>+</button>
                     <button className="memeButtons btn center minus" onClick={this.onBottomMinusClick}>-</button>
                     </div>
                   </div>
                 </form>
-                </div>
                 </div>
                   <button onClick={this.onMemeSubmit} type="submit" className="btn center">Submit</button>
                 </div>

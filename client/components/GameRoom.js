@@ -155,7 +155,7 @@ class GameRoom extends Component {
             <div className="container max-width-850">
               <div className="gameboard-flexbox">
                <ScoreboardPlayers players={this.props.players} judge={this.state.judge} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
-                <div>
+                <div className="game-play">
                   {/*judge logic  */}
                   {this.state.judge.sessionId === this.props.player.sessionId ?
                   <div>
@@ -185,7 +185,8 @@ class GameRoom extends Component {
                   </div>
                 </div>
             </div>
-            {this.state.gameStarted ?
+            {/*Below is end game button but doesnt do anything rn*/}
+            {/*{this.state.gameStarted ?
             <div className="row ">
               <div className="gameAnswerFlex">
                 {(this.props.players[0].sessionId === this.props.player.sessionId) ?
@@ -193,10 +194,9 @@ class GameRoom extends Component {
                 <button type="button" onClick={this.leaveGameButton} className="btn">Leave Game</button>}
               </div>
               <br />
-            </div> : <div />}
+            </div> : <div />}*/}
             {this.state.gameStarted ? <div className="room-code-div"><h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3></div> : null}
         </div>
-
       </CSSTransitionGroup>
     )
   }

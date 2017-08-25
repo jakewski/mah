@@ -51,23 +51,22 @@
   color: #339933;
 }
 
+.grey {
+  color: grey;
+}
+
 .name {
   display: inline;
 }
 
-.scoreText{
+.scoreText {
   cursor:'pointer';
   margin: 3px;
   font-size: 1.7rem;
   float: left;
 }
 
-.gameboard-flexbox {
-  display: flex;
-}
-
-.players-scores-flexbox{
-  margin-left: 2rem;
+.players-scores-flexbox {
   display: flex;
   flex-direction: column;
 }
@@ -78,6 +77,7 @@
   justify-content: space-around;
   border: 3px solid white;
   height: 100px;
+  margin-bottom: 3vh
 }
 
 .playersDiv {
@@ -124,4 +124,20 @@ html {
     border-top-color: transparent;
     animation: spin $spin-duration infinite linear;
     float: left;
+}
+
+.all-players-col {
+  border-right: 1px solid white;
+  padding: 0 2rem;
+  overflow: auto;
+  width: 20%;
+}
+
+.overflow-scroll {
+  display: table;
+  overflow-x: auto;
+}
+
+.no-wrap {
+  white-space: nowrap;
 }

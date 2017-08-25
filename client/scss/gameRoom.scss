@@ -3,7 +3,9 @@
 }
 
 .answeringFlex {
-  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .gameAnswerFlex{
@@ -24,25 +26,45 @@
   margin: 0px;
 }
 
-.memeories {
-  color: #ff9966;
-}
-
 .winningMeme {
   color: red;
 }
 
+.memeInput {
+  width: 40vw;
+}
+
+.plus {
+  font-size: 3rem;
+  border: none;
+  color: #339933;
+  margin: 0;
+}
+
+.plus:hover {
+  font-size: 3rem;
+  border: none;
+  margin: 0;
+}
+
 .minus {
+  font-size: 3rem;
+  border: none;
   margin-left: 0;
+  color: #ff3385;
+  margin: 0;
 }
 
 .minus:hover {
-  margin-left: 0;
+  font-size: 3rem;
+  border: none;
+  margin: 0;
 }
 
 .lineAndButtons {
   display: flex;
   align-items: center;
+  margin: 0;
 }
 
 .left {
@@ -66,6 +88,10 @@
   font-style: italic;
 }
 
+.gameboard-flexbox {
+  display: flex;
+}
+
 @media (min-width: 800px) {
   .endOfGameRoom {
     margin-bottom: 25px;
@@ -73,4 +99,8 @@
   .btn-block {
     max-width: 50%;
   }
+}
+
+.game-play {
+  width: 100%;
 }

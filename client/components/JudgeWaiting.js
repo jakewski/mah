@@ -7,11 +7,9 @@ export default class JudgeWaiting extends React.Component {
 
   render(){
     return (
-      <div> {/*judge view when waiting on all answers  */}
-        <div className="row">
-          <h5>Waiting on the plebs. Have mercy, good lord</h5>
-          <img className="animated bounceInDown" src="https://media.tenor.com/images/c3133e236670d969de3b493b1be783b0/tenor.gif" style={{ margin: '5px' }} />
-        </div>
+      <div className="center-items-flex"> {/*judge view when waiting on all answers  */}
+          <h5 className="center-text">...Waiting for player submissions</h5>
+          <img className="animated bounceInDown center-block" src="https://media.tenor.com/images/c3133e236670d969de3b493b1be783b0/tenor.gif" style={{ margin: '5px' }} />
       </div>
     )
   }

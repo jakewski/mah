@@ -17,11 +17,29 @@
   vertical-align: middle;
 }
 
+
+::selection {
+  background-color: rgba(255,255,255,.99);
+  color: black;
+}
+
+::-webkit-selection {
+  background-color: rgba(255,255,255,.99);
+  background: white;
+  color: black;
+}
+
+::-moz-selection {
+  background-color: rgba(255,255,255,1);
+  background: white;
+  color: black;
+}
+
+
 body {
   height: 100%;
   font-family: 'Raleway', sans-serif;
   color: white;
-  background-color: #000000;
 
   h1 {
     font-family: 'Orbitron'
@@ -217,6 +235,38 @@ input:focus {
 .fadeIn-appear.fadeIn-appear-active {
   opacity: 1;
   transition: opacity .5s ease-in;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.center-block {
+  display: block;
+  margin: auto;
+}
+
+.center-items-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
 }
 
 @import "chatbox";

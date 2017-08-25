@@ -1,11 +1,16 @@
-.noMemesRow {
-  display: flex;
-  justify-content: flex-start;
-}
-
 .noMemesBtn {
   margin-left: 0;
 }
 .col10 {
   padding: 0;
+}
+
+.playerScoreFlexBox{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: space-around;
+  flex-direction: row;
+  height: 40vh;
+  overflow: auto;
 }

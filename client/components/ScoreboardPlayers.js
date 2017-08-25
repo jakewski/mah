@@ -31,7 +31,7 @@ export default class ScoreboardPlayers extends React.Component {
 
   render() {
     return (
-      <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+      <div className="all-players-col">
         <div className="players-scores-flexbox">
           {this.props.players.map((player, index) => {
             return (
@@ -40,9 +40,9 @@ export default class ScoreboardPlayers extends React.Component {
                   this.props.judge.id === player.id ?
                     //this.state.roundUnjudged ?
                     true ?
-                    <div>
-                      <div className="scoreText blue name" key={index}>{player.name}: {player.score}</div>
-                      <div className="loadingBlue right load"></div>
+                    <div className="overflow-scroll no-wrap">
+                      <div className="scoreText blue name no-wrap" key={index}>{player.name}: {player.score}</div>
+                      <div className="loadingBlue right load no-wrap"></div>
                     </div>
                     :
                       <div>
@@ -55,12 +55,12 @@ export default class ScoreboardPlayers extends React.Component {
                           <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
                         : //if timeout
                           <div>
-                            <div className="scoreText grey name" key={index}>{player.name}: {player.score} X</div>
+                            <div className="scoreText grey name" key={index}>{player.name}: {player.score} ✘</div>
                           </div>
                       : //waiting....
-                        <div>
-                          <div className="scoreText red name" key={index}>{player.name}: {player.score} </div>
-                          <div className="loadingRed right load"></div>
+                        <div className="overflow-scroll no-wrap">
+                          <div className="scoreText red name no-wrap" key={index}>{player.name}: {player.score} </div>
+                          <div className="loadingRed right load no-wrap"></div>
                         </div>
                 }
               </div>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import socket from "../socket";
 import { emojify } from "react-emojione";
+import keydonw from 'react-keydown';
 
 class ChatBox extends Component {
   constructor(props) {
@@ -43,6 +44,12 @@ class ChatBox extends Component {
 
   appendEmoji = emoji => () => {
     this.setState(prev => ({ thisMessage: `${prev.thisMessage}${emoji}`}));
+  }
+
+  handleKeyPress = (target) => {
+    if(target.charCode==13){
+      this.handleSubmit(target)
+    }
   }
 
   handleSubmit = (e) => {
@@ -113,10 +120,10 @@ class ChatBox extends Component {
           {this.emojiInput()}
         </div> : null }
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <input className="chatinput" type="text" value={this.state.thisMessage} placeholder="Enter a message..." onChange={this.handleChange} />
+          <form className="chat-input-flex" onSubmit={this.handleSubmit}>
+            <textarea className="chatinput" type="text" value={this.state.thisMessage} placeholder="Enter a message..." onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <button type="submit" className="btn chatButton">SEND</button>
-            <div onClick={this.toggleEmojis} className="btn chatButton">: )</div>
+            <div onClick={this.toggleEmojis} className="btn emojiButton">: )</div>
           </form>
         </div>
         <div className="messagesUl">
