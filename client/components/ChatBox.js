@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import socket from "../socket";
 import { emojify } from "react-emojione";
-import keydonw from 'react-keydown';
 
 class ChatBox extends Component {
   constructor(props) {
