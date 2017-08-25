@@ -38,8 +38,7 @@ export default class ScoreboardPlayers extends React.Component {
               <div key={index}>
                 {
                   this.props.judge.id === player.id ?
-                    //this.state.roundUnjudged ?
-                    true ?
+                    this.state.roundUnjudged ?
                     <div className="overflow-scroll no-wrap">
                       <div className="scoreText blue name no-wrap" key={index}>{player.name}: {player.score}</div>
                       <div className="loadingBlue right load no-wrap"></div>

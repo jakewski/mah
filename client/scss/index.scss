@@ -86,6 +86,7 @@ body {
   @media (min-width: 992px) {
     width: 850px;
   }
+
 /*  @media (min-width: 1200px) {
     width: 800px;
   }*/
@@ -266,7 +267,7 @@ label:focus,
 .btn.active
 {
     outline:0px !important;
-    -webkit-appearance:none;
+    /*-webkit-appearance:none;*/
 }
 
 @import "chatbox";

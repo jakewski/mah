@@ -27,27 +27,51 @@
   border-radius: 0;
   width: 100%;
   margin: 0;
+  border: 3px solid #337ab7;
+  color: white;
+  height: 5rem;
 }
 
 .createGameBtn:hover {
   cursor: pointer;
   margin: 0;
+  height: 5rem;
+  border: 3px solid white;
+  color: #337ab7;
 }
 
 .create-category-btn {
-  margin-left: 2rem;
-  height: 47px;
+  height: 4rem;
+  margin-right: 0;
 }
 
 .create-category-btn:hover {
-  margin-left: 2rem;
-  height: 47px;
+  height: 4rem;
+  margin-right: 0;
 }
 
 .enter-category {
   margin: 0;
+  height: 4rem;
 }
 
 .check {
   width: 1.5rem;
+}
+
+.check:hover {
+  background: none;
+}
+
+input[type="checkbox"] + label span:hover  {
+  border-radius: 0;
+}
+
+input[type="checkbox"] + label span:hover  {
+  border-radius: 0;
+  background-color: none;
+}
+
+.check:selected {
+  background: none;
 }
