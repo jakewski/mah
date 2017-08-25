@@ -1,26 +1,23 @@
 /*Scoreboard Header*/
 
 .timer {
-  font-size: 10rem;
-  margin: 0;
-  background-color: transparent;
+  font-size: 5rem;
+  text-align: left;
 }
 
 .round-timer-container {
-  height: 10rem;
+  height: 8rem;
   background-color: #333333;
   margin: 0 4rem;
 }
 
 .timer-div {
-  text-align: right;
-  padding-right: 4rem;
-  background-color: transparent;
+  width: 15%;
 }
 
 .round-category-div {
-  padding-left: 4rem;
   background-color: transparent;
+  padding-left: 3%;
 }
 
 .round {
@@ -28,6 +25,7 @@
   margin-bottom: 0;
   margin-top: 0;
   background-color: transparent;
+  font-size: 2.3rem;
 }
 
 .category {
@@ -36,6 +34,7 @@
   margin-bottom: 0;
   font-style: italic;
   background-color: transparent;
+  font-size: 2.3rem;
 }
 
 
@@ -59,16 +58,26 @@
 .scoreText{
   cursor:'pointer';
   margin: 3px;
-  font-size: 25px;
+  font-size: 1.7rem;
   float: left;
 }
 
-.playerScoreFlexBox{
-  justify-content: space-around;
-  flex-wrap: wrap;
-  align-items: space-around;
-  flex-direction: row;
+.gameboard-flexbox {
+  display: flex;
+}
+
+.players-scores-flexbox{
   margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-timer-flexbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 3px solid white;
+  height: 100px;
 }
 
 .playersDiv {
@@ -94,14 +103,14 @@ html {
 }
 
 .load {
-  margin: 11px 0 0 7px;
+  margin: 8px 0 0 3px;
 }
 
 .loadingRed {
     border-radius: 50%;
-    width: 19px;
-    height: 19px;
-    border: .25rem solid #ff3385;
+    width: 15px;
+    height: 15px;
+    border: .2rem solid #ff3385;
     border-top-color: transparent;
     animation: spin $spin-duration infinite linear;
     float: left;
@@ -109,9 +118,9 @@ html {
 
 .loadingBlue {
     border-radius: 50%;
-    width: 19px;
-    height: 19px;
-    border: .25rem solid #337ab7;
+    width: 15px;
+    height: 15px;
+    border: .2rem solid #337ab7;
     border-top-color: transparent;
     animation: spin $spin-duration infinite linear;
     float: left;

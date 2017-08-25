@@ -125,7 +125,7 @@ class CreateGame extends Component {
                   this.props.categories && this.props.categories.map(category => {
                     return (
                       <div key={category.id} className="checkbox">
-                        <label><input type="checkbox" onClick={this.markCategoriesDirty} onChange={this.setCategories(category.text)} name={`category${category.id}`} value={category.text} />{category.text}</label>
+                        <label><input type="checkbox" className="check" onClick={this.markCategoriesDirty} onChange={this.setCategories(category.text)} name={`category${category.id}`} value={category.text} />{category.text}</label>
                       </div>
                       )
                   })
@@ -153,7 +153,7 @@ class CreateGame extends Component {
                     </div>
                   </div>
 
-                  <button type="submit" className="btn createGameBtn">Create Game</button>
+                  <button type="submit" className="btn createGameBtn">CREATE GAME</button>
                   {/*<button style={{marginTop: '10px', width: '100%'}} type="button" onClick={this.selectAll} className="btn">Create Game with All Categories</button>*/}
                 </div>
               </div>

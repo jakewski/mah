@@ -32,7 +32,7 @@ export default class ScoreboardPlayers extends React.Component {
   render() {
     return (
       <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-        <div className="playerScoreFlexBox">
+        <div className="players-scores-flexbox">
           {this.props.players.map((player, index) => {
             return (
               <div key={index}>

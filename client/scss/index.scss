@@ -64,6 +64,15 @@ body {
   }
 }
 
+.max-width-850 {
+  @media (min-width: 992px) {
+    width: 850px;
+  }
+/*  @media (min-width: 1200px) {
+    width: 800px;
+  }*/
+}
+
 /*CONNIE STUFF*/
 
 * {

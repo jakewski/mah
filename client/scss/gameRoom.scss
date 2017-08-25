@@ -2,11 +2,6 @@
   align-content: center;
 }
 
-.sbAndAnswerRow {
-  margin-left: 40px;
-  margin-right: 40px;
-}
-
 .answeringFlex {
   justify-content: flex-start;
 }
@@ -38,6 +33,10 @@
 }
 
 .minus {
+  margin-left: 0;
+}
+
+.minus:hover {
   margin-left: 0;
 }
 

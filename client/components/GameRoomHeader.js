@@ -33,21 +33,17 @@ class GameRoomHeader extends React.Component {
 
   render(){
     return (
-      <div>
-        <div className="row">
-          <div className="row">
-            <div className="round-timer-container">
-              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 round-category-div">
-                <h2 className="round">ROUND {this.props.turnNumber + 1}:</h2>
-                <h2 className="category">{this.props.category}</h2>
-              </div>
-              <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 timer-div">
-                <h1 className="timer">:{this.props.currentTimer || '0'}</h1>
-              </div>
+        <div className="container max-width-850">
+          <div className="category-timer-flexbox">
+            <div className="col-sm round-category-div">
+              <h2 className="round">ROUND {this.props.turnNumber + 1}:</h2>
+              <h2 className="category">{this.props.category}</h2>
+            </div>
+            <div className="col timer-div">
+              <h1 className="timer">:{this.props.currentTimer || '0'}</h1>
             </div>
           </div>
         </div>
-      </div>
     )
   }
 }

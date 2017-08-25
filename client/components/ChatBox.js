@@ -115,8 +115,8 @@ class ChatBox extends Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <input className="chatinput" type="text" value={this.state.thisMessage} placeholder="Enter a message..." onChange={this.handleChange} />
-            <button type="submit" className="btn chatButton">Send</button>
-            <div onClick={this.toggleEmojis} className="btn chatButton">:)</div>
+            <button type="submit" className="btn chatButton">SEND</button>
+            <div onClick={this.toggleEmojis} className="btn chatButton">: )</div>
           </form>
         </div>
         <div className="messagesUl">
