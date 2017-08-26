@@ -51,6 +51,7 @@ class GameRoom extends Component {
     socket.removeListener('gotAllAnswers');
     socket.removeListener('playerAnswered');
     socket.removeListener('setTimer');
+    socket.removeListener('timeout')
     //clearInterval(this.state.timer)
   }
 
