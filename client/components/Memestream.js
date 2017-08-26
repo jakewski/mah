@@ -9,19 +9,22 @@ class Memestream extends React.Component {
         super(props);
         this.state = {
             memes: [],
-            selected: 0
+            selected: 0,
+            memeInterval: setInterval(() => {
+                this.setState(() => {
+                    console.log('setting state');
+                    return { selected: Math.floor(Math.random() * this.state.memes.length) };
+                });
+            }, 5000)
         };
     }
 
     componentDidMount() {
         axios.get('/api/winninganswers').then(res => res.data).then(memes => this.setState({ memes: memes }));
+    }
 
-        setInterval(() => {
-            this.setState(() => {
-                console.log('setting state');
-                return { selected: Math.floor(Math.random() * this.state.memes.length) };
-            });
-        }, 5000);
+    componentWillUnmount(){
+        clearInterval(this.state.memeInterval)
     }
 
     render() {
