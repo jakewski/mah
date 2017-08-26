@@ -43,6 +43,27 @@ export default class Canvas extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const image = new window.Image();
+    image.src = this.state.memeUrl;
+    image.onload = () => {
+      this.setState({
+        memeImg: image,
+        height: image.height * .75,
+        width: image.width * .75,
+        topText: nextProps.topText,
+        topXcoord: nextProps.topXcoord,
+        topYcoord: nextProps.topYcoord,
+        topFontSize: nextProps.topFontSize,
+        bottomText: nextProps.bottomText,
+        bottomXcoord: nextProps.bottomXcoord,
+        bottomYcoord: nextProps.bottomYcoord,
+        bottomFontSize: nextProps.bottomFontSize,
+        memeUrl: nextProps.memeUrl
+      });
+    }
+  }
+
   render() {
   return (
     <div className="stageWrapper">

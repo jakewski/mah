@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Router} from 'react-router';
 import {Route, Switch} from 'react-router-dom';
 import history from './history';
-import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName, PlayerAnswering, Stream} from './components';
+import {Navbar, Home, GameRoom, CreateGame, JoinGame, EnterName, PlayerAnswering, Memestream} from './components';
 import axios from 'axios';
 import { setPlayer, setRoom, replacePlayers } from './store';
 import socket from './socket'
@@ -44,7 +44,7 @@ class Routes extends Component {
               <Route path='/create' component={CreateGame} />
               <Route path='/join' component={JoinGame} />
               <Route path='/temp' component={PlayerAnswering} />
-              <Route path='/stream' component={Stream} />
+              <Route path='/stream' component={Memestream} />
               <Route path='/' component={Home} />
             </Switch>
            :
