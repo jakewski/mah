@@ -45,7 +45,8 @@ export default class Canvas extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const image = new window.Image();
-    image.src = nextProps.memeUrl;
+    if (nextProps) image.src = nextProps.memeUrl;
+    else image.src = this.state.memeUrl
     image.onload = () => {
       this.setState({
         memeImg: image,
