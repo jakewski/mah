@@ -21,7 +21,7 @@ class Memestream extends React.Component {
                 console.log('setting state');
                 return { selected: Math.floor(Math.random() * this.state.memes.length) };
             });
-        }, 8000);
+        }, 5000);
     }
 
     render() {
