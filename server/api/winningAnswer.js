@@ -19,4 +19,16 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
+router.put('/upvote', (req, res, next) => {
+  req.meme.update(req.body)
+  .then(meme => res.status(200).json(meme))
+  .catch(next);
+})
+
+router.put('/downvote', (req, res, next) => {
+  req.meme.update(req.body)
+  .then(meme => res.status(200).json(meme))
+  .catch(next);
+})
+
 module.exports = router

@@ -29,6 +29,10 @@ const Navbar = (props) => {
     history.push('/');
   }
 
+  const handleMemeStream = function(e) {
+    history.push('/stream');
+  }
+
   return (
       <div className="col-lg-12 text-center navbarCol">
         <div>
@@ -41,32 +45,14 @@ const Navbar = (props) => {
             <div className="col-lg-12 navBarDiv">
               <button type="button" onClick={handleQuit} className="navBtn">HOW TO</button>
               <p className="navBarDivider">|</p>
-              <button type="button" onClick={handleQuit} className="navBtn">STREAM</button>
+              <button type="button" onClick={handleMemeStream} className="navBtn">STREAM</button>
               <p className="navBarDivider">|</p>
               <button type="button" onClick={handleQuit} className="navBtn">LOG OUT</button>
             </div>
             : null
           }
-          </div>
-          <div className="row">
-            {/* { props.player.activePlayer ?
-              <h3 className="welcomeTxt">Welcome, {props.player.name}</h3>
-              : null
-            } */}
-            {/* <div className="chevronTabs">
-              <svg className="chevron" viewBox="0 0 640 640">
-                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
-              </svg>
-
-              <svg className="chevron" viewBox="0 0 640 640">
-                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
-              </svg>
-
-              <svg className="chevron" viewBox="0 0 640 640">
-                <polygon className="st0" id="XMLID_3035_" points="5,48.7 313.2,228.1 635.5,32.4 635.5,404.8 321.7,593.1 5,411" fill="#f7941d"/>
-              </svg>
-            </div> */}
-          </div>
+        </div>
+        <div className="row"></div>
           { children }
       </div>
   );
