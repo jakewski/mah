@@ -4,7 +4,12 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 #app {
-  height: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.data-reactroot {
+  width: 100%;
 }
 
 .container-fluid {
@@ -17,11 +22,30 @@
   vertical-align: middle;
 }
 
+
+::selection {
+  background-color: rgba(255,255,255,.99);
+  color: black;
+}
+
+::-webkit-selection {
+  background-color: rgba(255,255,255,.99);
+  background: white;
+  color: black;
+}
+
+::-moz-selection {
+  background-color: rgba(255,255,255,1);
+  background: white;
+  color: black;
+}
+
+
 body {
-  height: 100%;
+  /*height: 100%;*/
   font-family: 'Raleway', sans-serif;
   color: white;
-  background-color: #000000;
+  margin: 0;
 
   h1 {
     font-family: 'Orbitron'
@@ -62,6 +86,18 @@ body {
   .noMargin {
     margin: 0;
   }
+}
+
+.max-width-850 {
+  @media (min-width: 992px) {
+    width: 900px;
+    padding: 0;
+    overflow: auto;
+  }
+
+/*  @media (min-width: 1200px) {
+    width: 800px;
+  }*/
 }
 
 /*CONNIE STUFF*/
@@ -143,6 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn {
+  color: #337ab7;
   font-size: 1.8rem;
   margin: 0.9rem;
   border: 3px solid white;
@@ -150,6 +187,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn:hover {
+  color: white;
   cursor: pointer;
   margin: 0.9rem;
   border: 3px solid #337ab7;
@@ -208,6 +246,55 @@ input:focus {
   transition: opacity .5s ease-in;
 }
 
+.center-text {
+  text-align: center;
+}
+
+.center-block {
+  display: block;
+  margin: auto;
+}
+
+.center-items-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.validation {
+  color: #ff3385;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.data-reactroot {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.margin-top-3 {
+  margin-top: 3vh;
+}
+
+
+/*Remove outlines and such when you click on textarea/button/inputs/etc...*/
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    /*-webkit-appearance:none;*/
+}
+
 @import "chatbox";
 @import "canvas";
 @import "enterName";
@@ -222,3 +309,4 @@ input:focus {
 @import "scoreboard";
 @import "judgement";
 @import "memestream";
+@import "contactFooter";

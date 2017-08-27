@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayers, replacePlayers, setRoom } from '../store';
-import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, GameRoomHeader, ScoreboardPlayers } from '../components'
+import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, GameRoomHeader } from '../components'
 import axios from 'axios'
 
 class GameRoom extends Component {
@@ -153,30 +153,29 @@ class GameRoom extends Component {
           {this.state.gameStarted ?
           (<div>
            <GameRoomHeader judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
-          <div className="row sbAndAnswerRow">
-            <div className="row">
-             <ScoreboardPlayers players={this.props.players} judge={this.state.judge} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
-              <div className="col-lg-9 col-md-9 col-sm-9 col-xs-9 col10">
-                {/*judge logic  */}
-                {this.state.judge.sessionId === this.props.player.sessionId ?
-                <div>
-                  {this.state.allAnswersSubmitted ?
-                  <Judgement submittedAnswers={this.state.submittedAnswers} /> :
-                  <JudgeWaiting />}
-                </div>
-                :
-                <div> {/*player logic  */}
-                  {this.state.playerAnswerSubmitted || this.state.timeout ?
+            <div className="container max-width-850">
+              <div className="gameboard-flexbox">
+                <div className="game-play">
+                  {/*judge logic  */}
+                  {this.state.judge.sessionId === this.props.player.sessionId ?
                   <div>
-                    {this.state.allAnswersSubmitted || this.state.timeout ?
-                    <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
-                    <PlayerWaiting />}
+                    {this.state.allAnswersSubmitted ?
+                    <Judgement submittedAnswers={this.state.submittedAnswers} /> :
+                    <JudgeWaiting />}
                   </div>
                   :
-                 <PlayerAnswering memeUrl={this.state.memeUrl} memeTopText={this.state.memeTopText} memeBottomText={this.state.memeBottomText} />}
-                </div>}
+                  <div> {/*player logic  */}
+                    {this.state.playerAnswerSubmitted || this.state.timeout ?
+                    <div>
+                      {this.state.allAnswersSubmitted || this.state.timeout ?
+                      <PlayerJudgement submittedAnswers={this.state.submittedAnswers} /> :
+                      <PlayerWaiting />}
+                    </div>
+                    :
+                   <PlayerAnswering memeUrl={this.state.memeUrl} memeTopText={this.state.memeTopText} memeBottomText={this.state.memeBottomText} />}
+                  </div>}
+                </div>
               </div>
-            </div>
             </div>
           </div>) : <Pregame room={this.props.room} />}
               <div className="gameAnswerFlex endOfGameRoom">
@@ -186,18 +185,18 @@ class GameRoom extends Component {
                   </div>
                 </div>
             </div>
-            {this.state.gameStarted ?
+            {/*Below is end game button but doesnt do anything rn*/}
+            {/*{this.state.gameStarted ?
             <div className="row ">
               <div className="gameAnswerFlex">
                 {(this.props.players[0].sessionId === this.props.player.sessionId) ?
-                <button type="button" onClick={this.endGameButton} className="btn">End Game</button> :
+                <button type="button" onClick={this.endGameButton} className="btn">END GAME</button> :
                 <button type="button" onClick={this.leaveGameButton} className="btn">Leave Game</button>}
               </div>
               <br />
-            </div> : <div />}
+            </div> : <div />}*/}
             {this.state.gameStarted ? <div className="room-code-div"><h3 style={{marginTop: 0}} >Room Code: {this.props.room}</h3></div> : null}
         </div>
-
       </CSSTransitionGroup>
     )
   }

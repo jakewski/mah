@@ -38,17 +38,16 @@ class Judgement extends React.Component {
       <div> {/* judge view when all answers are submitted */}
         {
           (!this.props.submittedAnswers || !Object.keys(this.props.submittedAnswers).length) ?
-            <div className="row noMemesRow">
-              <div className="gameAnswerFlex">
-                <button className="btn noMemesBtn" onClick={this.moveToNextRound}>No Memes Submitted - Move to next round</button>
-              </div>
+            <div className="gameAnswerFlex">
+              <h3 className="center-text">...seriously? no one submitted anything?</h3>
+              <button className="btn" onClick={this.moveToNextRound}>NEXT ROUND</button>
             </div>
           :
             !this.state.winningMeme ?
               (
                 <div className="row">
-                  <h5>Wield your immense power and deem the proper candidate worthy with an almighty click</h5>
-                  <div className="playerScoreFlexBox">
+                  <h5 className="center-text">Choose the winner</h5>
+                  <div className="all-submissions-flex">
                     {
                       this.props.submittedAnswers ? Object.keys(this.props.submittedAnswers).map((key, index) => {
                         return (
@@ -64,7 +63,7 @@ class Judgement extends React.Component {
               )
               :
               <div>
-                <h3 className="winningMeme">WINNING MEME:</h3>
+                <h3 className="blue center-text">WINNING MEME:</h3>
                 <div className="animated swing gameAnswerFlex">
                   <Canvas topText={this.state.winningMeme.topText} topXcoord={this.state.winningMeme.topXcoord} topYcoord={this.state.winningMeme.topYcoord} topFontSize={this.state.winningMeme.topFontSize} bottomText={this.state.winningMeme.bottomText} bottomXcoord={this.state.winningMeme.bottomXcoord} bottomYcoord={this.state.winningMeme.bottomYcoord} bottomFontSize={this.state.winningMeme.bottomFontSize} memeUrl={this.state.winningMeme.memeUrl} />
                 </div>

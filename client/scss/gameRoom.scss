@@ -2,13 +2,10 @@
   align-content: center;
 }
 
-.sbAndAnswerRow {
-  margin-left: 40px;
-  margin-right: 40px;
-}
-
 .answeringFlex {
-  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .gameAnswerFlex{
@@ -17,6 +14,7 @@
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
+  margin-bottom: 0;
 }
 
 #inputAnswer {
@@ -29,21 +27,56 @@
   margin: 0px;
 }
 
-.memeories {
-  color: #ff9966;
-}
-
 .winningMeme {
   color: red;
 }
 
+.memeInput {
+  width: 40vw;
+  border: 1.5px solid white;
+}
+
+.submit-meme-btn {
+  border: 3px solid #337ab7;
+  color: white;
+}
+
+.submit-meme-btn:hover {
+  border: 3px solid white;
+  color: #337ab7;
+}
+
+.plus {
+  font-size: 3rem;
+  border: none;
+  color: #339933;
+  margin: 0;
+}
+
+.plus:hover {
+  font-size: 3rem;
+  border: none;
+  margin: 0;
+}
+
 .minus {
+  font-size: 3rem;
+  border: none;
   margin-left: 0;
+  color: #ff3385;
+  margin: 0;
+}
+
+.minus:hover {
+  font-size: 3rem;
+  border: none;
+  margin: 0;
 }
 
 .lineAndButtons {
   display: flex;
   align-items: center;
+  margin: 0;
 }
 
 .left {
@@ -60,11 +93,17 @@
 
 .room-code-div {
   text-align: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .get-friends {
   color: #ff3385;
   font-style: italic;
+}
+
+.gameboard-flexbox {
+  display: flex;
 }
 
 @media (min-width: 800px) {
@@ -74,4 +113,22 @@
   .btn-block {
     max-width: 50%;
   }
+}
+
+.game-play {
+  width: 100%;
+}
+
+.player-waiting-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.all-submissions-flex {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  overflow: auto;
 }

@@ -26,34 +26,33 @@ class Pregame extends Component {
     return (
     <div className="container pregameCont">
       <div className="row">
+
         <h3 className="pgRoomCode">Room Code: {this.state.room} </h3>
-      <div className="row startBtn">
-        {(this.props.players.players[0].sessionId === this.props.players.player.sessionId) ?
-          <button onClick={this.handleClick} className="btn">
-            START
-          </button>
-          :
-          <div>
-            <h1>Please wait until host chooses to start the game</h1>
-          </div>
-        }
-        </div>
-        </div>
-        <div className="row playersRow">
-        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 marginBottom">
-        <h3 className="gamePlayers">Game Players: </h3>
-        <h5>Host: {this.props.players.players[0].name}</h5>
+        <div className="row startBtn">
         {
-          this.props.players.players.map((player, index) => {
-            if (!(index === 0)) {
-              return (
-                <div key={index} >Player {index + 1}: {player.name}</div>
-              )
-            }
-          })
+          (this.props.players.players[0].sessionId === this.props.players.player.sessionId) 
+          ? <button onClick={this.handleClick} className="btn">START</button>
+          : <div className="start-game-flex"><h3 className="waiting">...waiting for host to start game</h3></div>
         }
         </div>
-      </div>
+
+        <div className="row playersRow">
+          <div className="players-flex">
+            <h4 className="gamePlayers">Game Players: </h4>
+            <div>Host: {this.props.players.players[0].name}</div>
+            {
+              this.props.players.players.map((player, index) => {
+                if (!(index === 0)) {
+                  return (
+                    <div key={index} >Player {index + 1}: {player.name}</div>
+                  )
+                }
+              })
+            }
+          </div>
+        </div>
+
+        </div>
       </div>
     );
   }

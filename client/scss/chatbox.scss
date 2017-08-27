@@ -36,6 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 3vh;
 }
 
 //this is for the height of the gameRoom chatbox
@@ -47,14 +48,22 @@
 }
 
 .chatinput {
-  border: transparent;
+  max-width: none;
+  border: none;
+  font-size: 1.5rem;
   width: 100%;
-  background: transparent;
-  color:white;
+  resize: none;
+  padding-left: 7px;
+  padding-top: 5px;
+}
+
+.chatinput::-webkit-input-placeholder {
+  color: grey;
 }
 
 .messagesUl {
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   height: 100%;
   width: 100%;
   flex: 1;
@@ -70,11 +79,13 @@
 
 .message {
   font-weight: 300;
+  font-size: 1.8rem
 }
 
 .messageFrom {
   color: #337ab7;
   font-weight: 700;
+  font-size: 1.8rem;
 }
 
 
@@ -85,18 +96,38 @@
   }
 }
 
-.emojiButton {
-  display: inline;
-  padding-bottom: 4px;
-  margin: auto;
-}
-
 .emojiRow {
   margin: auto;
+  padding-bottom: 5px;
 }
 
 .chatButton {
-  float: right;
+  border:0;
+  margin:0;
+  border-right: 1px solid white;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  align-self: center;
+}
+
+.chatButton:hover {
+  border:0;
+  margin:0;
+  border-right: 1px solid white;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  align-self: center;
+}
+
+.emojiButton {
+  border: none;
+  margin: 0;
+  align-self: center;
+}
+.emojiButton:hover {
+  border: none;
+  margin: 0;
+  align-self: center;
 }
 
 .hvr-grow {
@@ -113,4 +144,8 @@
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.chat-input-flex {
+  display: flex;
 }

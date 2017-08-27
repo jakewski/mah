@@ -71,12 +71,12 @@ class JoinGame extends Component {
               />
             </div>
             <button type="submit" className="btn">
-              Join
+              JOIN
             </button>
           </form>
         </div>
         </div>
-        <h3 className={this.state.animateError ? "animated shake" : ""}>
+        <h3 className={this.state.animateError ? "animated shake validation center-text" : ""}>
           {this.state.error}
         </h3>
       </CSSTransitionGroup>
