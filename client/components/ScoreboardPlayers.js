@@ -37,9 +37,9 @@ export default class ScoreboardPlayers extends React.Component {
             return (
               <div key={index}>
                 {
-                  this.props.judge.id === player.id ?
-                    this.state.roundUnjudged ?
-                    <div className="overflow-scroll no-wrap">
+                  this.props.judge.id === player.id
+                  ? this.state.roundUnjudged
+                    ? <div className="overflow-scroll no-wrap">
                       <div className="scoreText blue name no-wrap" key={index}>{player.name}: {player.score}</div>
                       <div className="loadingBlue right load no-wrap"></div>
                     </div>
@@ -47,11 +47,11 @@ export default class ScoreboardPlayers extends React.Component {
                       <div>
                         <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
                       </div>
-                  : Object.keys(this.props.submittedAnswers).includes(player.sessionId) || this.props.timeout ?
+                  : Object.keys(this.props.submittedAnswers).includes(player.sessionId) || this.props.timeout
                       //if answer submitted OR timeout
                       //if submitted
-                      Object.keys(this.props.submittedAnswers).includes(player.sessionId) ?
-                          <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
+                     ? Object.keys(this.props.submittedAnswers).includes(player.sessionId) 
+                        ?  <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
                         : //if timeout
                           <div>
                             <div className="scoreText grey name" key={index}>{player.name}: {player.score} ✘</div>
