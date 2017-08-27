@@ -13,4 +13,4 @@ Our team had a blast making this application! We primarily utilized the followin
 * Flexbox
 * Canvas
 
-If you had fun playing, have any feedback, or would like to contact the developers, please visit our contact page here: [MEET THE DEVELOPERS](http://memesforhumans.herokuapp.com/contact)
+If you had fun playing, have any feedback, or would like to contact the developers, please visit our contact page [here](http://memesforhumans.herokuapp.com/contact).
