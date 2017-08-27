@@ -87,8 +87,8 @@ class ChatBox extends Component {
       ":fearful:",
 
     ];
-    return emojis.map(emoji =>
-      <div className="emojiButton hvr-grow" onClick={this.appendEmoji(emoji)}>
+    return emojis.map((emoji, i) =>
+      <div key={i} className="emojiButton hvr-grow" onClick={this.appendEmoji(emoji)}>
         {emojify(emoji)}
       </div>
     );
