@@ -34,7 +34,7 @@ const Navbar = (props) => {
   }
 
   return (
-      <div className="col-lg-12 text-center navbarCol">
+      <div className="text-center navbarCol">
         <div>
           <div className="col-lg-12 navDiv" onClick={handleClickLogo}>
             <h1 className="logo">MEMES</h1>
