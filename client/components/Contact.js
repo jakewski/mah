@@ -22,6 +22,8 @@ const Contact = () => {
           </div>
           <div className="contact-div">
             <h3 className="contact-name">ANNE MARIE KING</h3>
+            <h5 className="blue contact-info"><a className="contact-link" target="_blank" href="https://amking23.github.io/">website</a></h5>
+            <h5 className="contact-info contact-divider">|</h5>
             <h5 className="blue contact-info"><a className="contact-link" target="_blank" href="https://www.linkedin.com/in/amking23/">linkedin</a></h5>
             <h5 className="contact-info contact-divider">|</h5>
             <h5 className="blue contact-info"><a className="contact-link" target="_blank" href="https://github.com/amking23">github</a></h5>
@@ -31,6 +33,8 @@ const Contact = () => {
             <h5 className="blue contact-info"><a className="contact-link" target="_blank" href="https://www.linkedin.com/in/mromzek/">linkedin</a></h5>
             <h5 className="contact-info contact-divider">|</h5>
             <h5 className="blue contact-info"><a className="contact-link" target="_blank" href="https://github.com/MadelynRomzek">github</a></h5>
+            <h5 className="contact-info contact-divider">|</h5>
+            <h5 className="blue contact-info"><a className="contact-link" href="mailto:mrromzek@umich.edu">email</a></h5>
           </div>
         </div>
     </div>

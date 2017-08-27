@@ -90,7 +90,9 @@ body {
 
 .max-width-850 {
   @media (min-width: 992px) {
-    width: 850px;
+    width: 900px;
+    padding: 0;
+    overflow: auto;
   }
 
 /*  @media (min-width: 1200px) {
@@ -268,6 +270,10 @@ input:focus {
 .data-reactroot {
   display: flex !important;
   align-items: center !important;
+}
+
+.margin-top-3 {
+  margin-top: 3vh;
 }
 
 

@@ -47,7 +47,7 @@ class Judgement extends React.Component {
               (
                 <div className="row">
                   <h5 className="center-text">Choose the winner</h5>
-                  <div className="playerScoreFlexBox">
+                  <div className="all-submissions-flex">
                     {
                       this.props.submittedAnswers ? Object.keys(this.props.submittedAnswers).map((key, index) => {
                         return (

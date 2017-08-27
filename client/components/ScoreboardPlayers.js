@@ -31,7 +31,7 @@ export default class ScoreboardPlayers extends React.Component {
 
   render() {
     return (
-      <div className="all-players-col">
+      <div className="all-players-col wrap-at-580">
         <div className="players-scores-flexbox">
           {this.props.players.map((player, index) => {
             return (
@@ -39,27 +39,21 @@ export default class ScoreboardPlayers extends React.Component {
                 {
                   this.props.judge.id === player.id
                   ? this.state.roundUnjudged
-                    ? <div className="overflow-scroll no-wrap">
-                      <div className="scoreText blue name no-wrap" key={index}>{player.name}: {player.score}</div>
-                      <div className="loadingBlue right load no-wrap"></div>
-                    </div>
-                    :
-                      <div>
-                        <div className="scoreText blue" key={index}>{player.name}: {player.score} ★</div>
+                    ? <div className="margin-right-1-resp">
+                        <div className="scoreText blue name" key={index}>{player.name}: {player.score}</div>
+                        <div className="loadingBlue right load"></div>
                       </div>
+                    : <div className="scoreText blue margin-right-1-resp" key={index}>{player.name}: {player.score} ★</div>
                   : Object.keys(this.props.submittedAnswers).includes(player.sessionId) || this.props.timeout
                       //if answer submitted OR timeout
                       //if submitted
                      ? Object.keys(this.props.submittedAnswers).includes(player.sessionId) 
-                        ?  <div className="scoreText green" key={index}>{player.name}: {player.score} ✓</div>
-                        : //if timeout
-                          <div>
-                            <div className="scoreText grey name" key={index}>{player.name}: {player.score} ✘</div>
-                          </div>
+                        ?  <div className="scoreText green margin-right-1-resp" key={index}>{player.name}: {player.score} ✓</div>
+                        :  <div className="scoreText grey name margin-right-1-resp" key={index}>{player.name}: {player.score} ✘</div>
                       : //waiting....
-                        <div className="overflow-scroll no-wrap">
-                          <div className="scoreText red name no-wrap" key={index}>{player.name}: {player.score} </div>
-                          <div className="loadingRed right load no-wrap"></div>
+                        <div className="margin-right-1-resp">
+                          <div className="scoreText red name" key={index}>{player.name}: {player.score} </div>
+                          <div className="loadingRed right load"></div>
                         </div>
                 }
               </div>

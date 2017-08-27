@@ -17,7 +17,6 @@
 
 .round-category-div {
   background-color: transparent;
-  padding-left: 3%;
 }
 
 .round {
@@ -62,22 +61,31 @@
 .scoreText {
   cursor:'pointer';
   margin: 3px;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
+  line-height: .8;
   float: left;
+  @media (max-width: 580px) {
+    flex-direction: row;
+  }
 }
 
 .players-scores-flexbox {
   display: flex;
   flex-direction: column;
+  @media (max-width: 580px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 .category-timer-flexbox {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border: 3px solid white;
+  border-bottom: 1px solid white;
   height: 100px;
-  margin-bottom: 3vh
+  margin-bottom: 3vh;
+  flex-wrap: wrap;
 }
 
 .playersDiv {
@@ -103,13 +111,13 @@ html {
 }
 
 .load {
-  margin: 8px 0 0 3px;
+  margin: 4px 0 0 2px;
 }
 
 .loadingRed {
     border-radius: 50%;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     border: .2rem solid #ff3385;
     border-top-color: transparent;
     animation: spin $spin-duration infinite linear;
@@ -118,8 +126,8 @@ html {
 
 .loadingBlue {
     border-radius: 50%;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     border: .2rem solid #337ab7;
     border-top-color: transparent;
     animation: spin $spin-duration infinite linear;
@@ -127,10 +135,12 @@ html {
 }
 
 .all-players-col {
-  border-right: 1px solid white;
-  padding: 0 1rem;
   overflow: auto;
-  width: 25%;
+  overflow-x: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .overflow-scroll {
@@ -140,4 +150,20 @@ html {
 
 .no-wrap {
   white-space: nowrap;
+}
+
+.wrap-at-580 {
+  @media (max-width: 580px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.margin-right-1-resp {
+  @media (max-width: 580px) {
+    margin-right: 1rem;
+  }
 }

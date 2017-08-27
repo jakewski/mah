@@ -28,7 +28,7 @@ export default class PlayerJudgement extends React.Component {
       <div> {/*player view when all answers are submitted  */}
         { !this.state.winningMeme ? <div>
         <h3 className="memeories center-text">Submissions:</h3>
-        <div className="playerScoreFlexBox">
+        <div className="all-submissions-flex">
           {(this.props.submittedAnswers && Object.keys(this.props.submittedAnswers).length) ? Object.keys(this.props.submittedAnswers).map((key, index) => {
             return <div className="scoreText animated bounceInDown" key={index}>
 

@@ -4,7 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import socket from '../socket'
 import { NavLink } from 'react-router-dom'
 import { addToPlayers, replacePlayers, setRoom } from '../store';
-import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, GameRoomHeader, ScoreboardPlayers } from '../components'
+import { Pregame, JudgeWaiting, ChatBox, Judgement, PlayerJudgement, PlayerWaiting, PlayerAnswering, GameRoomHeader } from '../components'
 import axios from 'axios'
 
 class GameRoom extends Component {
@@ -155,7 +155,6 @@ class GameRoom extends Component {
            <GameRoomHeader judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
             <div className="container max-width-850">
               <div className="gameboard-flexbox">
-               <ScoreboardPlayers players={this.props.players} judge={this.state.judge} timeout={this.state.timeout} submittedAnswers={this.state.submittedAnswers}/>
                 <div className="game-play">
                   {/*judge logic  */}
                   {this.state.judge.sessionId === this.props.player.sessionId ?
