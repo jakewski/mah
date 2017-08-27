@@ -38,7 +38,6 @@ class ChatBox extends Component {
 
   handleChange = event => {
     this.setState({ thisMessage: event.target.value });
-    console.log(this.state.thisMessage)
   }
 
   appendEmoji = emoji => () => {

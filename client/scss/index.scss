@@ -259,22 +259,6 @@ input:focus {
   align-items: center;
 }
 
-.footerBtn {
-  font-size: 1.5rem;
-  border: 0;
-  font-family: 'Jura';
-  padding: 2vh;
-  width:100vw;
-}
-
-.footerBtn:hover {
-  cursor: pointer;
-  color: #337ab7;
-  border: 0;
-  padding: 2vh;
-  width: 100vw;
-}
-
 .validation {
   color: #ff3385;
   font-style: italic;
@@ -282,62 +266,12 @@ input:focus {
 }
 
 .data-reactroot {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
 }
 
-.display-bottom {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%)
-}
 
-.contact-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
-}
-
-.contact-name {
-  margin-bottom: 0;
-}
-
-.contact-info {
-  margin: 0;
-  display: inline;
-}
-
-.contact-divider {
-  color: white;
-}
-
-.contact-link:hover {
-  text-decoration: none;
-  color:white;
-}
-
-.contact-link:visited {
-  text-decoration: none;
-}
-
-.contact-div {
-  width:100%;
-}
-
-.contact-container {
-  display: flex;
-  flex-direction: column;
-}
-
-/*.contact-header-flex {
-  display: flex;
-  flex-wrap: wrap;
-}*/
-
+/*Remove outlines and such when you click on textarea/button/inputs/etc...*/
 textarea:hover, 
 input:hover, 
 textarea:active, 
@@ -369,3 +303,4 @@ label:focus,
 @import "scoreboard";
 @import "judgement";
 @import "memestream";
+@import "contactFooter";
