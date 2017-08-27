@@ -134,7 +134,7 @@ class CreateGame extends Component {
                 {this.state.userCategories.map((category, index) => {
                   return (
                       <div key={index} className="checkbox">
-                        <label><input type="checkbox" name={`category${category.id}`} value={category.text} defaultChecked={true} />{category}</label>
+                        <label><input type="checkbox" className="check" name={`category${category.id}`} value={category.text} defaultChecked={true} />{category}</label>
                       </div>
                       // <li style={{textAlign: 'left'}} key={index}>
                       //   <button value={category} key={index} className="btn" style={{marginRight: '10px', marginBottom: '10px', fontSize: '8px'}} onClick={this.removeCategory} type="button" >x</button>{category}
