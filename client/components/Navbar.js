@@ -33,6 +33,10 @@ const Navbar = (props) => {
     history.push('/stream');
   }
 
+  const handleHowTo = function(e) {
+    history.push('/howto');
+  }
+
   return (
       <div className="text-center navbarCol">
         <div>
@@ -43,7 +47,7 @@ const Navbar = (props) => {
           </div>
           { props.player.activePlayer ?
             <div className="col-lg-12 navBarDiv">
-              <button type="button" onClick={handleQuit} className="navBtn">HOW TO</button>
+              <button type="button" onClick={handleHowTo} className="navBtn">HOW TO</button>
               <p className="navBarDivider">|</p>
               <button type="button" onClick={handleMemeStream} className="navBtn">STREAM</button>
               <p className="navBarDivider">|</p>
