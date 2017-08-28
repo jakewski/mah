@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 const Instructions = props =>
-    (<div className={`row animated instructions ${props.showInstructions ? 'bounceIn' : 'bounceOut'}`}>
+    (<div className={`row animated instructions bounceIn`}>
+        <hr/>
         <div className="col-md-4">
             <div className="panel panel-default instructionsPanel">
                 <div className="panel-heading instructionsHeader">
                     <h4 className=" instructionsHeaderText"><i className="fa fa-fw fa-check"></i> CREATE A GAME</h4>
                 </div>
-                <div className="panel-body instructionsBody">
-                    <p className="instructions">Pick the categories you would like to see, the number of players, and you will be assigned a game code. Distribute the code amongst your friends so they can join the game! </p>
+                <div className="panel-body">
+                    <p>Pick the categories you would like to see, the number of players, and you will be assigned a game code. Distribute the code amongst your friends so they can join the game! </p>
                 </div>
             </div>
         </div>
