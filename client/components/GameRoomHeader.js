@@ -41,7 +41,11 @@ class GameRoomHeader extends React.Component {
               <h2 className="category">{this.props.category}</h2>
             </div>
             <div className="col timer-div">
-              <h1 className="timer">:{this.props.currentTimer || '0'}</h1>
+              {
+                this.props.currentTimer <= 10
+                ? <h1 className="timer red">:{this.props.currentTimer || '0'}</h1>
+                : <h1 className="timer">:{this.props.currentTimer || '0'}</h1>
+              }
             </div>
             <ScoreboardPlayers players={this.props.players} judge={this.props.judge} timeout={this.props.timeout} submittedAnswers={this.props.submittedAnswers}/>
           </div>
