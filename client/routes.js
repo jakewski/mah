@@ -46,6 +46,7 @@ class Routes extends Component {
               <Route path='/temp' component={PlayerAnswering} />
               <Route path='/stream' component={Memestream} />
               <Route path='/howto' component={Instructions} />
+              <Route path='/contact' component={Contact} />
               <Route path='/' component={Home} />
             </Switch>
            :

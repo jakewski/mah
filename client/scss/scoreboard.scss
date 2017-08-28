@@ -81,6 +81,7 @@
 .players-scores-flexbox {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 90px;
   @media (max-width: 580px) {
     flex-direction: row;
