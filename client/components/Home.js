@@ -49,46 +49,44 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="container homeContain">
+            <div>
                 <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
-                    <div className="row">
-                        <div className="col-sm-12 col-md-12 col-lg-12 text-center buttonBox">
-                          {this.state.inGame ?
-                            <div>
-                              <NavLink to="/create">
-                                <button type="button" className="btn homeBtns">
-                                    CREATE GAME
-                                </button>
-                              </NavLink>
-                              <NavLink to="/join">
-                                <button type="button" className="btn homeBtns">
-                                    JOIN GAME
-                                </button>
-                              </NavLink>
-                                <button type="button" onClick={this.resumeGame} className="btn homeBtns">
-                                    RESUME GAME: {this.state.inGame}
-                                </button>
-                            </div>
-                            :
-                            <div>
-                              <NavLink to="/create">
-                                <button type="button" className="btn defaultHomeBtns">
-                                    CREATE GAME
-                                </button>
-                              </NavLink>
-                              <NavLink to="/join">
-                                <button type="button" className="btn defaultHomeBtns">
-                                    JOIN GAME
-                                </button>
-                              </NavLink>
-                            </div>
-                          }
-                    </div>
+                    <div className="col-sm-12 col-md-12 col-lg-12 text-center buttonBox">
+                      {this.state.inGame ?
+                        <div>
+                          <NavLink to="/create">
+                            <button type="button" className="btn homeBtns">
+                                CREATE GAME
+                            </button>
+                          </NavLink>
+                          <NavLink to="/join">
+                            <button type="button" className="btn homeBtns">
+                                JOIN GAME
+                            </button>
+                          </NavLink>
+                            <button type="button" onClick={this.resumeGame} className="btn homeBtns">
+                                RESUME GAME: {this.state.inGame}
+                            </button>
                         </div>
-                        <div className="row chatboxRow">
-                        <div className="col-xs-12 col-sm-7 col-md-7 col-lg-7 marginBottom chatWrapper homeChat">
-                            <ChatBox />
+                        :
+                        <div>
+                          <NavLink to="/create">
+                            <button type="button" className="btn defaultHomeBtns">
+                                CREATE GAME
+                            </button>
+                          </NavLink>
+                          <NavLink to="/join">
+                            <button type="button" className="btn defaultHomeBtns">
+                                JOIN GAME
+                            </button>
+                          </NavLink>
                         </div>
+                      }
+                        </div>
+                        <div className="chatboxRow max-width-600">
+                            <div className="col-xs-12 col-sm-12 marginBottom chatWrapper homeChat">
+                                <ChatBox />
+                            </div>
                         </div>
 
                     {/* <button type="button" onClick={this.toggleInstructions} className="btn btn-info">

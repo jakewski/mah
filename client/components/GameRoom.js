@@ -153,7 +153,7 @@ class GameRoom extends Component {
           {this.state.gameStarted ?
           (<div>
            <GameRoomHeader judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
-            <div className="container max-width-850">
+            <div className="max-width-850">
               <div className="gameboard-flexbox">
                 <div className="game-play">
                   {/*judge logic  */}
@@ -180,9 +180,7 @@ class GameRoom extends Component {
           </div>) : <Pregame room={this.props.room} />}
               <div className="gameAnswerFlex endOfGameRoom">
                 <div className="gameRoomChat">
-                  <div className="col-sm-9 col-md-9 col-lg-9 chatBoxCol">
                     <ChatBox />
-                  </div>
                 </div>
             </div>
             {/*Below is end game button but doesnt do anything rn*/}

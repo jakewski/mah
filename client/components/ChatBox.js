@@ -85,8 +85,19 @@ class ChatBox extends Component {
       ":angry:",
       ":rage:",
       ":fearful:",
-
+      ":sunglasses:",
+      ":disappointed_relieved:",
+      ":stuck_out_tongue_winking_eye:",
+      ":sweat:",
+      ":expressionless:",
+      ":raised_hands:",
+      ":sweat_smile:",
+      ":kissing_heart:",
+      ":kissing:",
+      ":smirk:",
+      ":eyes:",
     ];
+
     return emojis.map((emoji, i) =>
       <div key={i} className="emojiButton hvr-grow" onClick={this.appendEmoji(emoji)}>
         {emojify(emoji)}
@@ -119,7 +130,7 @@ class ChatBox extends Component {
         </div> : null }
         <div>
           <form className="chat-input-flex" onSubmit={this.handleSubmit}>
-            <textarea className="chatinput" type="text" value={this.state.thisMessage} placeholder="Enter a message..." onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <textarea className="chatinput" type="text" value={this.state.thisMessage} placeholder="Enter message..." onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <button type="submit" className="btn chatButton">SEND</button>
             <div onClick={this.toggleEmojis} className="btn emojiButton">: )</div>
           </form>

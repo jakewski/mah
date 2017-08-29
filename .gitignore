@@ -1,4 +1,5 @@
-node_modules
+node_modules/*
+!node_modules/react-emojione/
 public/bundle.js
 public/bundle.js.map
 secrets.js

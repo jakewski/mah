@@ -94,10 +94,14 @@ body {
     padding: 0;
     overflow: auto;
   }
+}
 
-/*  @media (min-width: 1200px) {
-    width: 800px;
-  }*/
+.max-width-600 {
+  @media (min-width: 600px) {
+    width: 600px;
+    padding: 0;
+    overflow: auto;
+  }
 }
 
 /*CONNIE STUFF*/
