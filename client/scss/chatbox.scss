@@ -56,6 +56,8 @@
   resize: none;
   padding-left: 7px;
   padding-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .chatinput::-webkit-input-placeholder {
@@ -172,5 +174,5 @@
 }
 
 .bounceIn {
-  line-height: .8;
+  line-height: 1.8rem;
 }
