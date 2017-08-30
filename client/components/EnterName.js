@@ -73,7 +73,7 @@ class EnterName extends Component {
                   <br />
                   <label className="sr-only" htmlFor="inlineFormInput">Name</label>
                   <input  onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="What's your name?" />
-                  <button type="submit" className="btn" disabled={!this.inputIsValid()}><i className="material-icons">subdirectory_arrow_left</i></button>
+                  <button type="submit" className="btn margin-right-0" disabled={!this.inputIsValid()}><i className="material-icons">subdirectory_arrow_left</i></button>
                   <br />
                     {
                       this.inputIsEmpty() && this.state.player.dirty ?

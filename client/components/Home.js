@@ -55,17 +55,17 @@ class Home extends Component {
                       {this.state.inGame ?
                         <div>
                           <NavLink to="/create">
-                            <button type="button" className="btn homeBtns">
+                            <button type="button" className="btn defaultHomeBtns">
                                 CREATE GAME
                             </button>
                           </NavLink>
                           <NavLink to="/join">
-                            <button type="button" className="btn homeBtns">
+                            <button type="button" className="btn defaultHomeBtns">
                                 JOIN GAME
                             </button>
                           </NavLink>
-                            <button type="button" onClick={this.resumeGame} className="btn homeBtns">
-                                RESUME GAME: {this.state.inGame}
+                            <button type="button" onClick={this.resumeGame} className="btn defaultHomeBtns">
+                                RESUME {this.state.inGame}
                             </button>
                         </div>
                         :

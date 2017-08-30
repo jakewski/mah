@@ -24,7 +24,7 @@ class Pregame extends Component {
 
   render() {
     return (
-    <div className="container pregameCont">
+    <div className="pregameCont">
       <div className="row">
 
         <h3 className="pgRoomCode">Room Code: {this.state.room} </h3>

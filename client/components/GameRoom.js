@@ -147,13 +147,13 @@ class GameRoom extends Component {
     return (
       <CSSTransitionGroup transitionName="fadeIn" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
 
-        <div key="transition" className="container">
+        <div key="transition" className="max-width-850 container">
           {(this.props.players.length === 1) ? <div className="flex-center"><h5 className="get-friends">Invite Friends! You can't play this game by yourself. </h5></div> :
           (this.props.players.length === 2) ? <div className="flex-center"><h5 className="get-friends">You need more than two people for there to be a winner!</h5></div> : null}
           {this.state.gameStarted ?
           (<div>
            <GameRoomHeader judge={this.state.judge} turnNumber={this.state.turnNumber} submittedAnswers={this.state.submittedAnswers} allAnswersSubmitted={this.state.allAnswersSubmitted} timeout={this.state.timeout} timeAllowed={this.state.timeAllowed} currentTimer={this.state.currentTimer} category={this.state.category}/>
-            <div className="max-width-850">
+            <div>
               <div className="gameboard-flexbox">
                 <div className="game-play">
                   {/*judge logic  */}
