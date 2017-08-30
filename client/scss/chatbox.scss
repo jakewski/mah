@@ -58,6 +58,7 @@
   padding-top: 5px;
   display: flex;
   flex-wrap: wrap;
+  overflow: auto;
 }
 
 .chatinput::-webkit-input-placeholder {
