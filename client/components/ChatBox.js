@@ -124,7 +124,7 @@ class ChatBox extends Component {
     });
 
     return (
-      <div className="chatbox">
+      <div className="chatbox max-width-850">
         {this.state.showEmojis ? <div className="chatinput row emojiRow">
           {this.emojiInput()}
         </div> : null }

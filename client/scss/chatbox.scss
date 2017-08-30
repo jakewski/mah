@@ -2,8 +2,8 @@
   border: 3px solid white;
   padding: 0;
   margin: 10px;
+  height: 200px;
   width: 100%;
-  height: 100%;
   justify-content: center;
   overflow: none;
   display: flex;
@@ -26,26 +26,26 @@
   }
 }
 
-//this is for the height of home chatbox
-.chatboxRow {
+/*this is for the height of home chatbox
+*/.chatboxRow {
   height: 400px;
   margin: 0 auto;
 }
 
-//this is to center the gameRoom chatbox;
-.chatBoxCol {
+/*this is to center the gameRoom chatbox;
+*/.chatBoxCol {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 3vh;
 }
 
-//this is for the height of the gameRoom chatbox
+/*this is for the height of the gameRoom chatbox*/
 .gameRoomChat {
-  height: 200px;
+  /*height: 200px;*/
   width: 100%;
   justify-content: center;
-  margin: 0;
+  margin: 1.5vh 0 0 0;
 }
 
 .chatinput {

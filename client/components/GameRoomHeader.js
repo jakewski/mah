@@ -34,7 +34,7 @@ class GameRoomHeader extends React.Component {
 
   render(){
     return (
-        <div className="max-width-850 margin-top-3">
+        <div className="margin-top-3">
           <div className="category-timer-flexbox">
             <div className="col-sm round-category-div">
               <h2 className="round">ROUND {this.props.turnNumber + 1}:</h2>
