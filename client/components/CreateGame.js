@@ -106,6 +106,14 @@ class CreateGame extends Component {
   //   this.setState({userCategories: newArray})
   // }
 
+
+  //custom category validation
+  inputWithinLimit(){
+    return this.state.customCategory.length <= 50
+  }
+
+
+
   render() {
     console.log('state categories', this.state.categories, this.state.userCategories)
     return (
@@ -145,7 +153,7 @@ class CreateGame extends Component {
                 <div className="gameAnswerFlex" style={{marginTop: '0px', paddingTop: '0px'}}>
                   <div className="enter-custom-categories">
                     <input value={this.state.customCategory} onChange={this.setCustomCat} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input enter-category" id="inlineFormInput" placeholder="Enter New Category" />
-                    <button type="submit" className="btn create-category-btn" onClick={this.submitPersonalCategories}><i className="material-icons create-icon">subdirectory_arrow_left</i></button>
+                    <button type="submit" className="btn create-category-btn" onClick={this.submitPersonalCategories} disabled={!this.inputWithinLimit()}><i className="material-icons create-icon">subdirectory_arrow_left</i></button>
                   </div>
                   <button type="submit" className="btn createGameBtn">CREATE GAME</button>
                   {/*<button style={{marginTop: '10px', width: '100%'}} type="button" onClick={this.selectAll} className="btn">Create Game with All Categories</button>*/}
@@ -155,6 +163,11 @@ class CreateGame extends Component {
               (this.noCategoriesSelected(this.state.categories) && this.state.categoriesDirty && (this.state.userCategories.length === 0)) ?
                 <span className="validation">Must select at least one category</span> :
                 null
+            }
+            {
+              !this.inputWithinLimit() ?
+              <span className="validation">Category too long</span> :
+              <span className="validation"></span>
             }
           </form>
         </div>

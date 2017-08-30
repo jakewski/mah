@@ -71,9 +71,11 @@ class EnterName extends Component {
                 <form autoComplete="off" key="transition" className="form-inline" onSubmit={this.formSubmit}>
                   <h1 className="header hello black-on-white">H E L L O !</h1>
                   <br />
-                  <label className="sr-only" htmlFor="inlineFormInput">Name</label>
-                  <input  onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="What's your name?" />
-                  <button type="submit" className="btn margin-right-0" disabled={!this.inputIsValid()}><i className="material-icons">subdirectory_arrow_left</i></button>
+                    <div className="enter-name-input-flex">
+                      <label className="sr-only" htmlFor="inlineFormInput">Name</label>
+                      <input  onChange={(e) => this.updateField(e)} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0 input" id="inlineFormInput" placeholder="What's your name?" />
+                      <button type="submit" className="btn enter-name-btn" disabled={!this.inputIsValid()}><i className="material-icons">subdirectory_arrow_left</i></button>
+                    </div>
                   <br />
                     {
                       this.inputIsEmpty() && this.state.player.dirty ?

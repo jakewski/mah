@@ -150,9 +150,9 @@ class PlayerAnswering extends React.Component {
                       <Image width={this.state.width} height={this.state.height} image={this.state.memeImg} />
                     </Layer>
                     <Layer>
-                      <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.width - 20} draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
+                      <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Anton' fill='white' wrap='char' width={this.state.width - 20} draggable={true} shadowColor='black' text={this.state.topText} onDragEnd={this.dragTop} />
 
-                      <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.width - 20} wrap='char' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
+                      <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Anton' fill='white' width={this.state.width - 20} wrap='char' draggable={true} shadowColor='black' text={this.state.bottomText} onDragEnd={this.dragBottom}/>
                     </Layer>
                   </Stage>
                   </div>
