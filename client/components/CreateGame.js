@@ -105,11 +105,11 @@ class CreateGame extends Component {
   //   let newArray = this.state.userCategories.filter(category => category !== event.target.value)
   //   this.setState({userCategories: newArray})
   // }
-  
+
 
   //custom category validation
   inputWithinLimit(){
-    return this.state.customCategory.length <= 16
+    return this.state.customCategory.length <= 50
   }
 
 
