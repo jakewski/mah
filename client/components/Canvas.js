@@ -74,9 +74,9 @@ export default class Canvas extends React.Component {
               <Image height={this.state.height} width={this.state.width} image={this.state.memeImg} />
             </Layer>
             <Layer>
-              <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Impact' fill='white' wrap='char' width={this.state.width - 20} shadowColor='black' text={this.state.topText} />
+              <Text align='center' x={this.state.topXcoord} y={this.state.topYcoord} fontSize={this.state.topFontSize} fontFamily='Anton' fill='white' wrap='char' width={this.state.width - 20} shadowColor='black' text={this.state.topText} />
 
-              <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Impact' fill='white' width={this.state.width - 20} wrap='char' shadowColor='black' text={this.state.bottomText} />
+              <Text align='center' x={this.state.bottomXcoord} y={this.state.bottomYcoord} fontSize={this.state.bottomFontSize} fontFamily='Anton' fill='white' width={this.state.width - 20} wrap='char' shadowColor='black' text={this.state.bottomText} />
             </Layer>
           </Stage>
         : <div />}
