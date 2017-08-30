@@ -89,6 +89,9 @@
     justify-content: center;
     height: fit-content;
   }
+  @media (min-width: 581px) {
+    padding-top: 1.5rem;
+  }
 }
 
 .category-timer-flexbox {
